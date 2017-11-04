@@ -9,5 +9,5 @@ import com.thephoenix_it.travelbooking.models.Utilisateur;
 
 public interface IClientRepository {
 
-    Compte creation_compte(Compte compte);
+    Utilisateur creation_compte(Utilisateur utilisateur);
 }

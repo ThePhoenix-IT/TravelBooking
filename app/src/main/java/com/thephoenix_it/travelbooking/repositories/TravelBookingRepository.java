@@ -1,6 +1,7 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.Utilisateur;
 
 /**
  * Created by root on 17/11/04.
@@ -27,12 +28,12 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
-    public Compte creation_compte(Compte compte) {
-        Compte result = null;
+    public Utilisateur creation_compte(Utilisateur utilisateur) {
+        Utilisateur result = null;
         try {
             realmFactory.getRealm().beginTransaction();
-            realmFactory.getRealm().copyToRealm(compte.getUtilisateur());
-            result = realmFactory.getRealm().copyToRealm(compte);
+            result = realmFactory.getRealm().copyToRealm(utilisateur);
+            realmFactory.getRealm().copyToRealm(utilisateur.getCompte());
             realmFactory.getRealm().commitTransaction();
         } catch (Exception ex) {
             System.err.println("creation_compte : " + ex);
