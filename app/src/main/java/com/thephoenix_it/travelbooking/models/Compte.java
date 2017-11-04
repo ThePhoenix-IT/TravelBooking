@@ -12,4 +12,18 @@ public class Compte extends RealmObject {
     private int id_compte;
     private String login;
     private String password;
+    private Utilisateur utilisateur;
+    private Boolean etat_compte;
+
+    public Boolean getEtat_compte() {
+        return etat_compte;
+    }
+
+    public void setEtat_compte(Boolean etat_compte) {
+        this.etat_compte = etat_compte;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
 }

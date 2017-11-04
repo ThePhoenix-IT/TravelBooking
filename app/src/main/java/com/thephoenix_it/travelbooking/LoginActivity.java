@@ -36,7 +36,7 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via login/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -91,8 +91,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mRegistration = (Button) findViewById(R.id.registration);
+        mRegistration.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registration();
+            }
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void registration() {
+        Intent mainIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        LoginActivity.this.startActivity(mainIntent);
+        LoginActivity.this.finish();
     }
 
     private void populateAutoComplete() {

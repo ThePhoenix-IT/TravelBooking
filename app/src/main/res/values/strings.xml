@@ -22,4 +22,17 @@
     <string name="loading">Loading...</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="client">Client</string>
+    <string name="agence">Agence</string>
+    <string name="detail_compte">Detail Compte</string>
+    <string name="detail_utilisateur">Detail Utilisateur</string>
+    <string name="sign_in">Sign In</string>
+    <string name="registration">Creer un compte</string>
+    <string name="detail_agence">Detail Agence</string>
+    <string name="title_activity_admin_main">AdminMainActivity</string>
+    <string name="administration">Administration</string>
 </resources>
