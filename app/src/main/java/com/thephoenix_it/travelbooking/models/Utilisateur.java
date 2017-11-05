@@ -17,6 +17,7 @@ public class Utilisateur extends RealmObject {
     private String email_utilisateur;
     private int cin;
     private Date date_naissance;
+    private  TypeUtilisateur typeUtilisateur;
     private Compte compte;
 
     public int getId_utilisateur() {
@@ -65,6 +66,14 @@ public class Utilisateur extends RealmObject {
 
     public void setDate_naissance(Date date_naissance) {
         this.date_naissance = date_naissance;
+    }
+
+    public TypeUtilisateur getTypeUtilisateur() {
+        return typeUtilisateur;
+    }
+
+    public void setTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+        this.typeUtilisateur = typeUtilisateur;
     }
 
     public Compte getCompte() {

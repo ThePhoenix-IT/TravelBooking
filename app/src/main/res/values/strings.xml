@@ -35,4 +35,6 @@
     <string name="detail_agence">Detail Agence</string>
     <string name="title_activity_admin_main">AdminMainActivity</string>
     <string name="administration">Administration</string>
+    <string name="title_activity_agence_main">AgenceMainActivity</string>
+    <string name="valider">Valider</string>
 </resources>

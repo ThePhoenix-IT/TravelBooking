@@ -30,6 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.thephoenix_it.travelbooking.models.Utilisateur;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via login/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
+    public static Utilisateur connectedUser;
     /**
      * Id to identity READ_CONTACTS permission request.
      */

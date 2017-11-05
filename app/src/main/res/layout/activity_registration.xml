@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/login" />
+            android:text="" />
 
         <EditText
             android:id="@+id/editText2"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="" />
 
 
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"  />
+            android:text=""  />
 
         <EditText
             android:id="@+id/editText5"
@@ -73,6 +73,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"  />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/valider" />
     </LinearLayout>
     <LinearLayout
         android:visibility="invisible"
@@ -124,7 +129,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="" />
 
 
 
@@ -134,7 +139,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"  />
+            android:text=""  />
 
         <EditText
             android:id="@+id/agence_editText5"
@@ -142,6 +147,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"  />
+
+        <Button
+            android:id="@+id/agence_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/valider" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView

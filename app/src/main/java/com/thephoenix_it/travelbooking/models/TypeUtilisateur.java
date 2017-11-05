@@ -11,4 +11,9 @@ public class TypeUtilisateur extends RealmObject {
     @PrimaryKey
     private int id_type_utilisateur;
     private String desc_type_utilisateur;
+
+    @Override
+    public String toString() {
+        return desc_type_utilisateur.toUpperCase();
+    }
 }

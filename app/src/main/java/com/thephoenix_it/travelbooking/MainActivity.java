@@ -19,7 +19,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_main);
+        if(LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN"))
+            setContentView(R.layout.activity_admin_main);
+        else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT"))
+            setContentView(R.layout.activity_main);
+        else
+            setContentView(R.layout.activity_agence_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
