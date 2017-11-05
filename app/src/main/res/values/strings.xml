@@ -37,4 +37,7 @@
     <string name="administration">Administration</string>
     <string name="title_activity_agence_main">AgenceMainActivity</string>
     <string name="valider">Valider</string>
+    <string name="title_activity_creer_vol">CreerVolActivity</string>
+    <string name="title_activity_administration">AdministrationActivity</string>
+    <string name="title_activity_gerer_client">GererClientActivity</string>
 </resources>

@@ -33,6 +33,14 @@
         <activity
             android:name=".RegistrationActivity"
             android:label="@string/title_activity_registration" />
+        <activity
+            android:name=".views.agence.CreerVolActivity"
+            android:label="@string/title_activity_creer_vol"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.admin.GererClientActivity"
+            android:label="@string/title_activity_gerer_client"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
