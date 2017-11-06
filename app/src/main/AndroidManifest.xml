@@ -40,6 +40,14 @@
         <activity
             android:name=".views.admin.GererClientActivity"
             android:label="@string/title_activity_gerer_client"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.client.ListVolsActivity"
+            android:label="@string/title_activity_list_vols"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.client.ListReservationActivity"
+            android:label="@string/title_activity_list_reservation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

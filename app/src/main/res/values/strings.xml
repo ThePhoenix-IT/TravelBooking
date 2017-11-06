@@ -46,4 +46,6 @@
     <string name="session">Session</string>
     <string name="compte">Compte</string>
     <string name="log_out">Log Out</string>
+    <string name="title_activity_list_vols">ListVolsActivity</string>
+    <string name="title_activity_list_reservation">ListReservationActivity</string>
 </resources>
