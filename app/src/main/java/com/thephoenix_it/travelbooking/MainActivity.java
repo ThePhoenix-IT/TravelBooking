@@ -38,8 +38,18 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
+
+                Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+                MainActivity.this.finish();
+            }
+            else /*if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("AGENCE"))*/ {
+
+                Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+                MainActivity.this.finish();
+            }
             }
         });
 
@@ -93,13 +103,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
 
-            if(LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
+            if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-            else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("AGENCE")) {
+            else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("AGENCE")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
                 MainActivity.this.startActivity(mainIntent);
@@ -107,19 +117,19 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_gallery) {
 
-            if(LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
+            if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-            else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT")) {
+            else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, ListVolsActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-            else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("AGENCE")) {
+            else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("AGENCE")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
                 MainActivity.this.startActivity(mainIntent);
@@ -127,13 +137,13 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_slideshow) {
 
-            if(LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
+            if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-            else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT")) {
+            else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT")) {
 
                 Intent mainIntent = new Intent(MainActivity.this, ListReservationActivity.class);
                 MainActivity.this.startActivity(mainIntent);

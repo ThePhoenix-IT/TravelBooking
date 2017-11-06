@@ -48,7 +48,7 @@
         <activity
             android:name=".views.client.ListReservationActivity"
             android:label="@string/title_activity_list_reservation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
