@@ -3,6 +3,7 @@ package com.thephoenix_it.travelbooking.repositories;
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
+import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.util.List;
 
@@ -62,5 +63,10 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
             System.err.println("creation_compte : " + ex);
         }
         return result;
+    }
+
+    @Override
+    public List<Vol> listVol() {
+        return null;
     }
 }

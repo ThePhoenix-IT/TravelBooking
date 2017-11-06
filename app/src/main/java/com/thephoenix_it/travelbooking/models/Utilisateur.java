@@ -20,6 +20,9 @@ public class Utilisateur extends RealmObject {
     private  TypeUtilisateur typeUtilisateur;
     private Compte compte;
 
+    public Utilisateur() {
+    }
+
     public Utilisateur(String nom_utilisateur, String prenom_utilisateur, String email_utilisateur,
                        int cin, Date date_naissance, TypeUtilisateur typeUtilisateur) {
         this.nom_utilisateur = nom_utilisateur;

@@ -15,6 +15,9 @@ public class Compte extends RealmObject {
     private Boolean etat_compte;
     private Utilisateur utilisateur;
 
+    public Compte() {
+    }
+
     public Compte(String login, String password, Boolean etat_compte, Utilisateur utilisateur) {
         this.login = login;
         this.password = password;

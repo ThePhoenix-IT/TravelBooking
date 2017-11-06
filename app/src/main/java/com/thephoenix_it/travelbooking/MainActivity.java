@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN"))
+        if(LoginActivity.connectedUser.getTypeUtilisateur() != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("ADMIN"))
             setContentView(R.layout.activity_admin_main);
-        else if(LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT"))
+        else if(LoginActivity.connectedUser.getTypeUtilisateur() != null && LoginActivity.connectedUser.getTypeUtilisateur().equals("CLIENT"))
             setContentView(R.layout.activity_main);
         else
             setContentView(R.layout.activity_agence_main);

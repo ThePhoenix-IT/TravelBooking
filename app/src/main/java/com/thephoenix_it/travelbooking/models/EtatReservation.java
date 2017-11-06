@@ -12,6 +12,9 @@ public class EtatReservation extends RealmObject {
     private int id_etat_reservation;
     private String desc_etat;
 
+    public EtatReservation() {
+    }
+
     public EtatReservation(String desc_etat) {
         this.desc_etat = desc_etat;
     }

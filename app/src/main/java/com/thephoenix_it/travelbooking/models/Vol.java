@@ -20,6 +20,9 @@ public class Vol extends RealmObject {
     private Boolean desponible;
     private Utilisateur agence;
 
+    public Vol() {
+    }
+
     public Vol(int num_vol, Double duree, String destination, Double prix, Date date_creation, Boolean desponible, Utilisateur agence) {
         this.num_vol = num_vol;
         this.duree = duree;

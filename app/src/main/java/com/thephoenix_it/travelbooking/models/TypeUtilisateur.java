@@ -12,6 +12,9 @@ public class TypeUtilisateur extends RealmObject {
     private int id_type_utilisateur;
     private String desc_type_utilisateur;
 
+    public TypeUtilisateur() {
+    }
+
     public TypeUtilisateur(String desc_type_utilisateur) {
         this.desc_type_utilisateur = desc_type_utilisateur;
     }

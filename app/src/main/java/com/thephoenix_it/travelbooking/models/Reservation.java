@@ -17,6 +17,14 @@ public class Reservation extends RealmObject {
     private Date date_annulation;
     private Utilisateur client;
 
+    public Reservation() {
+    }
+
+    public Reservation(EtatReservation etatReservation, Date date_reservation, Utilisateur client) {
+        this.etatReservation = etatReservation;
+        this.date_reservation = date_reservation;
+        this.client = client;
+    }
 
     public int getId_reservation() {
         return id_reservation;
