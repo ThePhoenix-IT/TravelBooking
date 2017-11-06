@@ -20,6 +20,16 @@ public class Utilisateur extends RealmObject {
     private  TypeUtilisateur typeUtilisateur;
     private Compte compte;
 
+    public Utilisateur(String nom_utilisateur, String prenom_utilisateur, String email_utilisateur,
+                       int cin, Date date_naissance, TypeUtilisateur typeUtilisateur) {
+        this.nom_utilisateur = nom_utilisateur;
+        this.prenom_utilisateur = prenom_utilisateur;
+        this.email_utilisateur = email_utilisateur;
+        this.cin = cin;
+        this.date_naissance = date_naissance;
+        this.typeUtilisateur = typeUtilisateur;
+    }
+
     public int getId_utilisateur() {
         return id_utilisateur;
     }

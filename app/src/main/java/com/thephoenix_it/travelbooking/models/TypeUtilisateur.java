@@ -12,6 +12,26 @@ public class TypeUtilisateur extends RealmObject {
     private int id_type_utilisateur;
     private String desc_type_utilisateur;
 
+    public TypeUtilisateur(String desc_type_utilisateur) {
+        this.desc_type_utilisateur = desc_type_utilisateur;
+    }
+
+    public int getId_type_utilisateur() {
+        return id_type_utilisateur;
+    }
+
+    public void setId_type_utilisateur(int id_type_utilisateur) {
+        this.id_type_utilisateur = id_type_utilisateur;
+    }
+
+    public String getDesc_type_utilisateur() {
+        return desc_type_utilisateur;
+    }
+
+    public void setDesc_type_utilisateur(String desc_type_utilisateur) {
+        this.desc_type_utilisateur = desc_type_utilisateur;
+    }
+
     @Override
     public String toString() {
         return desc_type_utilisateur.toUpperCase();

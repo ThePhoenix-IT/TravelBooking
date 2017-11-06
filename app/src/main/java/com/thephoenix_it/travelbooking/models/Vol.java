@@ -18,6 +18,79 @@ public class Vol extends RealmObject {
     private Double prix;
     private Date date_creation;
     private Boolean desponible;
+    private Utilisateur agence;
 
+    public Vol(int num_vol, Double duree, String destination, Double prix, Date date_creation, Boolean desponible, Utilisateur agence) {
+        this.num_vol = num_vol;
+        this.duree = duree;
+        this.destination = destination;
+        this.prix = prix;
+        this.date_creation = date_creation;
+        this.desponible = desponible;
+        this.agence = agence;
+    }
 
+    public int getId_vol() {
+        return id_vol;
+    }
+
+    public void setId_vol(int id_vol) {
+        this.id_vol = id_vol;
+    }
+
+    public int getNum_vol() {
+        return num_vol;
+    }
+
+    public void setNum_vol(int num_vol) {
+        this.num_vol = num_vol;
+    }
+
+    public Double getDuree() {
+        return duree;
+    }
+
+    public void setDuree(Double duree) {
+        this.duree = duree;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
+
+    public Date getDate_creation() {
+        return date_creation;
+    }
+
+    public void setDate_creation(Date date_creation) {
+        this.date_creation = date_creation;
+    }
+
+    public Boolean getDesponible() {
+        return desponible;
+    }
+
+    public void setDesponible(Boolean desponible) {
+        this.desponible = desponible;
+    }
+
+    public Utilisateur getAgence() {
+        return agence;
+    }
+
+    public void setAgence(Utilisateur agence) {
+        this.agence = agence;
+    }
 }
