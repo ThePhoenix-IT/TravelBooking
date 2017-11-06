@@ -40,4 +40,10 @@
     <string name="title_activity_creer_vol">CreerVolActivity</string>
     <string name="title_activity_administration">AdministrationActivity</string>
     <string name="title_activity_gerer_client">GererClientActivity</string>
+    <string name="utilisateurs">Utilisateurs</string>
+    <string name="vols">Vols</string>
+    <string name="reservations">Reservations</string>
+    <string name="session">Session</string>
+    <string name="compte">Compte</string>
+    <string name="log_out">Log Out</string>
 </resources>

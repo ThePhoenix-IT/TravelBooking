@@ -10,4 +10,5 @@ import io.realm.annotations.PrimaryKey;
 public class EtatReservation extends RealmObject {
     @PrimaryKey
     private int id_etat_reservation;
+    private String desc_etat;
 }
