@@ -30,9 +30,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -351,6 +353,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                LoginActivity.connectedUser = new Utilisateur("Hamza", "JGUERIM", "hamzajg@gmail.com",
+                        6941710, new Date(1122334L), new TypeUtilisateur("Agence"));//Admin
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(mainIntent);
                 LoginActivity.this.finish();

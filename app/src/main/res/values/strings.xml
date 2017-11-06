@@ -52,4 +52,8 @@
     <string name="prenom_utilisateur">Prenom Utilisateur</string>
     <string name="email">Email</string>
     <string name="nom_agence">Nom Agence</string>
+    <string name="title_activity_list_vol">ListVolActivity</string>
+    <string name="num_vol">Num Vol</string>
+    <string name="destination">Destination</string>
+    <string name="duree">Duree</string>
 </resources>

@@ -17,7 +17,7 @@ public class Utilisateur extends RealmObject {
     private String email_utilisateur;
     private int cin;
     private Date date_naissance;
-    private  TypeUtilisateur typeUtilisateur;
+    private TypeUtilisateur typeUtilisateur;
     private Compte compte;
 
     public Utilisateur() {
