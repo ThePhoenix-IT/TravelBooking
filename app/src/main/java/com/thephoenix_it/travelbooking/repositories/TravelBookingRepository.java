@@ -1,7 +1,10 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
+
+import java.util.List;
 
 /**
  * Created by root on 17/11/04.
@@ -25,6 +28,26 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
             System.err.println("activation_compte : " + ex);
         }
         return result;
+    }
+
+    @Override
+    public Compte getCompteByIdUtilisateur(int id_utilisateur) {
+        return null;
+    }
+
+    @Override
+    public List<Utilisateur> listUtilisateur() {
+        return null;
+    }
+
+    @Override
+    public List<Reservation> listReservation() {
+        return null;
+    }
+
+    @Override
+    public Utilisateur login(String login, String password) {
+        return null;
     }
 
     @Override
