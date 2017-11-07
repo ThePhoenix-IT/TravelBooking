@@ -8,4 +8,8 @@
     tools:context="com.thephoenix_it.travelbooking.MainActivity"
     tools:showIn="@layout/app_bar_admin_main">
 
+    <ListView
+        android:id="@+id/listUtilisateurAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

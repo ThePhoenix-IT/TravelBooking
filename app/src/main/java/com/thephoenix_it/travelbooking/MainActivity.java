@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
 
             setContentView(R.layout.activity_admin_main);
-            listView = (ListView) findViewById(R.id.listVolAgence);
+            listView = (ListView) findViewById(R.id.listUtilisateurAdmin);
 
             String[] listItwms = new String[]{"ListView Example", "ListView with FAB", "FAB with Simple List View in Android", "ListView Adapter with Floating Action Button",
                     "Android FAB and ListView Example", "List View and FAB Source Code", "FAB and List View Array", "Floating Action Button FAB", "ListView Example",
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
 
             setContentView(R.layout.activity_main);
-            listView = (ListView) findViewById(R.id.listVolAgence);
+            listView = (ListView) findViewById(R.id.listReservUser);
 
             String[] listItwms = new String[]{"ListView Example", "ListView with FAB", "FAB with Simple List View in Android", "ListView Adapter with Floating Action Button",
                     "Android FAB and ListView Example", "List View and FAB Source Code", "FAB and List View Array", "Floating Action Button FAB", "ListView Example",
@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity
                 if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
 
                     Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+                else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
+                    Intent mainIntent = new Intent(MainActivity.this, ListVolsActivity.class);
                     MainActivity.this.startActivity(mainIntent);
                 }
                 else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {

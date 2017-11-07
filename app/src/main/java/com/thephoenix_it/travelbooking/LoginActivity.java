@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mLoginView.setError(getString(R.string.error_field_required));
             focusView = mLoginView;
             cancel = true;
-        }
+        } else
         // Check for a valid password address.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
@@ -354,7 +354,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 LoginActivity.connectedUser = new Utilisateur("Hamza", "JGUERIM", "hamzajg@gmail.com",
-                        6941710, new Date(1122334L), new TypeUtilisateur("Agence"));//Admin
+                        6941710, new Date(1122334L), new TypeUtilisateur("CLIENT"));//Admin
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(mainIntent);
                 LoginActivity.this.finish();
