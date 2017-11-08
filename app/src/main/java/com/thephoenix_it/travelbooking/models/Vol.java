@@ -19,6 +19,7 @@ public class Vol extends RealmObject {
     private Date date_creation;
     private Boolean desponible;
     private Utilisateur agence;
+    private int id_agence;
 
     public Vol() {
     }
@@ -31,6 +32,7 @@ public class Vol extends RealmObject {
         this.date_creation = date_creation;
         this.desponible = desponible;
         this.agence = agence;
+        this.id_agence = agence.getId_type_utilisateur();
     }
 
     public int getId_vol() {
@@ -95,5 +97,13 @@ public class Vol extends RealmObject {
 
     public void setAgence(Utilisateur agence) {
         this.agence = agence;
+    }
+
+    public int getId_agence() {
+        return id_agence;
+    }
+
+    public void setId_agence(int id_agence) {
+        this.id_agence = id_agence;
     }
 }

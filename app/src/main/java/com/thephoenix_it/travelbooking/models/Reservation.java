@@ -13,17 +13,21 @@ public class Reservation extends RealmObject {
     @PrimaryKey
     private int id_reservation;
     private EtatReservation etatReservation;
+    private int id_etat_reservation;
     private Date date_reservation;
     private Date date_annulation;
     private Utilisateur client;
+    private int id_client;
 
     public Reservation() {
     }
 
     public Reservation(EtatReservation etatReservation, Date date_reservation, Utilisateur client) {
         this.etatReservation = etatReservation;
+        this.id_etat_reservation = etatReservation.getId_etat_reservation();
         this.date_reservation = date_reservation;
         this.client = client;
+        this.id_client = client.getId_utilisateur();
     }
 
     public int getId_reservation() {
@@ -40,6 +44,14 @@ public class Reservation extends RealmObject {
 
     public void setEtatReservation(EtatReservation etatReservation) {
         this.etatReservation = etatReservation;
+    }
+
+    public int getId_etat_reservation() {
+        return id_etat_reservation;
+    }
+
+    public void setId_etat_reservation(int id_etat_reservation) {
+        this.id_etat_reservation = id_etat_reservation;
     }
 
     public Date getDate_reservation() {
@@ -64,5 +76,13 @@ public class Reservation extends RealmObject {
 
     public void setClient(Utilisateur client) {
         this.client = client;
+    }
+
+    public int getId_client() {
+        return id_client;
+    }
+
+    public void setId_client(int id_client) {
+        this.id_client = id_client;
     }
 }

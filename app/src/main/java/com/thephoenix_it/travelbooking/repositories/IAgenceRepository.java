@@ -13,6 +13,9 @@ import java.util.List;
 public interface IAgenceRepository {
 
     Utilisateur creation_compte(Utilisateur utilisateur);
-    List<Vol> listVol();
     Utilisateur login(String login, String password);
+    Vol creer_vol(Vol vol);
+    Vol update_vol(Vol vol);
+    Boolean delete_vol(int id_vol);
+    List<Vol> listVol();
 }

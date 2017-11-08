@@ -14,6 +14,7 @@ public class Compte extends RealmObject {
     private String password;
     private Boolean etat_compte;
     private Utilisateur utilisateur;
+    private int id_utilisateur;
 
     public Compte() {
     }
@@ -23,6 +24,7 @@ public class Compte extends RealmObject {
         this.password = password;
         this.etat_compte = etat_compte;
         this.utilisateur = utilisateur;
+        this.id_utilisateur = utilisateur.getId_utilisateur();
     }
 
     public int getId_compte() {
@@ -65,6 +67,14 @@ public class Compte extends RealmObject {
         this.etat_compte = etat_compte;
     }
 
+    public int getId_utilisateur() {
+        return id_utilisateur;
+    }
+
+    public void setId_utilisateur(int id_utilisateur) {
+        this.id_utilisateur = id_utilisateur;
+    }
+
     @Override
     public String toString() {
         return "Compte{" +
@@ -72,6 +82,7 @@ public class Compte extends RealmObject {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", etat_compte=" + etat_compte +
+                ", id_utilisateur=" + id_utilisateur +
                 '}';
     }
 }
