@@ -22,6 +22,7 @@ import com.thephoenix_it.travelbooking.views.admin.GererClientActivity;
 import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
 import com.thephoenix_it.travelbooking.views.agence.ListVolActivity;
+import com.thephoenix_it.travelbooking.views.client.CreerReservActivity;
 import com.thephoenix_it.travelbooking.views.client.ListReservationActivity;
 import com.thephoenix_it.travelbooking.views.client.ListVolsActivity;
 
@@ -50,6 +51,13 @@ public class MainActivity extends AppCompatActivity
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, listItwms);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            });
         }
         else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
 
@@ -65,6 +73,13 @@ public class MainActivity extends AppCompatActivity
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, listItwms);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mainIntent = new Intent(MainActivity.this, CreerReservActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            });
         }
         else {
 
@@ -72,9 +87,9 @@ public class MainActivity extends AppCompatActivity
             listView = (ListView) findViewById(R.id.listVolAgence);
             List<Vol> listVol = new ArrayList<Vol>();
             listVol.add(new Vol(1, 30.0D, "Vol Des 1", 3.0D, new Date(), true, null));
-            listVol.add(new Vol(2, 30.0D, "Vol Des 2", 3.0D, new Date(), true, null));
-            listVol.add(new Vol(3, 30.0D, "Vol Des 3", 3.0D, new Date(), true, null));
-            listVol.add(new Vol(4, 30.0D, "Vol Des 4", 3.0D, new Date(), true, null));
+            listVol.add(new Vol(2, 130.0D, "Vol Des 2", 32.0D, new Date(), true, null));
+            listVol.add(new Vol(3, 330.0D, "Vol Des 3", 355.0D, new Date(), true, null));
+            listVol.add(new Vol(4, 305.0D, "Vol Des 4", 367.0D, new Date(), true, null));
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
