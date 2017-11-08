@@ -2,10 +2,15 @@ package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Reservation;
+import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 
+import java.util.Date;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by root on 17/11/04.
@@ -52,14 +57,44 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
-    public Utilisateur creation_compte(Utilisateur utilisateur) {
+    public Utilisateur creation_compte(final Utilisateur utilisateur) {
         Utilisateur result = null;
         try {
-            realmFactory.getRealm().beginTransaction();
-            result = realmFactory.getRealm().copyToRealm(utilisateur);
-            realmFactory.getRealm().copyToRealm(utilisateur.getCompte());
-            realmFactory.getRealm().commitTransaction();
-        } catch (Exception ex) {
+
+            realmFactory.getRealm().executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                @Override
+                public void execute(Realm realm) {
+                    // increment index
+                    Number currentIdNum = realm.where(Utilisateur.class).max("id_utilisateur");
+                    int nextId;
+                    if(currentIdNum == null) {
+                        nextId = 1;
+                    } else {
+                        nextId = currentIdNum.intValue() + 1;
+                    }
+                    utilisateur.setId_utilisateur(nextId);
+                    //...
+                    realm.insertOrUpdate(utilisateur); // using insert API
+                }
+            });
+            utilisateur.getCompte().setUtilisateur(utilisateur);
+            realmFactory.getRealm().executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                @Override
+                public void execute(Realm realm) {
+                    // increment index
+                    Number currentIdNum = realm.where(Compte.class).max("id_compte");
+                    int nextId;
+                    if(currentIdNum == null) {
+                        nextId = 1;
+                    } else {
+                        nextId = currentIdNum.intValue() + 1;
+                    }
+                    utilisateur.getCompte().setId_compte(nextId);
+                    //...
+                    realm.insertOrUpdate(utilisateur.getCompte()); // using insert API
+                }
+            });
+        } catch (Exception ex){
             System.err.println("creation_compte : " + ex);
         }
         return result;

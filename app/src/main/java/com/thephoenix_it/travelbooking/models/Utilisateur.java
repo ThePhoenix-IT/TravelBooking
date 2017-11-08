@@ -96,4 +96,18 @@ public class Utilisateur extends RealmObject {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id_utilisateur=" + id_utilisateur +
+                ", nom_utilisateur='" + nom_utilisateur + '\'' +
+                ", prenom_utilisateur='" + prenom_utilisateur + '\'' +
+                ", email_utilisateur='" + email_utilisateur + '\'' +
+                ", cin=" + cin +
+                ", date_naissance=" + date_naissance +
+                ", typeUtilisateur=" + typeUtilisateur +
+                ", compte=" + compte +
+                '}';
+    }
 }

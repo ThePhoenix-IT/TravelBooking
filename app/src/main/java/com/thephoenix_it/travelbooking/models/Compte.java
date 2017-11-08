@@ -64,4 +64,14 @@ public class Compte extends RealmObject {
     public void setEtat_compte(Boolean etat_compte) {
         this.etat_compte = etat_compte;
     }
+
+    @Override
+    public String toString() {
+        return "Compte{" +
+                "id_compte=" + id_compte +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", etat_compte=" + etat_compte +
+                '}';
+    }
 }

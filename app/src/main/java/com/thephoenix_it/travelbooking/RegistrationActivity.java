@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
+import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.RealmFactory;
+import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
 import java.util.Date;
 
@@ -54,43 +56,10 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Realm realm = RealmFactory.with(RegistrationActivity.this).getRealm();//RealmFactory.getInstance().getRealm();
-                try {
-
-                    realm.executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
-                         @Override
-                         public void execute(Realm realm) {
-                             // increment index
-                             Number currentIdNum = realm.where(Utilisateur.class).max("id_utilisateur");
-                             int nextId;
-                             if(currentIdNum == null) {
-                                 nextId = 1;
-                             } else {
-                                 nextId = currentIdNum.intValue() + 1;
-                             }
-                             user = new Utilisateur("Test", "Test", "Test",
-                                     9999, new Date(), new TypeUtilisateur("Client"));
-                             //...
-                             realm.insertOrUpdate(user); // using insert API
-                         }
-                     });
-                    //realm.beginTransaction();
-
-                    //realm.copyToRealm(user);
-                    realm.commitTransaction();
-                    ////Compte userCmp = new Compte("TestLogin", "1234567", true, user);
-                    //realm.beginTransaction();
-
-                    //realm.copyToRealm(userCmp);
-                    //realm.commitTransaction();
-                } catch (Exception e){
-
-                }
-
-                RealmResults<Utilisateur> results = realm.where(Utilisateur.class).findAll();
-                System.err.println(results.size());
-
+                user = new Utilisateur("Test", "Test", "Test",
+                        9999, new Date(), new TypeUtilisateur("Client"));
+                user.setCompte(new Compte("TestLogin", "12345", true, user));
+                new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
             }
         });
     }
