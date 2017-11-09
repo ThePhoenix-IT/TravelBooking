@@ -52,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         client = findViewById(R.id.client_layout);
         agence = findViewById(R.id.agence_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Button btnValider1 = findViewById(R.id.button);
@@ -67,4 +68,10 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
+    }
 }

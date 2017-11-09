@@ -44,6 +44,82 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
+    public TypeUtilisateur createTypeUtilisateur(final TypeUtilisateur typeUtilisateur) {
+        TypeUtilisateur result = null;
+        try {
+
+            realmFactory.getRealm().executeTransaction(new Realm.Transaction() { // must be in transaction for this to work
+                @Override
+                public void execute(Realm realm) {
+                    // increment index
+                    Number currentIdNum = realm.where(TypeUtilisateur.class).max("id_type_utilisateur");
+                    int nextId;
+                    if(currentIdNum == null) {
+                        nextId = 1;
+                    } else {
+                        nextId = currentIdNum.intValue() + 1;
+                    }
+                    typeUtilisateur.setId_type_utilisateur(nextId);
+                    //...
+                    realm.insertOrUpdate(typeUtilisateur); // using insert API
+                }
+            });
+        } catch (Exception ex){
+            System.err.println("createTypeUtilisateur : " + ex);
+        }
+        return result;
+    }
+
+    @Override
+    public TypeUtilisateur updateTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteTypeUtilisateur(int id_type_utilisateur) {
+        return null;
+    }
+
+    @Override
+    public List<TypeUtilisateur> findAllTypeUtilisateur() {
+        List<TypeUtilisateur> result = new ArrayList<TypeUtilisateur>();
+        try{
+
+            result = realmFactory.getRealm().where(TypeUtilisateur.class).findAll();
+        } catch (Exception ex) {
+            System.err.println("listReservation : " + ex);
+        }
+        return result;
+    }
+
+    @Override
+    public TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur) {
+        TypeUtilisateur result = null;
+        try{
+            result = realmFactory.getRealm().where(TypeUtilisateur.class).equalTo("desc_type_utilisateur", desc_type_utilisateur).findFirst();
+        } catch (Exception ex) {
+            System.err.println("findOneTypeUtilisateurByDesc : " + ex);
+        }
+        return result;
+    }
+
+    @Override
+    public Utilisateur createCompteAdmin(Utilisateur utilisateur) {
+        return creation_compte(utilisateur);
+    }
+
+    @Override
+    public Utilisateur findCompteAdmin() {
+        Utilisateur result = null;
+        try{
+            result = realmFactory.getRealm().where(Utilisateur.class).equalTo("id_type_utilisateur", 1).findFirst();
+        } catch (Exception ex) {
+            System.err.println("findCompteAdmin : " + ex);
+        }
+        return result;
+    }
+
+    @Override
     public List<Utilisateur> listUtilisateur() {
         List<Utilisateur> result = new ArrayList<Utilisateur>();
         try{
@@ -76,11 +152,28 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
             Compte c = realmFactory.getRealm().where(Compte.class)
                 .contains("login", login)
                     .contains("password", password).findFirst();
+            System.err.println(c);
             result = realmFactory.getRealm().where(Utilisateur.class).equalTo("id_utilisateur", c.getId_utilisateur()).findFirst();
+            System.err.println(result);
             if(result != null)
                 result.setCompte(c);
+            System.err.println(result);
         } catch (Exception ex) {
             System.err.println("login : " + ex);
+        }
+        return result;
+    }
+
+    @Override
+    public Compte loginCompte(String login, String password) {
+
+        Compte result = null;
+        try{
+            result = realmFactory.getRealm().where(Compte.class)
+                    .contains("login", login)
+                    .contains("password", password).findFirst();
+        } catch (Exception ex) {
+            System.err.println("loginCompte : " + ex);
         }
         return result;
     }

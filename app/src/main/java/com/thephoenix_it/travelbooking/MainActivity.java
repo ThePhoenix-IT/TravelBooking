@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.views.admin.GererClientActivity;
 import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
@@ -86,10 +87,12 @@ public class MainActivity extends AppCompatActivity
             setContentView(R.layout.activity_agence_main);
             listView = (ListView) findViewById(R.id.listVolAgence);
             List<Vol> listVol = new ArrayList<Vol>();
-            listVol.add(new Vol(1, 30.0D, "Vol Des 1", 3.0D, new Date(), true, null));
-            listVol.add(new Vol(2, 130.0D, "Vol Des 2", 32.0D, new Date(), true, null));
-            listVol.add(new Vol(3, 330.0D, "Vol Des 3", 355.0D, new Date(), true, null));
-            listVol.add(new Vol(4, 305.0D, "Vol Des 4", 367.0D, new Date(), true, null));
+            Utilisateur agence = new Utilisateur();
+            agence.setId_utilisateur(11);
+            listVol.add(new Vol(1, 30.0D, "Vol Des 1", 3.0D, new Date(), true, agence));
+            listVol.add(new Vol(2, 130.0D, "Vol Des 2", 32.0D, new Date(), true, agence));
+            listVol.add(new Vol(3, 330.0D, "Vol Des 3", 355.0D, new Date(), true, agence));
+            listVol.add(new Vol(4, 305.0D, "Vol Des 4", 367.0D, new Date(), true, agence));
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -213,7 +216,11 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {}
+        } else if (id == R.id.nav_share) {
+            Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+            MainActivity.this.startActivity(mainIntent);
+            MainActivity.this.finish();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

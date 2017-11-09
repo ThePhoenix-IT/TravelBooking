@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -105,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
     private void registration() {
         Intent mainIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
         LoginActivity.this.startActivity(mainIntent);
-        LoginActivity.this.finish();
     }
 
 
@@ -157,10 +157,23 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(login, password);
-            mAuthTask.execute((Void) null);
+
+            LoginActivity.connectedUser = new Utilisateur();
+            LoginActivity.connectedUser.setCompte(service.loginCompte(login, password));
+            System.err.println(LoginActivity.connectedUser);
+            if(LoginActivity.connectedUser.getCompte() != null) {
+                showProgress(true);
+                mAuthTask = new UserLoginTask(login, password);
+                mAuthTask.execute((Void) null);
+            } else {
+                LoginActivity.connectedUser = null;
+                showErrorLogin();
+            }
         }
+    }
+
+    private void showErrorLogin() {
+        Toast.makeText(this, "Erreur authentification. Verifier login / password...", Toast.LENGTH_LONG).show();
     }
 
     private boolean isPasswordValid(String password) {
@@ -225,7 +238,6 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // Simulate network access.
                 Thread.sleep(1000);
-                LoginActivity.connectedUser = service.login(mLogin, mPassword);
             } catch (InterruptedException e) {
                 return false;
             }

@@ -5,8 +5,18 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
+import com.thephoenix_it.travelbooking.models.Utilisateur;
+import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
+import com.thephoenix_it.travelbooking.repositories.RealmFactory;
+import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
+
+import java.util.Date;
+
 public class SplashScreen extends AppCompatActivity {
 
+    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(SplashScreen.this));
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     @Override
@@ -19,6 +29,17 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
+                if(adminServices.findAllTypeUtilisateur().size() == 0){
+                    adminServices.createTypeUtilisateur(new TypeUtilisateur("Admin"));
+                    adminServices.createTypeUtilisateur(new TypeUtilisateur("Client"));
+                    adminServices.createTypeUtilisateur(new TypeUtilisateur("Agence"));
+                }
+                if(adminServices.findCompteAdmin() == null) {
+                    Utilisateur admin = new Utilisateur("Admin", "Admin", "Admin@Admin.com",
+                            0, new Date(), adminServices.findOneTypeUtilisateurByDesc("Admin"));
+                    admin.setCompte(new Compte("admin", "12345", true, admin));
+                    adminServices.createCompteAdmin(admin);
+                }
                 Intent mainIntent = new Intent(SplashScreen.this, LoginActivity.class);
                 SplashScreen.this.startActivity(mainIntent);
                 SplashScreen.this.finish();
