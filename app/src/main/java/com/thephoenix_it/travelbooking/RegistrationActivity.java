@@ -14,6 +14,7 @@ import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
+import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
 import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
@@ -23,6 +24,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class RegistrationActivity extends AppCompatActivity {
+    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this));
     LinearLayout client, agence;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +61,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 user = new Utilisateur("Test", "Test", "Test",
                         9999, new Date(), new TypeUtilisateur("Client"));
                 user.setCompte(new Compte("TestLogin", "12345", true, user));
-                new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
+                //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
+                service.creation_compte(user);
             }
         });
     }

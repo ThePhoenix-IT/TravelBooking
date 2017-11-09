@@ -9,8 +9,6 @@ import com.thephoenix_it.travelbooking.models.Utilisateur;
  */
 
 public interface IClientRepository {
-
-    Utilisateur creation_compte(Utilisateur utilisateur);
     Reservation creer_reservation(Reservation reservation);
     Reservation update_reservation(Reservation reservation);
     Boolean delete_reservation(int id_reservation);

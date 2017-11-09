@@ -18,7 +18,7 @@ import okhttp3.internal.Util;
  * Created by root on 17/11/04.
  */
 
-public class TravelBookingRepository implements IAdminRepository, IAgenceRepository, IClientRepository {
+public class TravelBookingRepository implements IAdminRepository, IAgenceRepository, IClientRepository, IVisiteurRepository {
     private RealmFactory realmFactory;
     public TravelBookingRepository(RealmFactory instance) {
         realmFactory = instance;
@@ -188,6 +188,18 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
         try{
 
             result = realmFactory.getRealm().where(Vol.class).findAll();
+        } catch (Exception ex) {
+            System.err.println("listVol : " + ex);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Vol> listVolByDestination(String destination) {
+        List<Vol> result = new ArrayList<Vol>();
+        try{
+
+            result = realmFactory.getRealm().where(Vol.class).contains("destination", destination).findAll();
         } catch (Exception ex) {
             System.err.println("listVol : " + ex);
         }

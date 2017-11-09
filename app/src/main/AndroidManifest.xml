@@ -56,6 +56,14 @@
         <activity
             android:name=".views.client.CreerReservActivity"
             android:label="@string/title_activity_creer_reserv"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.client.CompteClientActivity"
+            android:label="@string/title_activity_compte_client"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.agence.CompteAgenceActivity"
+            android:label="@string/title_activity_compte_agence"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
