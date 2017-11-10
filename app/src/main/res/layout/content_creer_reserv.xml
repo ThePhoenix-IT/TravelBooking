@@ -7,5 +7,71 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.thephoenix_it.travelbooking.views.client.CreerReservActivity"
     tools:showIn="@layout/activity_creer_reserv">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/num_vol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/num_vol"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/vol_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/destination"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/vol_duree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/duree"
+                android:inputType="time" />
+
+
+            <EditText
+                android:id="@+id/vol_prix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:hint="@string/prix"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/etat_vol" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disponible" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reserver" />
+
+        </LinearLayout>
+
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

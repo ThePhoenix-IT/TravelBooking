@@ -62,4 +62,7 @@
     <string name="disponible">Disponible</string>
     <string name="etat_vol">Etat Vol:</string>
     <string name="prix">Prix</string>
+    <string name="save">Save</string>
+    <string name="delete">delete</string>
+    <string name="reserver">Reserver</string>
 </resources>
