@@ -4,15 +4,17 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Fragment;
 
+import java.io.Serializable;
+
 import io.realm.Realm;
 
 /**
  * Created by root on 17/11/04.
  */
 
-public class RealmFactory {
+public class RealmFactory implements Serializable {
     private static RealmFactory instance;
-    private final Realm realm;
+    private transient static Realm realm = null;
 
     public RealmFactory(Application application) {
         realm = Realm.getDefaultInstance();

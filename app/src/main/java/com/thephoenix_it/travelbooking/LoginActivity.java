@@ -34,6 +34,9 @@ import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
+import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
+import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
+import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
 import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
@@ -49,7 +52,10 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity {
     public static Utilisateur connectedUser;
-    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(LoginActivity.this));
+    private IVisiteurRepository service;
+    private IAdminRepository adminServices;
+    private IAgenceRepository agenceServices;
+    private IClientRepository clientServices;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -70,6 +76,25 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                service = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+                adminServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+                agenceServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+                clientServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+            } else {
+                service = (IVisiteurRepository) extras.get("visiteurServices");
+                adminServices = (IAdminRepository) extras.get("adminServices");
+                agenceServices = (IAgenceRepository) extras.get("agenceServices");
+                clientServices = (IClientRepository) extras.get("clientServices");
+            }
+        } else {
+            service = (IVisiteurRepository) savedInstanceState.getSerializable("visiteurServices");
+            adminServices = (IAdminRepository) savedInstanceState.getSerializable("adminServices");
+            agenceServices = (IAgenceRepository) savedInstanceState.getSerializable("agenceServices");
+            clientServices = (IClientRepository) savedInstanceState.getSerializable("clientServices");
+        }
         // Set up the login form.
         mLoginView = (EditText) findViewById(R.id.login);
 
@@ -159,10 +184,9 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
 
-            LoginActivity.connectedUser = new Utilisateur();
-            LoginActivity.connectedUser.setCompte(service.loginCompte(login, password));
+            LoginActivity.connectedUser = service.login(login, password);
             System.err.println(LoginActivity.connectedUser);
-            if(LoginActivity.connectedUser.getCompte() != null) {
+            if(LoginActivity.connectedUser != null) {
                 showProgress(true);
                 mAuthTask = new UserLoginTask(login, password);
                 mAuthTask.execute((Void) null);
@@ -254,6 +278,12 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN"))
+                    mainIntent.putExtra("adminServices", adminServices);
+                else if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE"))
+                    mainIntent.putExtra("agenceServices", agenceServices);
+                else if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT"))
+                    mainIntent.putExtra("clientServices", clientServices);
                 LoginActivity.this.startActivity(mainIntent);
                 LoginActivity.this.finish();
                 Log.e("ds", "sdf");

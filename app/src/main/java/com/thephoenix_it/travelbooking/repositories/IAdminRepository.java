@@ -5,13 +5,14 @@ import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by root on 17/11/04.
  */
 
-public interface IAdminRepository {
+public interface IAdminRepository extends Serializable {
 
     Compte activation_compte(Compte compte);
     Compte getCompteByIdUtilisateur(int id_utilisateur);
@@ -22,6 +23,7 @@ public interface IAdminRepository {
     TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur);
     Utilisateur createCompteAdmin(Utilisateur utilisateur);
     Utilisateur findCompteAdmin();
+    Utilisateur findOneUtilisateurById(int id_utilisateur);
     List<Utilisateur> listUtilisateur();
     List<Reservation> listReservation();
     Utilisateur login(String login, String password);

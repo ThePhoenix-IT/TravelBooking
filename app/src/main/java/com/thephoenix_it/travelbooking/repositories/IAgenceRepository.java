@@ -4,13 +4,14 @@ import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by root on 17/11/04.
  */
 
-public interface IAgenceRepository {
+public interface IAgenceRepository extends Serializable {
 
     Utilisateur creation_compte(Utilisateur utilisateur);
     Utilisateur login(String login, String password);

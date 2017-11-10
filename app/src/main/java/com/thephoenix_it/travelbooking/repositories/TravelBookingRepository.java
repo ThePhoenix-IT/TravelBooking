@@ -6,6 +6,7 @@ import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ import okhttp3.internal.Util;
  * Created by root on 17/11/04.
  */
 
-public class TravelBookingRepository implements IAdminRepository, IAgenceRepository, IClientRepository, IVisiteurRepository {
+public class TravelBookingRepository implements IAdminRepository, IAgenceRepository, IClientRepository, IVisiteurRepository, Serializable {
     private RealmFactory realmFactory;
     public TravelBookingRepository(RealmFactory instance) {
         realmFactory = instance;
@@ -120,6 +121,17 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
+    public Utilisateur findOneUtilisateurById(int id_utilisateur) {
+        Utilisateur result = null;
+        try{
+            result = realmFactory.getRealm().where(Utilisateur.class).equalTo("id_utilisateur", id_utilisateur).findFirst();
+        } catch (Exception ex) {
+            System.err.println("findOneUtilisateurById : " + ex);
+        }
+        return result;
+    }
+
+    @Override
     public List<Utilisateur> listUtilisateur() {
         List<Utilisateur> result = new ArrayList<Utilisateur>();
         try{
@@ -153,10 +165,8 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
                 .contains("login", login)
                     .contains("password", password).findFirst();
             System.err.println(c);
-            result = realmFactory.getRealm().where(Utilisateur.class).equalTo("id_utilisateur", c.getId_utilisateur()).findFirst();
-            System.err.println(result);
-            if(result != null)
-                result.setCompte(c);
+            assert c != null;
+            result = c.getUtilisateur();
             System.err.println(result);
         } catch (Exception ex) {
             System.err.println("login : " + ex);
