@@ -9,6 +9,9 @@ import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
+import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
+import com.thephoenix_it.travelbooking.repositories.IClientRepository;
+import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
 import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
@@ -16,7 +19,10 @@ import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(SplashScreen.this));
+    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+    private IAgenceRepository agenceServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+    private IClientRepository clientServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+    private IVisiteurRepository visiteurServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     @Override
@@ -40,7 +46,14 @@ public class SplashScreen extends AppCompatActivity {
                     admin.setCompte(new Compte("admin", "12345", true, admin));
                     adminServices.createCompteAdmin(admin);
                 }
+                for(Utilisateur u : adminServices.listUtilisateur()){
+                    System.err.println(u);
+                }
                 Intent mainIntent = new Intent(SplashScreen.this, LoginActivity.class);
+                mainIntent.putExtra("adminServices", adminServices);
+                mainIntent.putExtra("agenceServices", agenceServices);
+                mainIntent.putExtra("clientServices", clientServices);
+                mainIntent.putExtra("visiteurServices", visiteurServices);
                 SplashScreen.this.startActivity(mainIntent);
                 SplashScreen.this.finish();
             }

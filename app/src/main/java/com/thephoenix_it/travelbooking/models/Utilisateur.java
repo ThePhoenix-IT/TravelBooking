@@ -1,5 +1,6 @@
 package com.thephoenix_it.travelbooking.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -9,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by root on 17/11/04.
  */
 
-public class Utilisateur extends RealmObject {
+public class Utilisateur extends RealmObject implements Serializable {
     @PrimaryKey
     private int id_utilisateur;
     private String nom_utilisateur;
