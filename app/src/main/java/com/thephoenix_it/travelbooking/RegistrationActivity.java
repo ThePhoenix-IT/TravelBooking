@@ -88,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
         txtAgencePassword1 = findViewById(R.id.agence_password1);
         txtAgencePassword2 = findViewById(R.id.agence_password2);
         txtAgenceNom = findViewById(R.id.agence_nom);
-        txtAgenceEmail = findViewById(R.id.client_email);
+        txtAgenceEmail = findViewById(R.id.agence_email);
         Button btnValider2 = findViewById(R.id.agence_button);
         btnValider2.setOnClickListener(new View.OnClickListener() {
             @Override
