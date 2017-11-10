@@ -8,4 +8,8 @@
     tools:context="com.thephoenix_it.travelbooking.views.client.ListVolsActivity"
     tools:showIn="@layout/activity_list_vols">
 
+    <ListView
+        android:id="@+id/listVolsUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

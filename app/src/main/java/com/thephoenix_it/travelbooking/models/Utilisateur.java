@@ -18,6 +18,7 @@ public class Utilisateur extends RealmObject {
     private int cin;
     private Date date_naissance;
     private TypeUtilisateur typeUtilisateur;
+    private int id_type_utilisateur;
     private Compte compte;
 
     public Utilisateur() {
@@ -31,6 +32,7 @@ public class Utilisateur extends RealmObject {
         this.cin = cin;
         this.date_naissance = date_naissance;
         this.typeUtilisateur = typeUtilisateur;
+        this.id_type_utilisateur = typeUtilisateur.getId_type_utilisateur();
     }
 
     public int getId_utilisateur() {
@@ -89,11 +91,33 @@ public class Utilisateur extends RealmObject {
         this.typeUtilisateur = typeUtilisateur;
     }
 
+    public int getId_type_utilisateur() {
+        return id_type_utilisateur;
+    }
+
+    public void setId_type_utilisateur(int id_type_utilisateur) {
+        this.id_type_utilisateur = id_type_utilisateur;
+    }
+
     public Compte getCompte() {
         return compte;
     }
 
     public void setCompte(Compte compte) {
         this.compte = compte;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id_utilisateur=" + id_utilisateur +
+                ", nom_utilisateur='" + nom_utilisateur + '\'' +
+                ", prenom_utilisateur='" + prenom_utilisateur + '\'' +
+                ", email_utilisateur='" + email_utilisateur + '\'' +
+                ", cin=" + cin +
+                ", date_naissance=" + date_naissance +
+                ", typeUtilisateur=" + typeUtilisateur +
+                ", compte=" + compte +
+                '}';
     }
 }

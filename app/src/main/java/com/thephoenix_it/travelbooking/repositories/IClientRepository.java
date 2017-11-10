@@ -1,6 +1,7 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 
 /**
@@ -8,7 +9,8 @@ import com.thephoenix_it.travelbooking.models.Utilisateur;
  */
 
 public interface IClientRepository {
-
-    Utilisateur creation_compte(Utilisateur utilisateur);
+    Reservation creer_reservation(Reservation reservation);
+    Reservation update_reservation(Reservation reservation);
+    Boolean delete_reservation(int id_reservation);
     Utilisateur login(String login, String password);
 }

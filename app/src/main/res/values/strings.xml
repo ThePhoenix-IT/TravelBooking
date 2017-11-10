@@ -56,4 +56,7 @@
     <string name="num_vol">Num Vol</string>
     <string name="destination">Destination</string>
     <string name="duree">Duree</string>
+    <string name="title_activity_creer_reserv">CreerReservActivity</string>
+    <string name="title_activity_compte_client">CompteClientActivity</string>
+    <string name="title_activity_compte_agence">CompteAgenceActivity</string>
 </resources>

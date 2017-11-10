@@ -1,4 +1,4 @@
-package com.thephoenix_it.travelbooking.views.agence;
+package com.thephoenix_it.travelbooking.views.client;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,15 +9,14 @@ import android.view.View;
 
 import com.thephoenix_it.travelbooking.R;
 
-public class ListVolActivity extends AppCompatActivity {
+public class CompteClientActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_vol);
+        setContentView(R.layout.activity_compte_client);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -25,12 +24,6 @@ public class ListVolActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            }
-        });
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

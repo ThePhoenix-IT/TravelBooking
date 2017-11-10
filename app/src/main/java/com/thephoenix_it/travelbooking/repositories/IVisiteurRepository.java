@@ -7,15 +7,13 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import java.util.List;
 
 /**
- * Created by root on 17/11/04.
+ * Created by hamzajguerim on 2017-11-09.
  */
 
-public interface IAgenceRepository {
-
+public interface IVisiteurRepository {
     Utilisateur creation_compte(Utilisateur utilisateur);
-    Utilisateur login(String login, String password);
-    Vol creer_vol(Vol vol);
-    Vol update_vol(Vol vol);
-    Boolean delete_vol(int id_vol);
     List<Vol> listVol();
+    List<Vol> listVolByDestination(String destination);
+    Utilisateur login(String login, String password);
+    Compte loginCompte(String login, String password);
 }

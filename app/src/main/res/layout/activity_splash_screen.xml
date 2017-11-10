@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.thephoenix_it.travelbooking.SplashScreen">
+    tools:context="com.thephoenix_it.travelbooking.SplashScreen"
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/txtLoading"
@@ -12,5 +13,6 @@
         android:layout_height="fill_parent"
         android:text="@string/loading"
         android:gravity="center"
+        android:textColor="@color/cardview_light_background"
         android:textAppearance="@android:style/TextAppearance.Material.Menu"/>
 </android.support.constraint.ConstraintLayout>
