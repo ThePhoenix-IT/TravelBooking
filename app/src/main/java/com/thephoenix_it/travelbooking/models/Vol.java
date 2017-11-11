@@ -18,20 +18,20 @@ public class Vol extends RealmObject implements Serializable {
     private String destination;
     private Double prix;
     private Date date_creation;
-    private Boolean desponible;
+    private Boolean disponible;
     private Utilisateur agence;
     private int id_agence;
 
     public Vol() {
     }
 
-    public Vol(int num_vol, Double duree, String destination, Double prix, Date date_creation, Boolean desponible, Utilisateur agence) {
+    public Vol(int num_vol, Double duree, String destination, Double prix, Date date_creation, Boolean disponible, Utilisateur agence) {
         this.num_vol = num_vol;
         this.duree = duree;
         this.destination = destination;
         this.prix = prix;
         this.date_creation = date_creation;
-        this.desponible = desponible;
+        this.disponible = disponible;
         this.agence = agence;
         this.id_agence = agence.getId_type_utilisateur();
     }
@@ -80,16 +80,16 @@ public class Vol extends RealmObject implements Serializable {
         return date_creation;
     }
 
-    public void setDate_creation(String date_creation) {
+    public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
     }
 
-    public Boolean getDesponible() {
-        return desponible;
+    public Boolean getDisponible() {
+        return disponible;
     }
 
-    public void setDesponible(Boolean desponible) {
-        this.desponible = desponible;
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
     public Utilisateur getAgence() {

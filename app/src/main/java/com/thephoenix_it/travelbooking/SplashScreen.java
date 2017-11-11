@@ -49,7 +49,7 @@ public class SplashScreen extends AppCompatActivity {
                 for(Utilisateur u : adminServices.listUtilisateur()){
                     System.err.println(u);
                 }
-                Intent mainIntent = new Intent(SplashScreen.this, LoginActivity.class);
+                Intent mainIntent = new Intent(SplashScreen.this, StartScreenActivity.class);
                 mainIntent.putExtra("adminServices", adminServices);
                 mainIntent.putExtra("agenceServices", agenceServices);
                 mainIntent.putExtra("clientServices", clientServices);

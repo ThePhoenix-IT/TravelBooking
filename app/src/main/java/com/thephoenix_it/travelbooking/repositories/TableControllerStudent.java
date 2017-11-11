@@ -57,7 +57,7 @@ public class TableControllerStudent extends DatabaseHandler {
         values.put("Destination", objectVol.getDestination());
         values.put("Duration", objectVol.getDuree());
         values.put("Price", objectVol.getPrix());
-        values.put("Disponibility", objectVol.getDesponible());
+        values.put("Disponibility", objectVol.getDisponible());
         values.put("Creation_date", String.valueOf(objectVol.getDate_creation()));
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Vol", null, values) > 0;
@@ -111,14 +111,14 @@ public class TableControllerStudent extends DatabaseHandler {
                 double Duration= Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
                 double Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
                 boolean Disponibility= Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
-                String Creation_date= cursor.getString(cursor.getColumnIndex("Creation_date"));
+                Date Creation_date = new Date(cursor.getString(cursor.getColumnIndex("Creation_date")));
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
-                objectVol.setDesponible(Disponibility);
+                objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
                 recordsList.add(objectVol);
 
