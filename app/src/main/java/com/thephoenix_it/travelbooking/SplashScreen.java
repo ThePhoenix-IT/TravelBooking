@@ -9,13 +9,15 @@ import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
+import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
+import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
 import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
+    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     @Override

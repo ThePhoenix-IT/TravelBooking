@@ -107,7 +107,6 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
     }
 
-
     public TypeUtilisateur createTypeUtilisateur(TypeUtilisateur objectTypeUtilisateur) {
 
         ContentValues values = new ContentValues();
@@ -157,6 +156,32 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return result;
     }
+
+    public TypeUtilisateur findOneTypeUtilisateurByDesc(String type) {
+
+        TypeUtilisateur result = new TypeUtilisateur();
+
+        String sql = "SELECT * FROM UserType ut WHERE ut.desc_user_type = " + type;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                result.setId_type_utilisateur(id_user_type);
+                result.setDesc_type_utilisateur(desc_user_type);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
+
     public List<TypeUtilisateur> findAllTypeUtilisateur() {
 
         List<TypeUtilisateur> recordsList = new ArrayList<TypeUtilisateur>();
@@ -183,6 +208,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return recordsList;
     }
+
     public List<Vol> findAllVol() {
 
         List<Vol> recordsList = new ArrayList<Vol>();

@@ -70,4 +70,5 @@
     <string name="visiteur">Visiteur</string>
     <string name="compte_utilisateur">Compte Utilisateur</string>
     <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
 </resources>

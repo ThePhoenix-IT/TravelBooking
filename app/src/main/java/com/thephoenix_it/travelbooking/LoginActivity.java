@@ -26,14 +26,16 @@ import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
+import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
+import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
 /**
  * A login screen that offers login via login/password.
  */
 public class LoginActivity extends AppCompatActivity {
     public static Utilisateur connectedUser;
-    private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
+    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
     /**
      * Id to identity READ_CONTACTS permission request.
      */

@@ -10,6 +10,7 @@ import android.view.View;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
 public class GererClientActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class GererClientActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                adminServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
+                adminServices= new SQLiteTravelBookingRepository(this);
                 utilisateur = null;
             } else {
                 adminServices = (IAdminRepository) extras.get("adminServices");
