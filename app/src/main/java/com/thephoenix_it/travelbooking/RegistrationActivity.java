@@ -11,20 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thephoenix_it.travelbooking.models.Compte;
-import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
-import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
 import java.util.Date;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
-
 public class RegistrationActivity extends AppCompatActivity {
-    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this));
+    private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
     private LinearLayout client, agence;
 
     private Utilisateur user;

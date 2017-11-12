@@ -37,8 +37,10 @@ public class CustomVolsListAdapter extends ArrayAdapter {
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1ID);
 
         //this code sets the values of the objects to values from the arrays
-        nameTextField.setText(volList.get(position).getDestination());
-        infoTextField.setText("" + volList.get(position).getDuree());
+        if(volList.get(position) != null)
+            nameTextField.setText(volList.get(position).getDestination());
+        if(volList.get(position) != null)
+            infoTextField.setText("" + volList.get(position).getDuree());
         //imageView.setImageResource(imageIDarray[position]);
 
         return rowView;

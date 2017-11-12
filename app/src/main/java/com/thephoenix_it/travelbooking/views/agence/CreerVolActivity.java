@@ -9,13 +9,26 @@ import android.view.Menu;
 import android.view.View;
 
 import com.thephoenix_it.travelbooking.R;
+import com.thephoenix_it.travelbooking.models.Vol;
+import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
 public class CreerVolActivity extends AppCompatActivity {
-
+    private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
+    private Vol vol;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_vol);
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                vol = null;
+            } else {
+                vol = agenceServices.findOneVolById((Integer) extras.get("id_vol"));
+            }
+        } else {
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

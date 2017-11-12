@@ -3,7 +3,6 @@ package com.thephoenix_it.travelbooking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,9 +21,7 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
-import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.views.admin.CustomUtlisateursListAdapter;
 import com.thephoenix_it.travelbooking.views.admin.GererClientActivity;
 import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
@@ -41,30 +38,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private IAdminRepository adminServices;
-    private IAgenceRepository agenceServices;
-    private IClientRepository clientServices;
+    private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
+    private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
+    private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
     ListView listView;
     private List<Utilisateur> utilisateurList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                adminServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-                agenceServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-                clientServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-            } else {
-                adminServices = (IAdminRepository) extras.get("adminServices");
-                agenceServices = (IAgenceRepository) extras.get("agenceServices");
-                clientServices = (IClientRepository) extras.get("clientServices");
-            }
-        } else {
-            adminServices = (IAdminRepository) savedInstanceState.getSerializable("adminServices");
-            agenceServices = (IAgenceRepository) savedInstanceState.getSerializable("agenceServices");
-            clientServices = (IClientRepository) savedInstanceState.getSerializable("clientServices");
-        }
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
 
             setContentView(R.layout.activity_admin_main);

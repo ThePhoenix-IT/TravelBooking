@@ -21,6 +21,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        String user_type = "CREATE TABLE UserType " +
+                "( Id_user_type INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "desc_user_type TEXT ) ";
         String usr = "CREATE TABLE User " +
                 "( Id_user INTEGER AUTOINCREMENT PRIMARY KEY , " +
                 "Nom_user TEXT, " +
@@ -52,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "( Id_etat INTEGER AUTOINCREMENT PRIMARY KEY , " +
                 "Desc_stat TEXT) ";
 
+        db.execSQL(user_type);
         db.execSQL(usr);
         db.execSQL(account);
         db.execSQL(reserve);

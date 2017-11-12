@@ -4,58 +4,36 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
 /**
  * A login screen that offers login via login/password.
  */
 public class LoginActivity extends AppCompatActivity {
     public static Utilisateur connectedUser;
-    private IVisiteurRepository service;
-    private IAdminRepository adminServices;
-    private IAgenceRepository agenceServices;
-    private IClientRepository clientServices;
+    private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -76,25 +54,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                service = new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-                adminServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-                agenceServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-                clientServices= new TravelBookingRepository(RealmFactory.with(this.getApplication()));
-            } else {
-                service = (IVisiteurRepository) extras.get("visiteurServices");
-                adminServices = (IAdminRepository) extras.get("adminServices");
-                agenceServices = (IAgenceRepository) extras.get("agenceServices");
-                clientServices = (IClientRepository) extras.get("clientServices");
-            }
-        } else {
-            service = (IVisiteurRepository) savedInstanceState.getSerializable("visiteurServices");
-            adminServices = (IAdminRepository) savedInstanceState.getSerializable("adminServices");
-            agenceServices = (IAgenceRepository) savedInstanceState.getSerializable("agenceServices");
-            clientServices = (IClientRepository) savedInstanceState.getSerializable("clientServices");
-        }
         // Set up the login form.
         mLoginView = (EditText) findViewById(R.id.login);
 
@@ -278,15 +237,8 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN"))
-                    mainIntent.putExtra("adminServices", adminServices);
-                else if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE"))
-                    mainIntent.putExtra("agenceServices", agenceServices);
-                else if(LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT"))
-                    mainIntent.putExtra("clientServices", clientServices);
                 LoginActivity.this.startActivity(mainIntent);
                 LoginActivity.this.finish();
-                Log.e("ds", "sdf");
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

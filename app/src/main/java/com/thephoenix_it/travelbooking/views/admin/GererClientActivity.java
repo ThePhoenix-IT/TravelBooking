@@ -10,10 +10,6 @@ import android.view.View;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
-
-import okhttp3.internal.Util;
 
 public class GererClientActivity extends AppCompatActivity {
 

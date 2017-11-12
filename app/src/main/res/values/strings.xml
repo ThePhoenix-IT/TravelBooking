@@ -69,4 +69,5 @@
     <string name="mon_compte">Mon Compte</string>
     <string name="visiteur">Visiteur</string>
     <string name="compte_utilisateur">Compte Utilisateur</string>
+    <string name="search">Search</string>
 </resources>

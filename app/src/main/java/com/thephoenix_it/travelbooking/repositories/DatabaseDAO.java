@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.EtatReservation;
 import com.thephoenix_it.travelbooking.models.Reservation;
+import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +21,9 @@ import java.util.List;
  * Created by bouba on 10-Nov-17.
  */
 
-public class TableControllerStudent extends DatabaseHandler {
+public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
-    public TableControllerStudent(Context context) {
+    public DatabaseDAO(Context context) {
         super(context);
     }
     public boolean create_compte(Compte objectCompte) {
@@ -34,6 +36,16 @@ public class TableControllerStudent extends DatabaseHandler {
         SQLiteDatabase db = this.getWritableDatabase();
 
         boolean createSuccessful = db.insert("Account", null, values) > 0;
+        db.close();
+        return createSuccessful;
+    }
+    public boolean create_user_type(TypeUtilisateur objectUserType) {
+
+        ContentValues values = new ContentValues();
+        values.put("desc_user_type", objectUserType.getDesc_type_utilisateur());
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        boolean createSuccessful = db.insert("UserType", null, values) > 0;
         db.close();
         return createSuccessful;
     }
@@ -94,7 +106,84 @@ public class TableControllerStudent extends DatabaseHandler {
         return recordCount;
 
     }
-    public List<Vol> read() {
+
+
+    public TypeUtilisateur createTypeUtilisateur(TypeUtilisateur objectTypeUtilisateur) {
+
+        ContentValues values = new ContentValues();
+        values.put("Date_res", String.valueOf(objectTypeUtilisateur.getDesc_type_utilisateur()));
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean createSuccessful = db.insert("Desc_stat", null, values) > 0;
+        if (createSuccessful) {
+            String sql = "SELECT MAX(Id_user_type) FROM UserType";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+
+                    objectTypeUtilisateur.setId_type_utilisateur(cursor.getInt(1));
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
+        db.close();
+        return objectTypeUtilisateur;
+    }
+
+    public Utilisateur findCompteAdmin() {
+
+        Utilisateur result = new Utilisateur();
+
+        String sql = "SELECT * FROM User u, Account a, UserType ut WHERE ut.desc_user_type = \"Admin\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                TypeUtilisateur objectVol = new TypeUtilisateur();
+                objectVol.setId_type_utilisateur(id_user_type);
+                objectVol.setDesc_type_utilisateur(desc_user_type);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
+    public List<TypeUtilisateur> findAllTypeUtilisateur() {
+
+        List<TypeUtilisateur> recordsList = new ArrayList<TypeUtilisateur>();
+
+        String sql = "SELECT * FROM UserType ORDER BY Id_user_type DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                TypeUtilisateur objectVol = new TypeUtilisateur();
+                objectVol.setId_type_utilisateur(id_user_type);
+                objectVol.setDesc_type_utilisateur(desc_user_type);
+                recordsList.add(objectVol);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordsList;
+    }
+    public List<Vol> findAllVol() {
 
         List<Vol> recordsList = new ArrayList<Vol>();
 

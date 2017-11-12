@@ -17,6 +17,7 @@ public interface IAgenceRepository extends Serializable {
     Utilisateur login(String login, String password);
     Vol creer_vol(Vol vol);
     Vol update_vol(Vol vol);
+    Vol findOneVolById(int id_vol);
     Boolean delete_vol(int id_vol);
     List<Vol> listVol();
 }
