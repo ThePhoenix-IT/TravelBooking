@@ -36,8 +36,11 @@
             tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/detail_compte"
@@ -114,7 +117,7 @@
     <LinearLayout
         android:visibility="invisible"
         android:id="@+id/agence_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
