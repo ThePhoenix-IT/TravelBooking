@@ -67,7 +67,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Vol findOneVolById(int id_vol) {
-        return null;
+
+        return dao.findOneVolByIdVol(id_vol);
     }
 
     @Override
@@ -84,6 +85,11 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
             System.err.println("listVol: " + ex);
         }
         return result;
+    }
+
+    @Override
+    public List<Reservation> findAllReservation() {
+        return dao.findAllReservation();
     }
 
     @Override

@@ -71,8 +71,14 @@
                         android:text="@string/disponible" android:visibility="invisible" />
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_reserv_vol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reserver" android:visibility="invisible" />
 
             </LinearLayout>
+
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

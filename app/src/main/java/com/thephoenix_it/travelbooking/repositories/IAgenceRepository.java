@@ -1,6 +1,7 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 
@@ -20,4 +21,5 @@ public interface IAgenceRepository extends Serializable {
     Vol findOneVolById(int id_vol);
     Boolean delete_vol(int id_vol);
     List<Vol> listVol();
+
 }

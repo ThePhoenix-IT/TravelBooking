@@ -69,6 +69,7 @@ public class ListVolActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listVolsView);
         final List<Vol> listVol = service.listVol();
+        System.err.println(listVol.size());
         CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

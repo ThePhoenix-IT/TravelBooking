@@ -29,18 +29,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Nom_user TEXT, " +
                 "Prenom_user TEXT, " +
                 "CIN INTEGER, " +
-                "Date_b DATE) ";
+                "Date_b DATE, " +
+                "Id_user_type INTEGER) ";
 
         String account = "CREATE TABLE Account " +
                 "( Id_account INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Login TEXT, " +
                 "Password TEXT, " +
-                "State INTEGER DEFAULT 0) ";
+                "State INTEGER DEFAULT 0, " +
+                "Id_user INTEGER) ";
 
         String reserve = "CREATE TABLE Reserve " +
                 "( Id_reserve INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Date_res DATE, " +
-                "date_ann DATE) ";
+                "date_ann DATE, " +
+                "Id_etat INTEGER, " +
+                "Id_user INTEGER, " +
+                "Id_vol INTEGER) ";
 
         String vol = "CREATE TABLE Vol " +
                 "( Id_vol INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,7 +54,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Duration REAL, " +
                 "Price REAL, " +
                 "Disponibility INTEGER DEFAULT 0, " +
-                "Creation_date DATE) ";
+                "Creation_date DATE, " +
+                "Id_user INTEGER) ";
 
         String Stat_res = "CREATE TABLE Status " +
                 "( Id_etat INTEGER PRIMARY KEY AUTOINCREMENT, " +

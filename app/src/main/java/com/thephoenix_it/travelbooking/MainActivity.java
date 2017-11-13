@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
@@ -28,6 +29,7 @@ import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
 import com.thephoenix_it.travelbooking.views.agence.ListVolActivity;
 import com.thephoenix_it.travelbooking.views.client.CreerReservActivity;
+import com.thephoenix_it.travelbooking.views.client.CustomReservListAdapter;
 import com.thephoenix_it.travelbooking.views.client.ListReservationActivity;
 import com.thephoenix_it.travelbooking.views.client.ListVolsActivity;
 
@@ -68,15 +70,9 @@ public class MainActivity extends AppCompatActivity
             setContentView(R.layout.activity_main);
             listView = (ListView) findViewById(R.id.listReservUser);
 
-            String[] listItwms = new String[]{"ListView Example", "ListView with FAB", "FAB with Simple List View in Android", "ListView Adapter with Floating Action Button",
-                    "Android FAB and ListView Example", "List View and FAB Source Code", "FAB and List View Array", "Floating Action Button FAB", "ListView Example",
-                    "ListView with FAB", "FAB with Simple List View in Android", "ListView Adapter with Floating Action Button",
-                    "Android FAB and ListView Example", "List View and FAB Source Code", "FAB and List View Array"
-            };
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, listItwms);
-            listView.setAdapter(adapter);
+            List<Reservation> reservationList = clientServices.findAllReservation();
+            CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
+            listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

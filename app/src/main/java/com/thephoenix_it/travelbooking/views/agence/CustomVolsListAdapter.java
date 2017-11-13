@@ -45,5 +45,5 @@ public class CustomVolsListAdapter extends ArrayAdapter {
 
         return rowView;
 
-    };
+    }
 }

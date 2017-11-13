@@ -303,6 +303,11 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
+    public List<Reservation> findAllReservation() {
+        return null;
+    }
+
+    @Override
     public List<Vol> listVolByDestination(String destination) {
         List<Vol> result = new ArrayList<Vol>();
         try{
