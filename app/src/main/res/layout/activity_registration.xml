@@ -26,7 +26,8 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin">
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,7 +36,7 @@
             tools:ignore="MissingConstraints">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
@@ -100,8 +101,10 @@
                     android:inputType="textEmailAddress"
                     android:hint="@string/email"/>
                 <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:id="@+id/button"
-                    android:layout_width="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/valider" />
 
@@ -111,7 +114,7 @@
     <LinearLayout
         android:visibility="invisible"
         android:id="@+id/agence_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -140,8 +143,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/login"
-                    android:inputType="textPersonName"
-                    android:text="@string/login" />
+                    android:inputType="textPersonName" />
 
                 <EditText
                     android:id="@+id/agence_password1"
@@ -184,8 +186,10 @@
                     android:inputType="textEmailAddress" android:hint="@string/email" />
 
                 <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:id="@+id/agence_button"
-                    android:layout_width="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/valider" />
             </LinearLayout>

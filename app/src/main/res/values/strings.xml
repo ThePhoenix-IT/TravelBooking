@@ -71,4 +71,5 @@
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
     <string name="reserver">Reserver</string>
+    <string name="travel_booking">Travel Booking</string>
 </resources>
