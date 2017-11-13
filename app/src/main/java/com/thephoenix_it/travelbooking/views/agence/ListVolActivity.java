@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -102,8 +103,8 @@ public class ListVolActivity extends AppCompatActivity {
 
     private void volLisFilter() {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
-        dialog.setContentView(R.layout.dialog_search_vol);
         dialog.setTitle("Search...");
+        dialog.setContentView(R.layout.dialog_search_vol);
         dialog.show();
     }
 }

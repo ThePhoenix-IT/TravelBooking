@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Vol;
@@ -16,6 +18,7 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
 public class CreerVolActivity extends AppCompatActivity {
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
     private Vol vol;
+    private TextView txtNumVol, txtDestination;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,8 @@ public class CreerVolActivity extends AppCompatActivity {
             }
         } else {
         }
+        txtNumVol = findViewById(R.id.num_vol);
+        txtDestination = findViewById(R.id.vol_destination);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,5 +59,23 @@ public class CreerVolActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.creer_vol_menu, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.save_vol:
+                createVol();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void createVol() {
+        Vol vol = new Vol();
+        vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
+        vol.setDestination(txtDestination.getText().toString());
+        agenceServices.creer_vol(vol);
     }
 }

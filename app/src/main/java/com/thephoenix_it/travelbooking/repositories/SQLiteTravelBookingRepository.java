@@ -56,7 +56,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Vol creer_vol(Vol vol) {
-        return null;
+        dao.create_vol(vol);
+        return vol;
     }
 
     @Override

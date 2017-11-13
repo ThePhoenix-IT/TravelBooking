@@ -22,28 +22,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String user_type = "CREATE TABLE UserType " +
-                "( Id_user_type INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_user_type INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "desc_user_type TEXT ) ";
         String usr = "CREATE TABLE User " +
-                "( Id_user INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Nom_user TEXT, " +
                 "Prenom_user TEXT, " +
                 "CIN INTEGER, " +
                 "Date_b DATE) ";
 
         String account = "CREATE TABLE Account " +
-                "( Id_account INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_account INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Login TEXT, " +
                 "Password TEXT, " +
                 "State INTEGER DEFAULT 0) ";
 
         String reserve = "CREATE TABLE Reserve " +
-                "( Id_reserve INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_reserve INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Date_res DATE, " +
                 "date_ann DATE) ";
 
         String vol = "CREATE TABLE Vol " +
-                "( Id_vol INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_vol INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Num_vol INTEGER, " +
                 "Destination TEXT, " +
                 "Duration REAL, " +
@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Creation_date DATE) ";
 
         String Stat_res = "CREATE TABLE Status " +
-                "( Id_etat INTEGER AUTOINCREMENT PRIMARY KEY , " +
+                "( Id_etat INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Desc_stat TEXT) ";
 
         db.execSQL(user_type);
