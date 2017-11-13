@@ -3,6 +3,7 @@ package com.thephoenix_it.travelbooking.repositories;
 import android.content.Context;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.EtatReservation;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -26,12 +27,18 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Reservation creer_reservation(Reservation reservation) {
-        return null;
+        dao.create_res(reservation);
+        return reservation;
     }
 
     @Override
     public Reservation update_reservation(Reservation reservation) {
         return null;
+    }
+
+    @Override
+    public EtatReservation findOneEtatReservationByDesc(String etat_reservation) {
+        return dao.findOneEtatReservationByDesc(etat_reservation);
     }
 
     @Override

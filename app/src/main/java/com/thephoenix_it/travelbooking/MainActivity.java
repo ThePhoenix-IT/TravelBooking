@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
             listView = (ListView) findViewById(R.id.listReservUser);
 
             List<Reservation> reservationList = clientServices.findAllReservation();
+            System.err.println(reservationList.size());
             CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -19,6 +19,8 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
+import java.util.Date;
+
 public class CreerVolActivity extends AppCompatActivity {
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
     private Vol vol;
@@ -120,6 +122,7 @@ public class CreerVolActivity extends AppCompatActivity {
         Vol vol = new Vol();
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
         vol.setDestination(txtDestination.getText().toString());
+        vol.setDate_creation(new Date());
         agenceServices.creer_vol(vol);
     }
 }

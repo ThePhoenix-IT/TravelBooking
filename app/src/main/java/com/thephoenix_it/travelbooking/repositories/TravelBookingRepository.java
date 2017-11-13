@@ -1,6 +1,7 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.EtatReservation;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -8,12 +9,9 @@ import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
-import okhttp3.internal.Util;
 
 /**
  * Created by hamzajguerim on 2017-11-12.
@@ -281,6 +279,11 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
 
     @Override
     public Reservation update_reservation(Reservation reservation) {
+        return null;
+    }
+
+    @Override
+    public EtatReservation findOneEtatReservationByDesc(String etat_reservation) {
         return null;
     }
 

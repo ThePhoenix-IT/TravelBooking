@@ -127,6 +127,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         ContentValues values = new ContentValues();
         values.put("Date_res", String.valueOf(objectReserv.getDate_reservation()));
         values.put("date_ann", String.valueOf(objectReserv.getDate_annulation()));
+        values.put("Id_vol", objectReserv.getVol().getId_vol());
+        values.put("Id_user", objectReserv.getClient().getId_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Reserve", null, values) > 0;
         db.close();
@@ -227,6 +229,30 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return result;
     }
+    public EtatReservation findOneEtatReservationByDesc(String desc_etat) {
+
+        EtatReservation result = new EtatReservation();
+
+        String sql = "SELECT * FROM Status s WHERE s.Desc_stat = " + desc_etat;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                result.setId_etat_reservation(Id_etat);
+                result.setDesc_etat(desc_stat);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
 
     public List<TypeUtilisateur> findAllTypeUtilisateur() {
 
@@ -259,7 +285,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         List<Reservation> recordsList = new ArrayList<Reservation>();
 
-        String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+        //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+        String sql = "SELECT * FROM Reserve r, Vol v WHERE r.Id_vol = v.Id_vol ORDER BY Id_reserve DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -287,7 +314,17 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                         e.printStackTrace();
                     }
                 Reservation objectReserve = new Reservation();
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
                 objectReserve.setId_reservation(Id_reserve);
+                objectReserve.setVol(objectVol);
+                objectReserve.setEtatReservation(new EtatReservation("Encours"));
                 recordsList.add(objectReserve);
 
             } while (cursor.moveToNext());
