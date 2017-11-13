@@ -1,44 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vol_listview_row"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_margin="5dp"
+    android:id="@+id/vol_listview_row"
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="2dp">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@android:drawable/ic_input_get"/>
+        <ImageButton
+            android:id="@+id/typeCircle"
+            android:layout_width="57dp"
+            android:layout_height="50dp"
+            android:background="@drawable/type" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_height="50dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/volListTextView1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:text="text"/>
-
-            <TextView
-                android:id="@+id/volListTextView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Text View"
+                android:textColor="@color/primary_text"
                 android:textSize="18sp"
-                android:text="text" />
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/volListTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Duree: "
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/volListTextView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Prix: "
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#CCC"
+                />
         </LinearLayout>
 
     </LinearLayout>

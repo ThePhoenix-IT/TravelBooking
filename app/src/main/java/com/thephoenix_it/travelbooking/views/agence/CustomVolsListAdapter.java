@@ -34,13 +34,15 @@ public class CustomVolsListAdapter extends ArrayAdapter {
         //this code gets references to objects in the listview_row.xml file
         TextView nameTextField = (TextView) rowView.findViewById(R.id.volListTextView1);
         TextView infoTextField = (TextView) rowView.findViewById(R.id.volListTextView2);
+        TextView prixTextField = (TextView) rowView.findViewById(R.id.volListTextView3);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1ID);
 
         //this code sets the values of the objects to values from the arrays
-        if(volList.get(position) != null)
+        if(volList.get(position) != null) {
             nameTextField.setText(volList.get(position).getDestination());
-        if(volList.get(position) != null)
-            infoTextField.setText("" + volList.get(position).getDuree());
+            infoTextField.setText("Duree: " + volList.get(position).getDuree());
+            prixTextField.setText("Prix: " + volList.get(position).getPrix());
+        }
         //imageView.setImageResource(imageIDarray[position]);
 
         return rowView;

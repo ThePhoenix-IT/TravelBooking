@@ -38,8 +38,11 @@ public class CustomUtlisateursListAdapter extends ArrayAdapter {
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1ID);
 
         //this code sets the values of the objects to values from the arrays
-        nameTextField.setText(utilisateurList.get(position).getNom_utilisateur() + " " + utilisateurList.get(position).getPrenom_utilisateur());
-        infoTextField.setText(utilisateurList.get(position).getTypeUtilisateur().getDesc_type_utilisateur());
+        if(utilisateurList.get(position) != null) {
+
+            nameTextField.setText(utilisateurList.get(position).getNom_utilisateur() + " " + utilisateurList.get(position).getPrenom_utilisateur());
+            infoTextField.setText(utilisateurList.get(position).getTypeUtilisateur().getDesc_type_utilisateur());
+        }
         //imageView.setImageResource(imageIDarray[position]);
 
         return rowView;
