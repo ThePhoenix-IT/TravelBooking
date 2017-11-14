@@ -316,6 +316,11 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
+    public List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree) {
+        return null;
+    }
+
+    @Override
     public List<Reservation> findAllReservation() {
         return null;
     }

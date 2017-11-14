@@ -21,5 +21,6 @@ public interface IAgenceRepository extends Serializable {
     Vol findOneVolById(int id_vol);
     Boolean delete_vol(int id_vol);
     List<Vol> listVol();
+    List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree);
 
 }

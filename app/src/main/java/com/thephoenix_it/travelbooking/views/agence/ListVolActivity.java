@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
@@ -39,6 +40,7 @@ public class ListVolActivity extends AppCompatActivity {
     private IAgenceRepository agenceServices =  new SQLiteTravelBookingRepository(this);
     private ListView listView;
 
+    private List<Vol> listVol;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +49,14 @@ public class ListVolActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if(LoginActivity.connectedUser == null)
+        if(LoginActivity.connectedUser == null) {
+
             fab.setVisibility(View.INVISIBLE);
+            listVol= service.listVol();
+        }
         else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            listVol= agenceServices.listVol();
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,7 +74,6 @@ public class ListVolActivity extends AppCompatActivity {
         });
 
         listView = (ListView) findViewById(R.id.listVolsView);
-        final List<Vol> listVol = service.listVol();
         System.err.println(listVol.size());
         CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
         listView.setAdapter(whatever);
@@ -106,6 +111,31 @@ public class ListVolActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
         dialog.setTitle("Search...");
         dialog.setContentView(R.layout.dialog_search_vol);
+        Button btnSearch = findViewById(R.id.btn_search);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(LoginActivity.connectedUser == null) {
+                    final List<Vol> listVol = service.listVolFiltered(0, null, null, null);
+                    System.err.println(listVol.size());
+                    CustomVolsListAdapter whatever = new CustomVolsListAdapter(ListVolActivity.this, listVol);
+                    listView.setAdapter(whatever);
+                } else {
+
+                    final List<Vol> listVol = agenceServices.listVolFiltered(0, null, null, null);
+                    System.err.println(listVol.size());
+                    CustomVolsListAdapter whatever = new CustomVolsListAdapter(ListVolActivity.this, listVol);
+                    listView.setAdapter(whatever);
+                }
+            }
+        });
+        Button btnCancel = findViewById(R.id.btn_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 }

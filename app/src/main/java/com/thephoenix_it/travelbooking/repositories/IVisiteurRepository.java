@@ -19,4 +19,6 @@ public interface IVisiteurRepository extends Serializable {
     Utilisateur login(String login, String password);
     Compte loginCompte(String login, String password);
     TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur);
+
+    List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree);
 }
