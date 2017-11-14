@@ -12,10 +12,10 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="57dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            app:srcCompat="@android:drawable/ic_input_get"/>
+            android:background="@drawable/type"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,18 +25,31 @@
 
             <TextView
                 android:id="@+id/reservListTextView1"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:text="text"/>
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Text View"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/reservListTextView2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="text" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Etat: "
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
+            
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#CCC"
+                />
         </LinearLayout>
 
     </LinearLayout>
