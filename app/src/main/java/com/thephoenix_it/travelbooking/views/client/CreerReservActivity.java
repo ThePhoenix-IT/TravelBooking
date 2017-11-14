@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
@@ -23,6 +24,7 @@ public class CreerReservActivity extends AppCompatActivity {
     private Reservation reservation;
     private Vol vol;
     private EditText txtNumVol, txtDestination;
+    private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,10 @@ public class CreerReservActivity extends AppCompatActivity {
         }
         txtNumVol = findViewById(R.id.num_vol);
         txtDestination = findViewById(R.id.vol_destination);
+        radioGroup = findViewById(R.id.etatReservRG);
+        if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
+            radioGroup.setVisibility(View.VISIBLE);
+        }
         if(vol != null){
 
             txtNumVol.setText("" + vol.getNum_vol());

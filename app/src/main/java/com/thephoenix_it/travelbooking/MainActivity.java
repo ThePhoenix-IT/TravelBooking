@@ -209,6 +209,11 @@ public class MainActivity extends AppCompatActivity
                 Intent mainIntent = new Intent(MainActivity.this, ListReservationActivity.class);
                 MainActivity.this.startActivity(mainIntent);
             }
+            else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
+
+                Intent mainIntent = new Intent(MainActivity.this, ListReservationActivity.class);
+                MainActivity.this.startActivity(mainIntent);
+            }
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

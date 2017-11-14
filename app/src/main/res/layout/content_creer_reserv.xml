@@ -60,16 +60,49 @@
                     android:text="@string/etat_vol" />
 
                 <TextView
+                    android:id="@+id/txtEtatVol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/disponible" />
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reserver" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reservations" />
+                <TextView
+                    android:id="@+id/txtEtatReserv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/etatReservRG"
+                android:visibility="invisible"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/encours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="EnCours"/>
+                <RadioButton android:id="@+id/annuler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Annuler"/>
+                <RadioButton android:id="@+id/confirmer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmer"/>
+            </RadioGroup>
 
         </LinearLayout>
 
