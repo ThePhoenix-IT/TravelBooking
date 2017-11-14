@@ -23,7 +23,7 @@ public class CustomReservListAdapter extends ArrayAdapter {
     private List<Reservation> reservationList;
     public CustomReservListAdapter(Activity context, List<Reservation> reservationList) {
 
-        super(context, R.layout.vol_listview_row , reservationList);
+        super(context, R.layout.reserv_listview_row , reservationList);
         this.context = context;
         this.reservationList = reservationList;
     }
@@ -38,10 +38,10 @@ public class CustomReservListAdapter extends ArrayAdapter {
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1ID);
 
         //this code sets the values of the objects to values from the arrays
-        if(reservationList.get(position) != null)
+        if(reservationList.get(position) != null) {
             nameTextField.setText(reservationList.get(position).getVol().getDestination());
-        if(reservationList.get(position) != null)
             infoTextField.setText("" + reservationList.get(position).getEtatReservation().getDesc_etat());
+        }
         //imageView.setImageResource(imageIDarray[position]);
 
         return rowView;

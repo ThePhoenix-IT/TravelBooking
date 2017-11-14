@@ -36,13 +36,13 @@ public class ListVolsActivity extends AppCompatActivity {
         });
         listView = (ListView) findViewById(R.id.listVolsUser);
         final List<Vol> listVol = service.listVol();
-        System.err.println(listVol.size());
         CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent mainIntent = new Intent(ListVolsActivity.this, CreerReservActivity.class);
+                mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
                 ListVolsActivity.this.startActivity(mainIntent);
             }
         });

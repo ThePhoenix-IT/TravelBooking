@@ -36,6 +36,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Login", objectCompte.getLogin());
         values.put("Password", objectCompte.getPassword());
         values.put("State", objectCompte.getEtat_compte());
+        values.put("Id_user", objectCompte.getId_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
 
         boolean createSuccessful = db.insert("Account", null, values) > 0;
@@ -62,6 +63,23 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         SQLiteDatabase db = this.getWritableDatabase();
 
         boolean createSuccessful = db.insert("User", null, values) > 0;
+
+        if (createSuccessful) {
+            String sql = "SELECT MAX(Id_user) FROM User";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+
+                    objectUser.setId_utilisateur(cursor.getInt(0));
+                    objectUser.getCompte().setId_utilisateur(cursor.getInt(0));
+                    create_compte(objectUser.getCompte());
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
         db.close();
         return createSuccessful;
     }
@@ -209,7 +227,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         TypeUtilisateur result = new TypeUtilisateur();
 
-        String sql = "SELECT * FROM UserType ut WHERE ut.desc_user_type = " + type;
+        String sql = "SELECT * FROM UserType ut WHERE ut.desc_user_type = \"" + type + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -233,7 +251,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         EtatReservation result = new EtatReservation();
 
-        String sql = "SELECT * FROM Status s WHERE s.Desc_stat = " + desc_etat;
+        String sql = "SELECT * FROM Status s WHERE s.Desc_stat = \"" + desc_etat +"\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -279,6 +297,66 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         db.close();
 
         return recordsList;
+    }
+
+    public Utilisateur login(String login, String password) {
+
+        Utilisateur result = null;
+
+        String sql = "SELECT * FROM User u, UserType ut, Account a WHERE a.Id_user = u.Id_user AND " +
+                " u.Id_user_type = ut.Id_user_type AND " +
+                " a.login = \"" + login + "\" AND a.password = \"" + password + "\" ORDER BY Id_user DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                result = new Utilisateur();
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                TypeUtilisateur objectVol = new TypeUtilisateur();
+                objectVol.setId_type_utilisateur(id_user_type);
+                objectVol.setDesc_type_utilisateur(desc_user_type);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
+    public List<Utilisateur> listUtilisateur() {
+
+        List<Utilisateur> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM User u, UserType ut, Account a WHERE a.Id_user = u.Id_user AND " +
+                " u.Id_user_type = ut.Id_user_type ORDER BY Id_user DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Utilisateur user = new Utilisateur();
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                TypeUtilisateur objectUserType = new TypeUtilisateur();
+                objectUserType.setId_type_utilisateur(id_user_type);
+                objectUserType.setDesc_type_utilisateur(desc_user_type);
+                user.setId_utilisateur(id_user);
+                user.setTypeUtilisateur(objectUserType);
+                result.add(user);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
     }
 
     public List<Reservation> findAllReservation() {

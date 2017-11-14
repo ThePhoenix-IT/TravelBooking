@@ -155,6 +155,16 @@ public class TravelBookingRepository implements IAdminRepository, IAgenceReposit
     }
 
     @Override
+    public EtatReservation createEtatReservation(EtatReservation etatReservation) {
+        return null;
+    }
+
+    @Override
+    public List<EtatReservation> findAllEtatReservation() {
+        return null;
+    }
+
+    @Override
     public Utilisateur login(String login, String password) {
 
         Utilisateur result = null;

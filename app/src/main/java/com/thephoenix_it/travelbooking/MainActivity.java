@@ -70,14 +70,15 @@ public class MainActivity extends AppCompatActivity
             setContentView(R.layout.activity_main);
             listView = (ListView) findViewById(R.id.listReservUser);
 
-            List<Reservation> reservationList = clientServices.findAllReservation();
-            System.err.println(reservationList.size());
+            final List<Reservation> reservationList = clientServices.findAllReservation();
             CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent mainIntent = new Intent(MainActivity.this, CreerReservActivity.class);
+                    mainIntent.putExtra("id_reservation", reservationList.get(position).getId_reservation());
+                    mainIntent.putExtra("id_vol", reservationList.get(position).getVol().getId_vol());
                     MainActivity.this.startActivity(mainIntent);
                 }
             });

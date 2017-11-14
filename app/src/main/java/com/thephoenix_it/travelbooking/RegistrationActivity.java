@@ -20,7 +20,7 @@ import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 import java.util.Date;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
+    private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
     private LinearLayout client, agence;
 
     private Utilisateur user;

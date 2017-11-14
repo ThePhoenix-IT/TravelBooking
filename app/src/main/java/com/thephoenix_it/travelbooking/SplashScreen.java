@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
+    private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     @Override
@@ -30,6 +30,9 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
+                System.err.println(adminServices.listUtilisateur().size());
+                System.err.println(adminServices.findAllTypeUtilisateur().size());
+                System.err.println(adminServices.findCompteAdmin());
                 if(adminServices.findAllTypeUtilisateur().size() == 0){
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Admin"));
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Client"));

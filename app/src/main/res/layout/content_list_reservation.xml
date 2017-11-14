@@ -8,4 +8,10 @@
     tools:context="com.thephoenix_it.travelbooking.views.client.ListReservationActivity"
     tools:showIn="@layout/activity_list_reservation">
 
+    <ListView
+        android:id="@+id/listReservView"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>

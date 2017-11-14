@@ -1,15 +1,28 @@
 package com.thephoenix_it.travelbooking.views.client;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.thephoenix_it.travelbooking.R;
+import com.thephoenix_it.travelbooking.models.Reservation;
+import com.thephoenix_it.travelbooking.models.Vol;
+import com.thephoenix_it.travelbooking.repositories.IClientRepository;
+import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
+import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
+
+import java.util.List;
 
 public class ListReservationActivity extends AppCompatActivity {
+
+    private IClientRepository service = new SQLiteTravelBookingRepository(this);
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +44,19 @@ public class ListReservationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        listView = (ListView) findViewById(R.id.listReservView);
+        final List<Reservation> reservationList = service.findAllReservation();
+        CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
+        listView.setAdapter(whatever);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mainIntent = new Intent(ListReservationActivity.this, CreerReservActivity.class);
+                mainIntent.putExtra("id_reservation", reservationList.get(position).getId_reservation());
+                mainIntent.putExtra("id_vol", reservationList.get(position).getVol().getId_vol());
+                ListReservationActivity.this.startActivity(mainIntent);
             }
         });
     }

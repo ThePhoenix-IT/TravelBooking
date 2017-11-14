@@ -1,6 +1,7 @@
 package com.thephoenix_it.travelbooking.repositories;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.EtatReservation;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -26,5 +27,7 @@ public interface IAdminRepository extends Serializable {
     Utilisateur findOneUtilisateurById(int id_utilisateur);
     List<Utilisateur> listUtilisateur();
     List<Reservation> listReservation();
+    EtatReservation createEtatReservation(EtatReservation etatReservation);
+    List<EtatReservation> findAllEtatReservation();
     Utilisateur login(String login, String password);
 }

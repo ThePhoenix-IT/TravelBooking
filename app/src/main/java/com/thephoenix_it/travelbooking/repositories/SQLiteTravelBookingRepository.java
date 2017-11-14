@@ -48,7 +48,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Utilisateur creation_compte(Utilisateur utilisateur) {
-        return null;
+        dao.create_user(utilisateur);
+        return utilisateur;
     }
 
     @Override
@@ -137,7 +138,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur) {
-        return null;
+        return dao.findOneTypeUtilisateurByDesc(desc_type_utilisateur);
     }
 
     @Override
@@ -147,7 +148,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Utilisateur findCompteAdmin() {
-        return null;
+        return dao.findCompteAdmin();
     }
 
     @Override
@@ -157,16 +158,26 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public List<Utilisateur> listUtilisateur() {
-        return null;
+        return dao.listUtilisateur();
     }
 
     @Override
     public List<Reservation> listReservation() {
+        return dao.findAllReservation();
+    }
+
+    @Override
+    public EtatReservation createEtatReservation(EtatReservation etatReservation) {
+        return null;
+    }
+
+    @Override
+    public List<EtatReservation> findAllEtatReservation() {
         return null;
     }
 
     @Override
     public Utilisateur login(String login, String password) {
-        return null;
+        return dao.login(login, password);
     }
 }
