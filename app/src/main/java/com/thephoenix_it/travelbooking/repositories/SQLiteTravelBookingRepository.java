@@ -117,7 +117,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public TypeUtilisateur createTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
-        return null;
+        dao.create_user_type(typeUtilisateur);
+        return typeUtilisateur;
     }
 
     @Override
@@ -148,7 +149,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Utilisateur createCompteAdmin(Utilisateur utilisateur) {
-        return null;
+        return dao.createCompteAdmin(utilisateur);
     }
 
     @Override

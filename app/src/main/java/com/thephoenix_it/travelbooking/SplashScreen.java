@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private IAdminRepository adminServices = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
+    private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     @Override
@@ -44,6 +44,9 @@ public class SplashScreen extends AppCompatActivity {
                     admin.setCompte(new Compte("admin", "12345", true, admin));
                     adminServices.createCompteAdmin(admin);
                 }
+                System.err.println(adminServices.listUtilisateur().size());
+                System.err.println(adminServices.findAllTypeUtilisateur().size());
+                System.err.println(adminServices.findCompteAdmin());
                 for(Utilisateur u : adminServices.listUtilisateur()){
                     System.err.println(u);
                 }

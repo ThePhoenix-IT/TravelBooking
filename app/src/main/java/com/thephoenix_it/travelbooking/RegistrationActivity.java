@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -76,6 +77,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 user.setCompte(new Compte(txtClientLogin.getText().toString(), txtClientPassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                Toast.makeText(RegistrationActivity.this, "Compte Utilisateur creer avec succee.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -95,6 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                Toast.makeText(RegistrationActivity.this, "Compte agence creer avec succee.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

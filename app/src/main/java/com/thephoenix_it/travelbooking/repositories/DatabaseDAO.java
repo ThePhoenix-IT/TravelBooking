@@ -60,6 +60,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Prenom_user", objectUser.getPrenom_utilisateur());
         values.put("CIN", objectUser.getCin());
         values.put("Date_b", String.valueOf(objectUser.getDate_naissance()));
+        values.put("Id_user_type", String.valueOf(objectUser.getTypeUtilisateur().getId_type_utilisateur()));
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         boolean createSuccessful = db.insert("User", null, values) > 0;
@@ -92,11 +94,13 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Price", objectVol.getPrix());
         values.put("Disponibility", objectVol.getDisponible());
         values.put("Creation_date", String.valueOf(objectVol.getDate_creation()));
+        values.put("Id_user", objectVol.getAgence().getId_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Vol", null, values) > 0;
         db.close();
         return createSuccessful;
     }
+
     public Vol findOneVolByIdVol(int id_vol) {
         Vol result = null;
 
@@ -147,6 +151,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("date_ann", String.valueOf(objectReserv.getDate_annulation()));
         values.put("Id_vol", objectReserv.getVol().getId_vol());
         values.put("Id_user", objectReserv.getClient().getId_utilisateur());
+        values.put("Id_etat", objectReserv.getEtatReservation().getId_etat_reservation());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Reserve", null, values) > 0;
         db.close();
@@ -176,9 +181,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
     public TypeUtilisateur createTypeUtilisateur(TypeUtilisateur objectTypeUtilisateur) {
 
         ContentValues values = new ContentValues();
-        values.put("Date_res", String.valueOf(objectTypeUtilisateur.getDesc_type_utilisateur()));
+        values.put("desc_user_type", String.valueOf(objectTypeUtilisateur.getDesc_type_utilisateur()));
         SQLiteDatabase db = this.getWritableDatabase();
-        boolean createSuccessful = db.insert("Desc_stat", null, values) > 0;
+        boolean createSuccessful = db.insert("UserType", null, values) > 0;
         if (createSuccessful) {
             String sql = "SELECT MAX(Id_user_type) FROM UserType";
             Cursor cursor = db.rawQuery(sql, null);
@@ -186,7 +191,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
             if (cursor.moveToFirst()) {
                 do {
 
-                    objectTypeUtilisateur.setId_type_utilisateur(cursor.getInt(1));
+                    objectTypeUtilisateur.setId_type_utilisateur(cursor.getInt(0));
 
                 } while (cursor.moveToNext());
             }
@@ -199,15 +204,19 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
     public Utilisateur findCompteAdmin() {
 
-        Utilisateur result = new Utilisateur();
+        Utilisateur result = null;
 
-        String sql = "SELECT * FROM User u, Account a, UserType ut WHERE ut.desc_user_type = \"Admin\"";
+        String sql = "SELECT * FROM User u, Account a, UserType ut " +
+                "WHERE u.Id_user = a.Id_user AND " +
+                "u.Id_user_type = ut.Id_user_type AND " +
+                "ut.desc_user_type = \"Admin\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
             do {
+                result = new Utilisateur();
                 int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
                 TypeUtilisateur objectVol = new TypeUtilisateur();
@@ -460,5 +469,10 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         db.close();
 
         return recordsList;
+    }
+
+    public Utilisateur createCompteAdmin(Utilisateur utilisateur) {
+        create_user(utilisateur);
+        return utilisateur;
     }
 }

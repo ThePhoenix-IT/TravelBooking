@@ -111,6 +111,7 @@ public class ListVolActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
         dialog.setTitle("Search...");
         dialog.setContentView(R.layout.dialog_search_vol);
+        dialog.show();
         Button btnSearch = findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +137,5 @@ public class ListVolActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.show();
     }
 }
