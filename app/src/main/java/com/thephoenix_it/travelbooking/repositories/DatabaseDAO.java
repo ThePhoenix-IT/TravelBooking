@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bouba on 10-Nov-17.
@@ -686,5 +687,53 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
     public Utilisateur createCompteAdmin(Utilisateur utilisateur) {
         create_user(utilisateur);
         return utilisateur;
+    }
+
+    public List<Vol> listVolFiltered(Map filter) {
+        List<Vol> recordsList = new ArrayList<Vol>();
+
+        String sql = "SELECT * FROM Vol ORDER BY Id_vol DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                recordsList.add(objectVol);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordsList;
     }
 }

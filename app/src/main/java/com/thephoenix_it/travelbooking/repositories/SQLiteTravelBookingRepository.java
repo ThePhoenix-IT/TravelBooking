@@ -12,6 +12,7 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hamzajguerim on 2017-11-12.
@@ -96,8 +97,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
-    public List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree) {
-        return null;
+    public List<Vol> listVolFiltered(Map filter) {
+        return dao.listVolFiltered(filter);
     }
 
     @Override

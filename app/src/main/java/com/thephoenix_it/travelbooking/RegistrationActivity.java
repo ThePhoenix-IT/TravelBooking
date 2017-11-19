@@ -16,9 +16,7 @@ import android.widget.Toast;
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
 import java.util.Date;
 

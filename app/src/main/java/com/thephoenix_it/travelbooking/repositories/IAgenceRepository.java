@@ -7,6 +7,7 @@ import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by root on 17/11/04.
@@ -21,6 +22,6 @@ public interface IAgenceRepository extends Serializable {
     Vol findOneVolById(int id_vol);
     Boolean delete_vol(int id_vol);
     List<Vol> listVol();
-    List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree);
+    List<Vol> listVolFiltered(Map filter);
 
 }

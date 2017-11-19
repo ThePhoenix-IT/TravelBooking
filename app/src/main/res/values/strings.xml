@@ -72,4 +72,7 @@
     <string name="cancel">Cancel</string>
     <string name="reserver">Reserver</string>
     <string name="travel_booking">Travel Booking</string>
+    <string name="depart">Depart</string>
+    <string name="date_arrivee">Date Arrivee</string>
+    <string name="date_depart">Date Depart</string>
 </resources>

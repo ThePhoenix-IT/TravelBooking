@@ -7,6 +7,7 @@ import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hamzajguerim on 2017-11-09.
@@ -20,5 +21,5 @@ public interface IVisiteurRepository extends Serializable {
     Compte loginCompte(String login, String password);
     TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur);
 
-    List<Vol> listVolFiltered(int num_vol, String destination, Double prix, Double duree);
+    List<Vol> listVolFiltered(Map filter);
 }

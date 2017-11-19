@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,13 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.models.Utilisateur;
-import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
-import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
-import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
 /**
  * A login screen that offers login via login/password.

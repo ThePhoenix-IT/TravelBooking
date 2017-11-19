@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
@@ -33,7 +35,9 @@ import com.thephoenix_it.travelbooking.views.client.ListVolsActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListVolActivity extends AppCompatActivity {
     private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
@@ -47,6 +51,7 @@ public class ListVolActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_vol);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if(LoginActivity.connectedUser == null) {
@@ -55,16 +60,15 @@ public class ListVolActivity extends AppCompatActivity {
             listVol= service.listVol();
         }
         else {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             listVol= agenceServices.listVol();
 
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,24 +133,41 @@ public class ListVolActivity extends AppCompatActivity {
             }
         });
     }
-
+    private EditText txtDestination, txtDateDep, txtDateArr, txtDepart, txtPrix, txtNumVol;
     private void volLisFilter() {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
         dialog.setTitle("Search...");
         dialog.setContentView(R.layout.dialog_search_vol);
         dialog.show();
+        txtDestination = dialog.findViewById(R.id.txtDestination);
+        txtDateDep = dialog.findViewById(R.id.txtDateDep);
+        txtDateArr = dialog.findViewById(R.id.txtDateArr);
+        txtDepart = dialog.findViewById(R.id.txtDepart);
+        txtPrix = dialog.findViewById(R.id.txtPrix);
+        txtNumVol = dialog.findViewById(R.id.txtNumVol);
         Button btnSearch = dialog.findViewById(R.id.btn_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(LoginActivity.connectedUser == null) {
-                    final List<Vol> listVol = service.listVolFiltered(0, null, null, null);
+                    Map filter = new HashMap<String, Object>();
+                    filter.put("numVol", Integer.parseInt(txtNumVol.getText().toString()));
+                    filter.put("destination", txtDestination.getText().toString());
+                    filter.put("prix", Double.valueOf(txtPrix.getText().toString()));
+                    filter.put("dateDep", txtDateDep.getText().toString());
+                    filter.put("dateArr", txtDateArr.getText().toString());
+                    final List<Vol> listVol = service.listVolFiltered(filter);
                     System.err.println(listVol.size());
                     CustomVolsListAdapter whatever = new CustomVolsListAdapter(ListVolActivity.this, listVol);
                     listView.setAdapter(whatever);
                 } else {
-
-                    final List<Vol> listVol = agenceServices.listVolFiltered(0, null, null, null);
+                    Map filter = new HashMap<String, Object>();
+                    filter.put("numVol", Integer.parseInt(txtNumVol.getText().toString()));
+                    filter.put("destination", txtDestination.getText().toString());
+                    filter.put("prix", Double.valueOf(txtPrix.getText().toString()));
+                    filter.put("dateDep", txtDateDep.getText().toString());
+                    filter.put("dateArr", txtDateArr.getText().toString());
+                    final List<Vol> listVol = agenceServices.listVolFiltered(filter);
                     System.err.println(listVol.size());
                     CustomVolsListAdapter whatever = new CustomVolsListAdapter(ListVolActivity.this, listVol);
                     listView.setAdapter(whatever);

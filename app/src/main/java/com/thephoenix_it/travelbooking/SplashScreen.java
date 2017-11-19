@@ -11,12 +11,8 @@ import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
-import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
-import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
