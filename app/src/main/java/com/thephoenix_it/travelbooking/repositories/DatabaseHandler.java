@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String account = "CREATE TABLE Account " +
                 "( Id_account INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "Login TEXT, " +
+                "Login TEXT UNIQUE, " +
                 "Password TEXT, " +
                 "State INTEGER DEFAULT 0, " +
                 "Id_user INTEGER) ";

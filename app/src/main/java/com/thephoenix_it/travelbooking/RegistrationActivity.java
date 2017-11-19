@@ -76,6 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 user.setCompte(new Compte(txtClientLogin.getText().toString(), txtClientPassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                finish();
             }
         });
         agence = findViewById(R.id.agence_layout);
@@ -94,6 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

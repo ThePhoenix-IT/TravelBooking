@@ -14,8 +14,12 @@ public class Vol extends RealmObject implements Serializable {
     @PrimaryKey
     private int id_vol;
     private int num_vol;
+    private int nbr_places;
     private Double duree;
+    private String depart;
     private String destination;
+    private Date date_depart;
+    private Date date_arrivee;
     private Double prix;
     private Date date_creation;
     private Boolean disponible;
@@ -25,10 +29,15 @@ public class Vol extends RealmObject implements Serializable {
     public Vol() {
     }
 
-    public Vol(int num_vol, Double duree, String destination, Double prix, Date date_creation, Boolean disponible, Utilisateur agence) {
+    public Vol(int num_vol, int nbr_places, Double duree, String depart, String destination,
+               Date date_depart, Date date_arrivee, Double prix, Date date_creation, Boolean disponible, Utilisateur agence) {
         this.num_vol = num_vol;
+        this.nbr_places = nbr_places;
         this.duree = duree;
+        this.depart = depart;
         this.destination = destination;
+        this.date_depart = date_depart;
+        this.date_arrivee = date_arrivee;
         this.prix = prix;
         this.date_creation = date_creation;
         this.disponible = disponible;
@@ -106,5 +115,37 @@ public class Vol extends RealmObject implements Serializable {
 
     public void setId_agence(int id_agence) {
         this.id_agence = id_agence;
+    }
+
+    public int getNbr_places() {
+        return nbr_places;
+    }
+
+    public void setNbr_places(int nbr_places) {
+        this.nbr_places = nbr_places;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
+    public Date getDate_depart() {
+        return date_depart;
+    }
+
+    public void setDate_depart(Date date_depart) {
+        this.date_depart = date_depart;
+    }
+
+    public Date getDate_arrivee() {
+        return date_arrivee;
+    }
+
+    public void setDate_arrivee(Date date_arrivee) {
+        this.date_arrivee = date_arrivee;
     }
 }
