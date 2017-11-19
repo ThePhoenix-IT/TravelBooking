@@ -171,7 +171,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Date Creation_date = new Date();
                 if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
                     try {
-                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -264,10 +264,33 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 result = new Utilisateur();
                 int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
-                TypeUtilisateur objectVol = new TypeUtilisateur();
-                objectVol.setId_type_utilisateur(id_user_type);
-                objectVol.setDesc_type_utilisateur(desc_user_type);
-
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int id_compte = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_account")));
+                String login = cursor.getString(cursor.getColumnIndex("Login"));
+                TypeUtilisateur objectUserType = new TypeUtilisateur();
+                objectUserType.setId_type_utilisateur(id_user_type);
+                objectUserType.setDesc_type_utilisateur(desc_user_type);
+                result.setTypeUtilisateur(objectUserType);
+                result.setId_utilisateur(id_user);
+                result.setNom_utilisateur(nom);
+                result.setPrenom_utilisateur(prenom);
+                result.setCin(cin);
+                result.setDate_naissance(date_b);
+                result.setPays(pays);
+                Compte objectCompte = new Compte();
+                objectCompte.setId_compte(id_compte);
+                objectCompte.setLogin(login);
+                result.setCompte(objectCompte);
             } while (cursor.moveToNext());
         }
 
@@ -369,9 +392,37 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 result = new Utilisateur();
                 int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
-                TypeUtilisateur objectVol = new TypeUtilisateur();
-                objectVol.setId_type_utilisateur(id_user_type);
-                objectVol.setDesc_type_utilisateur(desc_user_type);
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int id_compte = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_account")));
+                String loginr = cursor.getString(cursor.getColumnIndex("Login"));
+                String passwordr = cursor.getString(cursor.getColumnIndex("Password"));
+                int etatCompte = cursor.getInt(cursor.getColumnIndex("State"));
+                TypeUtilisateur objectUserType = new TypeUtilisateur();
+                objectUserType.setId_type_utilisateur(id_user_type);
+                objectUserType.setDesc_type_utilisateur(desc_user_type);
+                result.setTypeUtilisateur(objectUserType);
+                result.setId_utilisateur(id_user);
+                result.setNom_utilisateur(nom);
+                result.setPrenom_utilisateur(prenom);
+                result.setCin(cin);
+                result.setDate_naissance(date_b);
+                result.setPays(pays);
+                Compte objectCompte = new Compte();
+                objectCompte.setId_compte(id_compte);
+                objectCompte.setLogin(loginr);
+                objectCompte.setPassword(passwordr);
+                objectCompte.setEtat_compte(etatCompte > 0);
+                result.setCompte(objectCompte);
 
             } while (cursor.moveToNext());
         }
@@ -385,7 +436,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         List<Utilisateur> result = new ArrayList<>();
 
-        String sql = "SELECT * FROM User u, UserType ut, Account a WHERE a.Id_user = u.Id_user AND " +
+        String sql = "SELECT * FROM User u, UserType ut WHERE" +
                 " u.Id_user_type = ut.Id_user_type ORDER BY Id_user DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -394,14 +445,29 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         if (cursor.moveToFirst()) {
             do {
                 Utilisateur user = new Utilisateur();
-                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
                 int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 TypeUtilisateur objectUserType = new TypeUtilisateur();
                 objectUserType.setId_type_utilisateur(id_user_type);
                 objectUserType.setDesc_type_utilisateur(desc_user_type);
-                user.setId_utilisateur(id_user);
                 user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
                 result.add(user);
 
             } while (cursor.moveToNext());
@@ -413,6 +479,53 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         return result;
     }
 
+
+    public List<Utilisateur> listUtilisateurNotAdmin() {
+
+        List<Utilisateur> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM User u, UserType ut WHERE" +
+                " u.Id_user_type = ut.Id_user_type AND ut.desc_user_type <> \"Admin\" ORDER BY Id_user DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Utilisateur user = new Utilisateur();
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                TypeUtilisateur objectUserType = new TypeUtilisateur();
+                objectUserType.setId_type_utilisateur(id_user_type);
+                objectUserType.setDesc_type_utilisateur(desc_user_type);
+                user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                result.add(user);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
     public List<Reservation> findAllReservation() {
 
         List<Reservation> recordsList = new ArrayList<Reservation>();

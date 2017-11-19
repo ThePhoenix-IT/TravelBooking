@@ -13,6 +13,8 @@ import com.thephoenix_it.travelbooking.repositories.RealmFactory;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
@@ -30,23 +32,22 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                System.err.println(adminServices.listUtilisateur().size());
-                System.err.println(adminServices.findAllTypeUtilisateur().size());
-                System.err.println(adminServices.findCompteAdmin());
                 if(adminServices.findAllTypeUtilisateur().size() == 0){
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Admin"));
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Client"));
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Agence"));
                 }
                 if(adminServices.findCompteAdmin() == null) {
-                    Utilisateur admin = new Utilisateur("Admin", "Admin", "Admin@Admin.com", null,
-                            0, new Date(), adminServices.findOneTypeUtilisateurByDesc("Admin"));
+                    Utilisateur admin = null;
+                    try {
+                        admin = new Utilisateur("Admin", "Admin", null, "Admin@Admin.com",
+                                0, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(new Date().toString()), adminServices.findOneTypeUtilisateurByDesc("Admin"));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     admin.setCompte(new Compte("admin", "12345", true, admin));
                     adminServices.createCompteAdmin(admin);
                 }
-                System.err.println(adminServices.listUtilisateur().size());
-                System.err.println(adminServices.findAllTypeUtilisateur().size());
-                System.err.println(adminServices.findCompteAdmin());
                 for(Utilisateur u : adminServices.listUtilisateur()){
                     System.err.println(u);
                 }

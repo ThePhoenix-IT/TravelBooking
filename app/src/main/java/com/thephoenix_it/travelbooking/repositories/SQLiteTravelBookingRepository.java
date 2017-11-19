@@ -164,7 +164,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public List<Utilisateur> listUtilisateur() {
-        return dao.listUtilisateur();
+        return dao.listUtilisateurNotAdmin();
     }
 
     @Override

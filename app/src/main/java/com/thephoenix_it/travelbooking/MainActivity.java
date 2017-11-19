@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
                     mainIntent.putExtra("id_utilisateur", utilisateurList.get(position).getId_type_utilisateur());
-                    mainIntent.putExtra("adminServices", adminServices);
                     MainActivity.this.startActivity(mainIntent);
                 }
             });
