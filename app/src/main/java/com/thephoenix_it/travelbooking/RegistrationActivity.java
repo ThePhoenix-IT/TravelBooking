@@ -71,11 +71,12 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user = new Utilisateur(txtClientNom.getText().toString(), txtClientPrenom.getText().toString(),
+                user = new Utilisateur(txtClientNom.getText().toString(), txtClientPrenom.getText().toString(), null,
                         txtClientEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Client"));
                 user.setCompte(new Compte(txtClientLogin.getText().toString(), txtClientPassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                finish();
             }
         });
         agence = findViewById(R.id.agence_layout);
@@ -89,11 +90,12 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user = new Utilisateur(txtAgenceNom.getText().toString(), null,
+                user = new Utilisateur(txtAgenceNom.getText().toString(), null, null,
                         txtAgenceEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Agence"));
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -15,6 +15,7 @@ public class Utilisateur extends RealmObject implements Serializable {
     private int id_utilisateur;
     private String nom_utilisateur;
     private String prenom_utilisateur;
+    private String pays;
     private String email_utilisateur;
     private int cin;
     private Date date_naissance;
@@ -25,10 +26,11 @@ public class Utilisateur extends RealmObject implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(String nom_utilisateur, String prenom_utilisateur, String email_utilisateur,
+    public Utilisateur(String nom_utilisateur, String prenom_utilisateur, String pays, String email_utilisateur,
                        int cin, Date date_naissance, TypeUtilisateur typeUtilisateur) {
         this.nom_utilisateur = nom_utilisateur;
         this.prenom_utilisateur = prenom_utilisateur;
+        this.pays = pays;
         this.email_utilisateur = email_utilisateur;
         this.cin = cin;
         this.date_naissance = date_naissance;
@@ -106,6 +108,14 @@ public class Utilisateur extends RealmObject implements Serializable {
 
     public void setCompte(Compte compte) {
         this.compte = compte;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public void setPays(String pays) {
+        this.pays = pays;
     }
 
     @Override
