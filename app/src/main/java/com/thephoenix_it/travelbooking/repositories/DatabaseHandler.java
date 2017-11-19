@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "( Id_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Nom_user TEXT, " +
                 "Prenom_user TEXT, " +
+                "Pays TEXT, " +
                 "CIN INTEGER, " +
                 "Date_b DATE, " +
                 "Id_user_type INTEGER) ";
@@ -50,6 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String vol = "CREATE TABLE Vol " +
                 "( Id_vol INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Num_vol INTEGER, " +
+                "Depart TEXT, " +
                 "Destination TEXT, " +
                 "Duration REAL, " +
                 "Price REAL, " +

@@ -59,6 +59,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Nom_user", objectUser.getNom_utilisateur());
         values.put("Prenom_user", objectUser.getPrenom_utilisateur());
         values.put("CIN", objectUser.getCin());
+        values.put("Pays", objectUser.getPays());
         values.put("Date_b", String.valueOf(objectUser.getDate_naissance()));
         values.put("Id_user_type", String.valueOf(objectUser.getTypeUtilisateur().getId_type_utilisateur()));
 
@@ -85,10 +86,54 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         db.close();
         return createSuccessful;
     }
+
+    public void remove_vol(int i) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from Vol where Id_vol=i");
+    }
+
+    public void remove_user(int i) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from User where Id_vol=i");
+
+    }
+
+    public void remove_res(int i) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from Reserve where Id_vol=i");
+
+    }
+
+    public boolean update_vol(Vol objectVol, int i) {
+        ContentValues values = new ContentValues();
+        values.put("Num_vol", objectVol.getNum_vol());
+        values.put("Destination", objectVol.getDestination());
+        values.put("Duration", objectVol.getDuree());
+        values.put("Price", objectVol.getPrix());
+        values.put("Disponibility", objectVol.getDisponible());
+        values.put("Creation_date", String.valueOf(objectVol.getDate_creation()));
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean createSuccessful = db.update("Vol", values, "Id_vol = i", null)> 0;
+        db.close();
+        return createSuccessful;
+    }
+
+    public boolean update_res(Reservation objectReserv, int i) {
+        ContentValues values = new ContentValues();
+        values.put("Date_res", String.valueOf(objectReserv.getDate_reservation()));
+        values.put("date_ann", String.valueOf(objectReserv.getDate_annulation()));
+        values.put("Id_vol", objectReserv.getVol().getId_vol());
+        values.put("Id_user", objectReserv.getClient().getId_utilisateur());
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean createSuccessful = db.update("Reserve", values, "Id_vol = i", null) > 0;
+        db.close();
+        return createSuccessful;
+    }
     public boolean create_vol(Vol objectVol) {
 
         ContentValues values = new ContentValues();
         values.put("Num_vol", objectVol.getNum_vol());
+        values.put("Depart", objectVol.getDepart());
         values.put("Destination", objectVol.getDestination());
         values.put("Duration", objectVol.getDuree());
         values.put("Price", objectVol.getPrix());
