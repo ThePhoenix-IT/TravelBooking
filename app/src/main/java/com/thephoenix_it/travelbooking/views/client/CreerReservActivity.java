@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
@@ -17,6 +18,7 @@ import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
+import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 
 public class CreerReservActivity extends AppCompatActivity {
 
@@ -103,7 +105,10 @@ public class CreerReservActivity extends AppCompatActivity {
             reservation.setVol(vol);
             reservation.setClient(LoginActivity.connectedUser);
             reservation.setEtatReservation(clientServices.findOneEtatReservationByDesc("Encours"));
-            clientServices.creer_reservation(reservation);
+            if(clientServices.creer_reservation(reservation).getId_reservation() > 0)
+                Toast.makeText(CreerReservActivity.this, "Reservation cree avec succes.", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(CreerReservActivity.this, "Erreur creation Reservation.", Toast.LENGTH_LONG).show();
         }
     }
 
