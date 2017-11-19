@@ -107,7 +107,7 @@ public class CreerVolActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
-                if(vol  == null)
+                if(vol == null)
                     createVol();
                 else
                     updateVol();
@@ -135,7 +135,7 @@ public class CreerVolActivity extends AppCompatActivity {
         if(agenceServices.creer_vol(vol).getId_vol() > 0)
             Toast.makeText(CreerVolActivity.this, "Vol cree avec succes.", Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(CreerVolActivity.this, "Erreur creation volx.", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreerVolActivity.this, "Erreur creation vol.", Toast.LENGTH_LONG).show();
 
     }
 }

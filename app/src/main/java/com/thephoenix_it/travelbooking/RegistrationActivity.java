@@ -100,12 +100,17 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (txtClientPassword1.getText().toString().equals(txtClientPassword2.getText().toString())) {
                 user = new Utilisateur(txtAgenceNom.getText().toString(), null, null,
                         txtAgenceEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Agence"));
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
                 //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
+                    Toast.makeText(RegistrationActivity.this, "Compte cree avec succes.", Toast.LENGTH_LONG).show();
                 finish();
+                }
+                else
+                    Toast.makeText(RegistrationActivity.this, "Vérifier votre mot de passe.", Toast.LENGTH_LONG).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

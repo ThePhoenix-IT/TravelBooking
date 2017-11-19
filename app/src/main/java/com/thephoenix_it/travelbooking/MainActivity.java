@@ -131,6 +131,69 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onResume();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
+
+            setContentView(R.layout.activity_admin_main);
+            listView = (ListView) findViewById(R.id.listUtilisateurAdmin);
+            utilisateurList = adminServices.listUtilisateur();
+            CustomUtlisateursListAdapter whatever = new CustomUtlisateursListAdapter(this, utilisateurList);
+            listView.setAdapter(whatever);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mainIntent = new Intent(MainActivity.this, GererClientActivity.class);
+                    mainIntent.putExtra("id_utilisateur", utilisateurList.get(position).getId_type_utilisateur());
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            });
+        }
+        else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
+
+            setContentView(R.layout.activity_main);
+            listView = (ListView) findViewById(R.id.listReservUser);
+
+            final List<Reservation> reservationList = clientServices.findAllReservation();
+            CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
+            listView.setAdapter(whatever);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mainIntent = new Intent(MainActivity.this, CreerReservActivity.class);
+                    mainIntent.putExtra("id_reservation", reservationList.get(position).getId_reservation());
+                    mainIntent.putExtra("id_vol", reservationList.get(position).getVol().getId_vol());
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            });
+        }
+        else {
+
+            setContentView(R.layout.activity_agence_main);
+            listView = (ListView) findViewById(R.id.listVolAgence);
+            final List<Vol> listVol = agenceServices.listVol();
+            CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
+            listView.setAdapter(whatever);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
+                    mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
+                    MainActivity.this.startActivity(mainIntent);
+                }
+            });
+        }
+    }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

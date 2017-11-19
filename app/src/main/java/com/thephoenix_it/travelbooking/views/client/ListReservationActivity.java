@@ -15,7 +15,9 @@ import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
+import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
+import com.thephoenix_it.travelbooking.views.agence.ListVolActivity;
 
 import java.util.List;
 
@@ -60,5 +62,29 @@ public class ListReservationActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onResume();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final List<Reservation> reservationList = service.findAllReservation();
+        CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
+        listView.setAdapter(whatever);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mainIntent = new Intent(ListReservationActivity.this, CreerReservActivity.class);
+                mainIntent.putExtra("id_reservation", reservationList.get(position).getId_reservation());
+                mainIntent.putExtra("id_vol", reservationList.get(position).getVol().getId_vol());
+                ListReservationActivity.this.startActivity(mainIntent);
+            }
+        });
+    }
+
 
 }
