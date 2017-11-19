@@ -15,38 +15,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
+                android:id="@+id/client"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="Client: "/>
+            <TextView
                 android:id="@+id/num_vol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/num_vol"
-                android:inputType="number" />
+                android:text="Num Vol: "/>
 
-            <EditText
+            <TextView
                 android:id="@+id/vol_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/destination"
-                android:inputType="textPersonName"/>
+                android:text="Destination: "/>
 
-            <EditText
+            <TextView
                 android:id="@+id/vol_duree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/duree"
-                android:inputType="time" />
+                android:text="Duree: "/>
 
 
-            <EditText
+            <TextView
                 android:id="@+id/vol_prix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="numberDecimal"
-                android:hint="@string/prix"/>
+                android:text="Prix"/>
 
 
             <LinearLayout

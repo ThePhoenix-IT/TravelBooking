@@ -200,15 +200,29 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Id_etat", objectReserv.getEtatReservation().getId_etat_reservation());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Reserve", null, values) > 0;
+        if (createSuccessful) {
+            String sql = "SELECT MAX(Id_reserve) FROM Reserve";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+
+                    objectReserv.setId_reservation(cursor.getInt(0));
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
         db.close();
         return createSuccessful;
     }
     public boolean create_Stat(EtatReservation objectStatus) {
 
         ContentValues values = new ContentValues();
-        values.put("Date_res", String.valueOf(objectStatus.getDesc_etat()));
+        values.put("Desc_stat", String.valueOf(objectStatus.getDesc_etat()));
         SQLiteDatabase db = this.getWritableDatabase();
-        boolean createSuccessful = db.insert("Desc_stat", null, values) > 0;
+        boolean createSuccessful = db.insert("Status", null, values) > 0;
         db.close();
         return createSuccessful;
     }
@@ -248,6 +262,33 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         return objectTypeUtilisateur;
     }
 
+
+    public List<EtatReservation> findAllEtatReservation() {
+
+
+        List<EtatReservation> result = new ArrayList<>();
+        String sql = "SELECT * FROM Status";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                EtatReservation er = new EtatReservation();
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
+                result.add(er);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
     public Utilisateur findCompteAdmin() {
 
         Utilisateur result = null;

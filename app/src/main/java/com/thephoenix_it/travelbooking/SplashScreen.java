@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.thephoenix_it.travelbooking.models.Compte;
+import com.thephoenix_it.travelbooking.models.EtatReservation;
 import com.thephoenix_it.travelbooking.models.TypeUtilisateur;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
 import com.thephoenix_it.travelbooking.repositories.IAdminRepository;
@@ -39,6 +40,12 @@ public class SplashScreen extends AppCompatActivity {
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Client"));
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Agence"));
                 }
+                if(adminServices.findAllEtatReservation().size() == 0){
+                    adminServices.createEtatReservation(new EtatReservation("Annuler"));
+                    adminServices.createEtatReservation(new EtatReservation("Encours"));
+                    adminServices.createEtatReservation(new EtatReservation("Confirmer"));
+                }
+                System.err.println(adminServices.findAllEtatReservation().size());
                 if(adminServices.findCompteAdmin() == null) {
                     Utilisateur admin = new Utilisateur("Admin", "Admin", null, "Admin@Admin.com",
                                 0, new Date(), adminServices.findOneTypeUtilisateurByDesc("Admin"));

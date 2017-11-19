@@ -175,12 +175,13 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public EtatReservation createEtatReservation(EtatReservation etatReservation) {
-        return null;
+        dao.create_Stat(etatReservation);
+        return etatReservation;
     }
 
     @Override
     public List<EtatReservation> findAllEtatReservation() {
-        return null;
+        return dao.findAllEtatReservation();
     }
 
     @Override

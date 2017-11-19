@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
@@ -25,7 +26,7 @@ public class CreerReservActivity extends AppCompatActivity {
     private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
     private Reservation reservation;
     private Vol vol;
-    private EditText txtNumVol, txtDestination;
+    private TextView txtClient, txtNumVol, txtDestination;
     private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +42,18 @@ public class CreerReservActivity extends AppCompatActivity {
         } else {
             vol = clientServices.findOneVolById(savedInstanceState.getInt("id_vol"));
         }
+        txtClient = findViewById(R.id.client);
         txtNumVol = findViewById(R.id.num_vol);
         txtDestination = findViewById(R.id.vol_destination);
         radioGroup = findViewById(R.id.etatReservRG);
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
             radioGroup.setVisibility(View.VISIBLE);
+            txtClient.setVisibility(View.VISIBLE);
         }
         if(vol != null){
 
-            txtNumVol.setText("" + vol.getNum_vol());
-            txtDestination.setText(vol.getDestination());
+            txtNumVol.setText("Num Vol: " + vol.getNum_vol());
+            txtDestination.setText("Destination: " + vol.getDestination());
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,13 +89,28 @@ public class CreerReservActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
-                createReservation();
+                if(reservation == null)
+                    createReservation();
+                else
+                    updateReservation();
                 return true;
             case R.id.delete_vol:
                 deleteReservation(reservation.getId_reservation());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void updateReservation() {
+        if(reservation != null) {
+            reservation.setEtatReservation(radioGroup.getCheckedRadioButtonId() == R.id.encours ?
+                    clientServices.findOneEtatReservationByDesc("Encours") : radioGroup.getCheckedRadioButtonId() == R.id.confirmer ?
+                    clientServices.findOneEtatReservationByDesc("Confirmer") : clientServices.findOneEtatReservationByDesc("Annuler"));
+            if(clientServices.creer_reservation(reservation).getId_reservation() > 0)
+                Toast.makeText(CreerReservActivity.this, "Reservation modifier avec succes.", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(CreerReservActivity.this, "Erreur modification Reservation.", Toast.LENGTH_LONG).show();
         }
     }
 
