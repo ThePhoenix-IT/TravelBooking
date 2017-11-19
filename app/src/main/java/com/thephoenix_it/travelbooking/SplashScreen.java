@@ -39,7 +39,7 @@ public class SplashScreen extends AppCompatActivity {
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Agence"));
                 }
                 if(adminServices.findCompteAdmin() == null) {
-                    Utilisateur admin = new Utilisateur("Admin", "Admin", "Admin@Admin.com",
+                    Utilisateur admin = new Utilisateur("Admin", "Admin", "Admin@Admin.com", null,
                             0, new Date(), adminServices.findOneTypeUtilisateurByDesc("Admin"));
                     admin.setCompte(new Compte("admin", "12345", true, admin));
                     adminServices.createCompteAdmin(admin);
