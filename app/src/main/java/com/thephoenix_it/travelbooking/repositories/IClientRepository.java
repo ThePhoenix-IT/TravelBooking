@@ -16,6 +16,7 @@ import java.util.List;
 public interface IClientRepository extends Serializable {
     Reservation creer_reservation(Reservation reservation);
     Reservation update_reservation(Reservation reservation);
+    Reservation findOneReservationById(int id_reservation);
     EtatReservation findOneEtatReservationByDesc(String etat_reservation);
     Boolean delete_reservation(int id_reservation);
     Utilisateur login(String login, String password);

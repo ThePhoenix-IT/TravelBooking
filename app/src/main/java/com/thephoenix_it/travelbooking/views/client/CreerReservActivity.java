@@ -37,10 +37,14 @@ public class CreerReservActivity extends AppCompatActivity {
             if(extras == null) {
                 vol = null;
             } else {
-                vol = clientServices.findOneVolById(extras.getInt("id_vol"));
+                reservation = clientServices.findOneReservationById(extras.getInt("id_vol"));
+                if(reservation != null)
+                vol = reservation.getVol();
             }
         } else {
-            vol = clientServices.findOneVolById(savedInstanceState.getInt("id_vol"));
+            reservation = clientServices.findOneReservationById(savedInstanceState.getInt("id_vol"));
+            if(reservation != null)
+                vol = reservation.getVol();
         }
         txtClient = findViewById(R.id.client);
         txtNumVol = findViewById(R.id.num_vol);
@@ -52,6 +56,7 @@ public class CreerReservActivity extends AppCompatActivity {
         }
         if(vol != null){
 
+            txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDestination.setText("Destination: " + vol.getDestination());
         }

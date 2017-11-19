@@ -777,4 +777,84 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return recordsList;
     }
+
+    public Reservation findOneReservationById(int id_reservation) {
+        Reservation result = null;
+
+        //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+        String sql = "SELECT * FROM Reserve r, Vol v, User u WHERE r.Id_vol = v.Id_vol AND " +
+                "r.Id_reserve = " + id_reservation + " AND " +
+                "r.Id_user = u.Id_user ORDER BY Id_reserve DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                result = new Reservation();
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                result.setId_reservation(Id_reserve);
+                result.setVol(objectVol);
+                result.setEtatReservation(new EtatReservation("Encours"));
+                //int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                //String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Utilisateur user = new Utilisateur();
+                //TypeUtilisateur objectUserType = new TypeUtilisateur();
+                //objectUserType.setId_type_utilisateur(id_user_type);
+                //objectUserType.setDesc_type_utilisateur(desc_user_type);
+                //user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                result.setClient(user);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
 }
