@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -14,8 +15,10 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
 
 public class GererClientActivity extends AppCompatActivity {
 
+    private int id_utilisateur;
     private Utilisateur utilisateur;
     private IAdminRepository adminServices;
+    private EditText user_name1, user_name2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,17 +26,21 @@ public class GererClientActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                adminServices= new SQLiteTravelBookingRepository(this);
                 utilisateur = null;
             } else {
-                adminServices = (IAdminRepository) extras.get("adminServices");
-                if(adminServices != null)
-                utilisateur = adminServices.findOneUtilisateurById((Integer) extras.get("id_utilisateur"));
+                utilisateur = adminServices.findOneUtilisateurById((extras.getInt("id_utilisateur")));
             }
         } else {
-            utilisateur = (Utilisateur) savedInstanceState.getSerializable("utilisateur");
-            adminServices = (IAdminRepository) savedInstanceState.getSerializable("adminServices");
+            utilisateur = adminServices.findOneUtilisateurById(savedInstanceState.getInt("id_utilisateur"));
         }
+        user_name1 = findViewById(R.id.user_name1);
+        user_name2 = findViewById(R.id.user_name2);
+        if(utilisateur != null ){
+
+            user_name1.setText(utilisateur.getNom_utilisateur());
+            user_name2.setText(utilisateur.getPrenom_utilisateur());
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

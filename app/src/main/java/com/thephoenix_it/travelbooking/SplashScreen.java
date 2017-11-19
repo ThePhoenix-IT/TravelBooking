@@ -38,18 +38,10 @@ public class SplashScreen extends AppCompatActivity {
                     adminServices.createTypeUtilisateur(new TypeUtilisateur("Agence"));
                 }
                 if(adminServices.findCompteAdmin() == null) {
-                    Utilisateur admin = null;
-                    try {
-                        admin = new Utilisateur("Admin", "Admin", null, "Admin@Admin.com",
-                                0, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(new Date().toString()), adminServices.findOneTypeUtilisateurByDesc("Admin"));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    Utilisateur admin = new Utilisateur("Admin", "Admin", null, "Admin@Admin.com",
+                                0, new Date(), adminServices.findOneTypeUtilisateurByDesc("Admin"));
                     admin.setCompte(new Compte("admin", "12345", true, admin));
                     adminServices.createCompteAdmin(admin);
-                }
-                for(Utilisateur u : adminServices.listUtilisateur()){
-                    System.err.println(u);
                 }
                 Intent mainIntent = new Intent(SplashScreen.this, StartScreenActivity.class);
                 SplashScreen.this.startActivity(mainIntent);
