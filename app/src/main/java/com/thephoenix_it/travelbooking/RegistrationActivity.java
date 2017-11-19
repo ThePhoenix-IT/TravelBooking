@@ -6,9 +6,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.models.Compte;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -20,7 +23,7 @@ import com.thephoenix_it.travelbooking.repositories.TravelBookingRepository;
 import java.util.Date;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private IVisiteurRepository service = new TravelBookingRepository(RealmFactory.with(this.getApplication()));//new SQLiteTravelBookingRepository(this);
+    private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
     private LinearLayout client, agence;
 
     private Utilisateur user;
@@ -58,6 +61,9 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
         client = findViewById(R.id.client_layout);
         //Client UI Filed
@@ -71,12 +77,16 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user = new Utilisateur(txtClientNom.getText().toString(), txtClientPrenom.getText().toString(), null,
-                        txtClientEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Client"));
-                user.setCompte(new Compte(txtClientLogin.getText().toString(), txtClientPassword2.getText().toString(), true, user));
-                //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
-                service.creation_compte(user);
-                finish();
+                if (txtClientPassword1.getText().toString().equals(txtClientPassword2.getText().toString())) {
+                    user = new Utilisateur(txtClientNom.getText().toString(), txtClientPrenom.getText().toString(), null,
+                            txtClientEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Client"));
+                    user.setCompte(new Compte(txtClientLogin.getText().toString(), txtClientPassword2.getText().toString(), true, user));
+                    service.creation_compte(user);
+                    Toast.makeText(RegistrationActivity.this, "Compte cree avec succes.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else
+                    Toast.makeText(RegistrationActivity.this, "Vérifier votre mot de passe.", Toast.LENGTH_LONG).show();
             }
         });
         agence = findViewById(R.id.agence_layout);

@@ -25,7 +25,15 @@
                 android:hint="@string/num_vol"
                 android:inputType="number" />
 
-            <EditText
+                <EditText
+                    android:id="@+id/vol_depart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Depart"
+                    android:inputType="textPersonName" />
+
+                <EditText
                 android:id="@+id/vol_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,22 +41,46 @@
                 android:hint="@string/destination"
                 android:inputType="textPersonName"/>
 
-            <EditText
-                android:id="@+id/vol_duree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/duree"
-                android:inputType="time" />
-
+                <EditText
+                    android:id="@+id/nbr_places"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="nbr Places"
+                    android:inputType="number" />
 
                 <EditText
-                android:id="@+id/vol_prix"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:hint="@string/prix"/>
+                    android:id="@+id/date_depart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Date Depart"
+                    android:inputType="datetime" />
+
+                <EditText
+                    android:id="@+id/date_arrivee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Date Arrivee"
+                    android:inputType="datetime" />
+
+                <EditText
+                    android:id="@+id/vol_prix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/prix"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/vol_duree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/duree"
+                    android:inputType="time"
+                    android:visibility="invisible" />
 
 
                 <LinearLayout

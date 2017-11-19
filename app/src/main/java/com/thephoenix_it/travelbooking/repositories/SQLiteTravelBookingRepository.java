@@ -159,7 +159,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Utilisateur findOneUtilisateurById(int id_utilisateur) {
-        return null;
+        return dao.findOneUtilisateurById(id_utilisateur);
     }
 
     @Override

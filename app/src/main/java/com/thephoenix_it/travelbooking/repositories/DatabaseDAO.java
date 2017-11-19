@@ -299,6 +299,58 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return result;
     }
+    public Utilisateur findOneUtilisateurById(int id_utilisateur) {
+
+        Utilisateur result = null;
+
+        String sql = "SELECT * FROM User u, Account a, UserType ut " +
+                "WHERE u.Id_user = a.Id_user AND " +
+                "u.Id_user_type = ut.Id_user_type AND " +
+                "u.Id_user = \"" + id_utilisateur +"\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                result = new Utilisateur();
+                int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int id_compte = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_account")));
+                String login = cursor.getString(cursor.getColumnIndex("Login"));
+                TypeUtilisateur objectUserType = new TypeUtilisateur();
+                objectUserType.setId_type_utilisateur(id_user_type);
+                objectUserType.setDesc_type_utilisateur(desc_user_type);
+                result.setTypeUtilisateur(objectUserType);
+                result.setId_utilisateur(id_user);
+                result.setNom_utilisateur(nom);
+                result.setPrenom_utilisateur(prenom);
+                result.setCin(cin);
+                result.setDate_naissance(date_b);
+                result.setPays(pays);
+                Compte objectCompte = new Compte();
+                objectCompte.setId_compte(id_compte);
+                objectCompte.setLogin(login);
+                result.setCompte(objectCompte);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
 
     public TypeUtilisateur findOneTypeUtilisateurByDesc(String type) {
 
@@ -313,6 +365,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
             do {
                 int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                System.err.println(desc_user_type);
                 result.setId_type_utilisateur(id_user_type);
                 result.setDesc_type_utilisateur(desc_user_type);
 
@@ -324,6 +377,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         return result;
     }
+
     public EtatReservation findOneEtatReservationByDesc(String desc_etat) {
 
         EtatReservation result = new EtatReservation();

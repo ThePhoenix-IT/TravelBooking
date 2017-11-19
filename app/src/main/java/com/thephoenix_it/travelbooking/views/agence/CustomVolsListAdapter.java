@@ -41,7 +41,10 @@ public class CustomVolsListAdapter extends ArrayAdapter {
         //this code sets the values of the objects to values from the arrays
         if(volList.get(position) != null) {
             nameTextField.setText(volList.get(position).getDestination());
-            agenceTextField.setText("Agence: " + volList.get(position).getAgence().getNom_utilisateur());
+            if(volList.get(position).getAgence() != null)
+                agenceTextField.setText("Agence: " + volList.get(position).getAgence().getNom_utilisateur());
+            else
+                agenceTextField.setText("Agence: ");
             dureeTextField.setText("Duree: " + volList.get(position).getDuree());
             prixTextField.setText("Prix: " + volList.get(position).getPrix());
         }

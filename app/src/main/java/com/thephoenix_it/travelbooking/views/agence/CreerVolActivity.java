@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
+import com.thephoenix_it.travelbooking.RegistrationActivity;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
@@ -105,7 +107,10 @@ public class CreerVolActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
-                createVol();
+                if(vol  == null)
+                    createVol();
+                else
+                    updateVol();
                 return true;
             case R.id.delete_vol:
                 deleteVol(vol.getId_vol());
@@ -113,6 +118,9 @@ public class CreerVolActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void updateVol() {
     }
 
     private void deleteVol(int id_vol) {
@@ -123,6 +131,11 @@ public class CreerVolActivity extends AppCompatActivity {
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
         vol.setDestination(txtDestination.getText().toString());
         vol.setDate_creation(new Date());
-        agenceServices.creer_vol(vol);
+        vol.setAgence(LoginActivity.connectedUser);
+        if(agenceServices.creer_vol(vol).getId_vol() > 0)
+            Toast.makeText(CreerVolActivity.this, "Vol cree avec succes.", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(CreerVolActivity.this, "Erreur creation volx.", Toast.LENGTH_LONG).show();
+
     }
 }

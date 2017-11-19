@@ -107,6 +107,29 @@ public class ListVolActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onResume();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listVol = service.listVol();
+        listView = (ListView) findViewById(R.id.listVolsView);
+        CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
+        listView.setAdapter(whatever);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mainIntent = new Intent(ListVolActivity.this, CreerVolActivity.class);
+                mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
+                ListVolActivity.this.startActivity(mainIntent);
+            }
+        });
+    }
+
     private void volLisFilter() {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
         dialog.setTitle("Search...");

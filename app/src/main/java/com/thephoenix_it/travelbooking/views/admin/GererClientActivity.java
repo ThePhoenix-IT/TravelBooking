@@ -15,9 +15,8 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
 
 public class GererClientActivity extends AppCompatActivity {
 
-    private int id_utilisateur;
     private Utilisateur utilisateur;
-    private IAdminRepository adminServices;
+    private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
     private EditText user_name1, user_name2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class GererClientActivity extends AppCompatActivity {
         }
         user_name1 = findViewById(R.id.user_name1);
         user_name2 = findViewById(R.id.user_name2);
-        if(utilisateur != null ){
+        if(utilisateur != null){
 
             user_name1.setText(utilisateur.getNom_utilisateur());
             user_name2.setText(utilisateur.getPrenom_utilisateur());
@@ -49,8 +48,6 @@ public class GererClientActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
