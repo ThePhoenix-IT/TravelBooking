@@ -23,11 +23,7 @@
         android:id="@+id/client_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -171,14 +167,22 @@
                     android:text="@string/detail_agence" />
 
 
-                <EditText
-                    android:id="@+id/agence_nom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:hint="@string/nom_agence" />
+            <EditText
+                android:id="@+id/agence_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:hint="@string/nom_agence" />
+            <EditText
+                android:id="@+id/agence_pays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:hint="@string/agence_pays" />
 
 
                 <EditText

@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration" />
+            android:label="Creation d'un compte" />
         <activity
             android:name=".views.agence.CreerVolActivity"
             android:label="@string/title_activity_creer_vol"

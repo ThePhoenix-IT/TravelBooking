@@ -75,4 +75,6 @@
     <string name="depart">Depart</string>
     <string name="date_arrivee">Date Arrivee</string>
     <string name="date_depart">Date Depart</string>
+    <string name="agence_pays">Pays</string>
+    <string name="connexion">Connexion</string>
 </resources>

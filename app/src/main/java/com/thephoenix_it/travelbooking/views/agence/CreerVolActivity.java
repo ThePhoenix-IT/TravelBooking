@@ -26,7 +26,7 @@ import java.util.Date;
 public class CreerVolActivity extends AppCompatActivity {
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
     private Vol vol;
-    private EditText txtNumVol, txtDestination;
+    private EditText txtNumVol, txtDepart, txtDestination;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class CreerVolActivity extends AppCompatActivity {
             vol = agenceServices.findOneVolById(savedInstanceState.getInt("id_vol"));
         }
         txtNumVol = findViewById(R.id.num_vol);
+        txtDepart = findViewById(R.id.vol_depart);
         txtDestination = findViewById(R.id.vol_destination);
         if(vol != null){
 
@@ -129,6 +130,7 @@ public class CreerVolActivity extends AppCompatActivity {
     private void createVol() {
         Vol vol = new Vol();
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
+        vol.setDepart(txtDepart.getText().toString());
         vol.setDestination(txtDestination.getText().toString());
         vol.setDate_creation(new Date());
         vol.setAgence(LoginActivity.connectedUser);

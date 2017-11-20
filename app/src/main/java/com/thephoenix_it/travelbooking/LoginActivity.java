@@ -32,10 +32,6 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
 public class LoginActivity extends AppCompatActivity {
     public static Utilisateur connectedUser;
     private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -51,11 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         // Set up the login form.
         mLoginView = (EditText) findViewById(R.id.login);
 
@@ -146,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
 
             LoginActivity.connectedUser = service.login(login, password);
-            System.err.println(LoginActivity.connectedUser);
             if(LoginActivity.connectedUser != null) {
                 showProgress(true);
                 mAuthTask = new UserLoginTask(login, password);

@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Client: "
-                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:visibility="invisible" />
 
             <TextView
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Num Vol: "
-                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <TextView
                 android:id="@+id/vol_destination"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Destination: "
-                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <TextView
                 android:id="@+id/vol_duree"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Duree: "
-                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Prix"
-                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
 
             <LinearLayout
@@ -67,14 +67,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/etat_vol"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
                     android:id="@+id/txtEtatVol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/disponible"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
 
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reservations"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
                 <TextView
                     android:id="@+id/txtEtatReserv"
                     android:layout_width="match_parent"

@@ -690,6 +690,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
                 int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
                 String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
                 double Duration = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
                     Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
@@ -709,6 +710,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
@@ -743,6 +745,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
                 int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
                 String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
                 double Duration = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
                     Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
@@ -762,6 +765,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);

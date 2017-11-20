@@ -42,7 +42,7 @@
             android:id="@+id/btn_compte"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/compte_utilisateur" />
+            android:text="@string/connexion" />
 
         <Button
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
