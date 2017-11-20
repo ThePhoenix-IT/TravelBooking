@@ -30,7 +30,7 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
  * A login screen that offers login via login/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    public static Utilisateur connectedUser;
+    public static Utilisateur connectedUser = null;
     private IVisiteurRepository service = new SQLiteTravelBookingRepository(this);
 
     /**

@@ -73,8 +73,10 @@
     <string name="reserver">Reserver</string>
     <string name="travel_booking">Travel Booking</string>
     <string name="depart">Depart</string>
-    <string name="date_arrivee">Date Arrivee</string>
-    <string name="date_depart">Date Depart</string>
     <string name="agence_pays">Pays</string>
     <string name="connexion">Connexion</string>
+    <string name="title_activity_vol_view">VolViewActivity</string>
+    <string name="nbr_places">nbr Places</string>
+    <string name="date_depart">Date Depart</string>
+    <string name="date_arrivee">Date Arrivee</string>
 </resources>

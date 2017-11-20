@@ -32,6 +32,7 @@ import com.thephoenix_it.travelbooking.repositories.IVisiteurRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.views.client.CreerReservActivity;
 import com.thephoenix_it.travelbooking.views.client.ListVolsActivity;
+import com.thephoenix_it.travelbooking.views.client.VolViewActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,13 +79,16 @@ public class ListVolActivity extends AppCompatActivity {
         });
 
         listView = (ListView) findViewById(R.id.listVolsView);
-        System.err.println(listVol.size());
         CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent mainIntent = new Intent(ListVolActivity.this, CreerVolActivity.class);
+                Intent mainIntent;
+                if(LoginActivity.connectedUser == null)
+                    mainIntent = new Intent(ListVolActivity.this, VolViewActivity.class);
+                else
+                    mainIntent = new Intent(ListVolActivity.this, CreerVolActivity.class);
                 mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
                 ListVolActivity.this.startActivity(mainIntent);
             }
@@ -127,7 +131,11 @@ public class ListVolActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent mainIntent = new Intent(ListVolActivity.this, CreerVolActivity.class);
+                Intent mainIntent;
+                if(LoginActivity.connectedUser == null)
+                    mainIntent = new Intent(ListVolActivity.this, VolViewActivity.class);
+                else
+                    mainIntent = new Intent(ListVolActivity.this, CreerVolActivity.class);
                 mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
                 ListVolActivity.this.startActivity(mainIntent);
             }

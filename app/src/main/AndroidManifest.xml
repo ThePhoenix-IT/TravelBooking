@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
-            android:label="Creation d'un compte" />
+            android:label="Creation d&apos;un compte" />
         <activity
             android:name=".views.agence.CreerVolActivity"
             android:label="@string/title_activity_creer_vol"
@@ -43,15 +43,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.ListVolsActivity"
-            android:label="@string/title_activity_list_vols"
+            android:label="Liste des vols"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.ListReservationActivity"
-            android:label="@string/title_activity_list_reservation"
+            android:label="Liste des reservations"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.agence.ListVolActivity"
-            android:label="@string/title_activity_list_vol"
+            android:label="Liste des vols"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.CreerReservActivity"
@@ -68,7 +68,11 @@
         <activity
             android:name=".StartScreenActivity"
             android:label="@string/title_activity_start_screen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.client.VolViewActivity"
+            android:label="Detail Vol"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
