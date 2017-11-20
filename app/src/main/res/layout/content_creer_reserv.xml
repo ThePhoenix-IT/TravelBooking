@@ -17,31 +17,36 @@
 
             <TextView
                 android:id="@+id/client"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Client: "/>
+                android:text="Client: "
+                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium"
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/num_vol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Num Vol: "/>
+                android:text="Num Vol: "
+                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
 
             <TextView
                 android:id="@+id/vol_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Destination: "/>
+                android:text="Destination: "
+                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
 
             <TextView
                 android:id="@+id/vol_duree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Duree: "/>
+                android:text="Duree: "
+                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
 
 
             <TextView
@@ -49,7 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Prix"/>
+                android:text="Prix"
+                android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
 
 
             <LinearLayout
@@ -60,13 +66,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/etat_vol" />
+                    android:text="@string/etat_vol"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
 
                 <TextView
                     android:id="@+id/txtEtatVol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/disponible" />
+                    android:text="@string/disponible"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
             </LinearLayout>
 
 
@@ -78,7 +86,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/reservations" />
+                    android:text="@string/reservations"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Light.Medium" />
                 <TextView
                     android:id="@+id/txtEtatReserv"
                     android:layout_width="match_parent"
