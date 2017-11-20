@@ -99,6 +99,11 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
+    public List<Vol> listVolByIdAgence(int id_utilisateur) {
+        return dao.listVolByIdAgence(id_utilisateur);
+    }
+
+    @Override
     public List<Vol> listVolFiltered(Map filter) {
         return dao.listVolFiltered(filter);
     }

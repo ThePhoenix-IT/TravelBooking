@@ -711,7 +711,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         List<Vol> recordsList = new ArrayList<Vol>();
 
-        String sql = "SELECT * FROM Vol ORDER BY Id_vol DESC";
+        String sql = "SELECT * FROM Vol v, User u  WHERE " +
+                "u.Id_user = v.Id_user" +
+                " ORDER BY Id_vol DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -738,6 +740,17 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
@@ -747,6 +760,18 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setPrix(Price);
                 objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
+                Utilisateur user = new Utilisateur();
+                //TypeUtilisateur objectUserType = new TypeUtilisateur();
+                //objectUserType.setId_type_utilisateur(id_user_type);
+                //objectUserType.setDesc_type_utilisateur(desc_user_type);
+                //user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                objectVol.setAgence(user);
                 recordsList.add(objectVol);
 
             } while (cursor.moveToNext());
@@ -763,10 +788,12 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         return utilisateur;
     }
 
-    public List<Vol> listVolFiltered(Map filter) {
+    public List<Vol> listVolByIdAgence(int id_utilisateur) {
         List<Vol> recordsList = new ArrayList<Vol>();
 
-        String sql = "SELECT * FROM Vol ORDER BY Id_vol DESC";
+        String sql = "SELECT * FROM Vol v, User u  WHERE " +
+                "v.Id_user = " + id_utilisateur +
+                " AND v.Id_user = u.Id_user ORDER BY Id_vol DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -793,6 +820,17 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
@@ -802,6 +840,98 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setPrix(Price);
                 objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
+                Utilisateur user = new Utilisateur();
+                //TypeUtilisateur objectUserType = new TypeUtilisateur();
+                //objectUserType.setId_type_utilisateur(id_user_type);
+                //objectUserType.setDesc_type_utilisateur(desc_user_type);
+                //user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                objectVol.setAgence(user);
+                recordsList.add(objectVol);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordsList;
+    }
+    public List<Vol> listVolFiltered(Map filter) {
+        List<Vol> recordsList = new ArrayList<Vol>();
+
+        String sql = "SELECT * FROM Vol v, User u WHERE " +
+                "Num_vol = " + filter.get("num_vol") +
+                " OR Destination = \"" + (filter.get("destination") != "" ? filter.get("destination") : "%") + "\"" +
+                " OR Price = " + (filter.get("prix") != "" ? filter.get("prix") : "%") +
+                " OR dateDep = \"" + (filter.get("dateDep") != "" ? filter.get("dateDep") : "%") + "\"" +
+                " OR dateArr = \"" + (filter.get("dateArr") != "" ? filter.get("dateArr") : "%") + "\"" +
+                " OR Nom_user = \"" + (filter.get("Nom_user") != "" ? filter.get("Nom_user") : "%") + "\" " +
+                "And u.Id_user = v.Id_user " +
+                "ORDER BY Id_vol DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                Utilisateur user = new Utilisateur();
+                //TypeUtilisateur objectUserType = new TypeUtilisateur();
+                //objectUserType.setId_type_utilisateur(id_user_type);
+                //objectUserType.setDesc_type_utilisateur(desc_user_type);
+                //user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                objectVol.setAgence(user);
                 recordsList.add(objectVol);
 
             } while (cursor.moveToNext());

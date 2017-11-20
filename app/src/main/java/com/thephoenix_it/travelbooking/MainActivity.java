@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             });
         }
         else {
-            List<Vol> listVol = agenceServices.listVol();
+            List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
 
             setContentView(R.layout.activity_agence_main);
             listView = (ListView) findViewById(R.id.listVolAgence);
-            List<Vol> listVol = agenceServices.listVol();
+            List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

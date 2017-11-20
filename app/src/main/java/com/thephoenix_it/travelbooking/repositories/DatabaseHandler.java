@@ -57,6 +57,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Price REAL, " +
                 "Disponibility INTEGER DEFAULT 0, " +
                 "Creation_date DATE, " +
+                "dateDep DATE, " +
+                "dateArr DATE, " +
                 "Id_user INTEGER) ";
 
         String Stat_res = "CREATE TABLE Status " +
