@@ -1,15 +1,22 @@
 package com.thephoenix_it.travelbooking.views.agence;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
@@ -20,6 +27,7 @@ import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepositor
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CreerVolActivity extends AppCompatActivity {
@@ -47,13 +55,27 @@ public class CreerVolActivity extends AppCompatActivity {
         txtDateArr = findViewById(R.id.date_arrivee);
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
+        txtDateDep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTruitonTimePickerDialog(v, txtDateDep);
+                showTruitonDatePickerDialog(v, txtDateDep);
+            }
+        });
+        txtDateArr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTruitonTimePickerDialog(v, txtDateArr);
+                showTruitonDatePickerDialog(v, txtDateArr);
+            }
+        });
         if(vol != null) {
             txtNumVol.setText("" + vol.getNum_vol());
             txtDestination.setText(vol.getDestination());
             txtDateDep.setText("" + vol.getDate_depart());
             txtDateArr.setText("" + vol.getDate_arrivee());
             txtPrix.setText("" + vol.getPrix());
-            txtNbrPlaces.setText(vol.getNbr_places());
+            txtNbrPlaces.setText("" + vol.getNbr_places());
         }
         Button btn_reserv_vol = findViewById(R.id.btn_reserv_vol);
         btn_reserv_vol.setOnClickListener(new View.OnClickListener() {
@@ -154,4 +176,64 @@ public class CreerVolActivity extends AppCompatActivity {
             Toast.makeText(CreerVolActivity.this, "Erreur creation vol.", Toast.LENGTH_LONG).show();
 
     }
+    public void showTruitonTimePickerDialog(View v, EditText txtDateDep) {
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setEdittext(txtDateDep);
+        newFragment.show(this.getFragmentManager(), "timePicker");
+    }
+
+    public void showTruitonDatePickerDialog(View v, EditText txtDateDep) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setEdittext(txtDateDep);
+        newFragment.show(this.getFragmentManager(), "datePicker");
+    }
+    public static class TimePickerFragment extends DialogFragment implements
+            TimePickerDialog.OnTimeSetListener {
+        private EditText editText;
+
+        public void setEdittext(EditText editText) {
+            this.editText = editText;
+        }
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user
+            editText.setText(editText.getText() + " " + hourOfDay + ":"	+ minute);
+        }
+    }
+    public static class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+
+        private EditText editText;
+        public void setEdittext(EditText editText) {
+            this.editText = editText;
+        }
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            editText.setText(day + "/" + (month + 1) + "/" + year);
+        }
+    }
+
 }
