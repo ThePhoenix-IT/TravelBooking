@@ -104,18 +104,21 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
     public void remove_vol(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from Vol where Id_vol=i");
+        db.execSQL("delete from Vol where Id_vol= " + i);
+        db.close();
     }
 
     public void remove_user(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from User where Id_vol=i");
+        db.execSQL("delete from User where Id_vol= " + i);
+        db.close();
 
     }
 
     public void remove_res(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from Reserve where Id_vol=i");
+        db.execSQL("delete from Reserve where Id_vol = " + i);
+        db.close();
 
     }
 
