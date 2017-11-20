@@ -3,7 +3,6 @@ package com.thephoenix_it.travelbooking.views.agence;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,16 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
-import com.thephoenix_it.travelbooking.RegistrationActivity;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreerVolActivity extends AppCompatActivity {
@@ -44,10 +43,17 @@ public class CreerVolActivity extends AppCompatActivity {
         txtNumVol = findViewById(R.id.num_vol);
         txtDepart = findViewById(R.id.vol_depart);
         txtDestination = findViewById(R.id.vol_destination);
-        if(vol != null){
-
+        txtDateDep = findViewById(R.id.date_depart);
+        txtDateArr = findViewById(R.id.date_arrivee);
+        txtPrix = findViewById(R.id.vol_prix);
+        txtNbrPlaces = findViewById(R.id.nbr_places);
+        if(vol != null) {
             txtNumVol.setText("" + vol.getNum_vol());
             txtDestination.setText(vol.getDestination());
+            txtDateDep.setText("" + vol.getDate_depart());
+            txtDateArr.setText("" + vol.getDate_arrivee());
+            txtPrix.setText("" + vol.getPrix());
+            txtNbrPlaces.setText(vol.getNbr_places());
         }
         Button btn_reserv_vol = findViewById(R.id.btn_reserv_vol);
         btn_reserv_vol.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +138,15 @@ public class CreerVolActivity extends AppCompatActivity {
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
         vol.setDepart(txtDepart.getText().toString());
         vol.setDestination(txtDestination.getText().toString());
-        vol.setDate_creation(new Date());
+        try {
+            vol.setDate_depart(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(txtDateDep.getText().toString()));
+            vol.setDate_arrivee(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(txtDateArr.getText().toString()));
+            vol.setDate_creation(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(new Date().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        vol.setNbr_places(Integer.parseInt(txtNbrPlaces.getText().toString()));
+        vol.setPrix(Double.valueOf(txtPrix.getText().toString()));
         vol.setAgence(LoginActivity.connectedUser);
         if(agenceServices.creer_vol(vol).getId_vol() > 0)
             Toast.makeText(CreerVolActivity.this, "Vol cree avec succes.", Toast.LENGTH_LONG).show();
