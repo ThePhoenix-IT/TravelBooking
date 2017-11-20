@@ -33,6 +33,13 @@
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <TextView
+                android:id="@+id/vol_depart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="Depart: "
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+            <TextView
                 android:id="@+id/vol_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,14 +47,14 @@
                 android:text="Destination: "
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
+
             <TextView
-                android:id="@+id/vol_duree"
+                android:id="@+id/nbr_places"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Duree: "
+                android:text="@string/nbr_places"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-
 
             <TextView
                 android:id="@+id/vol_prix"
@@ -58,6 +65,21 @@
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
 
+            <TextView
+                android:id="@+id/date_depart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/date_depart"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <TextView
+                android:id="@+id/date_arrivee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/date_arrivee"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -46,7 +46,7 @@ public class VolViewActivity extends AppCompatActivity {
         txtNbrPlaces = findViewById(R.id.nbr_places);
         if(vol != null) {
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
-            txtDepart.setText("Depart: " + vol.getDestination());
+            txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
             txtDateDep.setText("Date Depart: " + vol.getDate_depart());
             txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());

@@ -55,7 +55,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.CreerReservActivity"
-            android:label="@string/title_activity_creer_reserv"
+            android:label="Reservation vol"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.CompteClientActivity"

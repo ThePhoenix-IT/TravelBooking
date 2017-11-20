@@ -26,7 +26,7 @@ public class CreerReservActivity extends AppCompatActivity {
     private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
     private Reservation reservation;
     private Vol vol;
-    private TextView txtClient, txtNumVol, txtDestination;
+    private TextView txtClient, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces;
     private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,26 @@ public class CreerReservActivity extends AppCompatActivity {
         }
         txtClient = findViewById(R.id.client);
         txtNumVol = findViewById(R.id.num_vol);
+        txtDepart = findViewById(R.id.vol_depart);
         txtDestination = findViewById(R.id.vol_destination);
+        txtDateDep = findViewById(R.id.date_depart);
+        txtDateArr = findViewById(R.id.date_arrivee);
+        txtPrix = findViewById(R.id.vol_prix);
+        txtNbrPlaces = findViewById(R.id.nbr_places);
         radioGroup = findViewById(R.id.etatReservRG);
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
             radioGroup.setVisibility(View.VISIBLE);
             txtClient.setVisibility(View.VISIBLE);
         }
         if(vol != null){
-
             txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
+            txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
+            txtDateDep.setText("Date Depart: " + vol.getDate_depart());
+            txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());
+            txtPrix.setText("Prix: " + vol.getPrix());
+            txtNbrPlaces.setText("Nbr Places: " + vol.getNbr_places());
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
