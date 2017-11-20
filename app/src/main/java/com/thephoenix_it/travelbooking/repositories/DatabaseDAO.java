@@ -44,17 +44,31 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         db.close();
         return createSuccessful;
     }
-    public boolean create_user_type(TypeUtilisateur objectUserType) {
+    public TypeUtilisateur create_user_type(TypeUtilisateur objectUserType) {
 
         ContentValues values = new ContentValues();
         values.put("desc_user_type", objectUserType.getDesc_type_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
 
         boolean createSuccessful = db.insert("UserType", null, values) > 0;
+        if (createSuccessful) {
+            String sql = "SELECT MAX(Id_user_type) FROM UserType";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+
+                    objectUserType.setId_type_utilisateur(cursor.getInt(0));
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
         db.close();
-        return createSuccessful;
+        return objectUserType;
     }
-    public boolean create_user(Utilisateur objectUser) {
+    public Utilisateur create_user(Utilisateur objectUser) {
 
         ContentValues values = new ContentValues();
         values.put("Nom_user", objectUser.getNom_utilisateur());
@@ -85,7 +99,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
             cursor.close();
         }
         db.close();
-        return createSuccessful;
+        return objectUser;
     }
 
     public void remove_vol(int i) {
@@ -130,7 +144,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         db.close();
         return createSuccessful;
     }
-    public boolean create_vol(Vol objectVol) {
+    public Vol create_vol(Vol objectVol) {
 
         ContentValues values = new ContentValues();
         values.put("Num_vol", objectVol.getNum_vol());
@@ -143,8 +157,22 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Id_user", objectVol.getAgence().getId_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Vol", null, values) > 0;
+        if (createSuccessful) {
+            String sql = "SELECT MAX(Id_vol) FROM Vol";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+
+                    objectVol.setId_vol(cursor.getInt(0));
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
         db.close();
-        return createSuccessful;
+        return objectVol;
     }
 
     public Vol findOneVolByIdVol(int id_vol) {
@@ -190,7 +218,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         cursor.close();
         return result;
     }
-    public boolean create_res(Reservation objectReserv) {
+    public Reservation create_res(Reservation objectReserv) {
 
         ContentValues values = new ContentValues();
         values.put("Date_res", String.valueOf(objectReserv.getDate_reservation()));
@@ -215,7 +243,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
             cursor.close();
         }
         db.close();
-        return createSuccessful;
+        return objectReserv;
     }
     public boolean create_Stat(EtatReservation objectStatus) {
 

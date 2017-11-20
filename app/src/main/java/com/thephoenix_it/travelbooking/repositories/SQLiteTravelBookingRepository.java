@@ -28,8 +28,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Reservation creer_reservation(Reservation reservation) {
-        dao.create_res(reservation);
-        return reservation;
+        return dao.create_res(reservation);
     }
 
     @Override
@@ -54,8 +53,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Utilisateur creation_compte(Utilisateur utilisateur) {
-        dao.create_user(utilisateur);
-        return utilisateur;
+        return dao.create_user(utilisateur);
     }
 
     @Override
@@ -70,8 +68,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Vol creer_vol(Vol vol) {
-        dao.create_vol(vol);
-        return vol;
+        return dao.create_vol(vol);
     }
 
     @Override
@@ -123,8 +120,7 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public TypeUtilisateur createTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
-        dao.create_user_type(typeUtilisateur);
-        return typeUtilisateur;
+        return dao.create_user_type(typeUtilisateur);
     }
 
     @Override
