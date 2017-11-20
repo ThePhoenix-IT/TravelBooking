@@ -6,8 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +35,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextView txtAgencePassword1;
     private TextView txtAgencePassword2;
     private TextView txtAgenceNom;
+    private TextView txtAgencePays;
     private TextView txtAgenceEmail;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -90,16 +89,16 @@ public class RegistrationActivity extends AppCompatActivity {
         txtAgencePassword1 = findViewById(R.id.agence_password1);
         txtAgencePassword2 = findViewById(R.id.agence_password2);
         txtAgenceNom = findViewById(R.id.agence_nom);
+        txtAgencePays = findViewById(R.id.agence_pays);
         txtAgenceEmail = findViewById(R.id.agence_email);
         Button btnValider2 = findViewById(R.id.agence_button);
         btnValider2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txtClientPassword1.getText().toString().equals(txtClientPassword2.getText().toString())) {
-                user = new Utilisateur(txtAgenceNom.getText().toString(), null, null,
+                if (txtAgencePassword1.getText().toString().equals(txtAgencePassword2.getText().toString())) {
+                user = new Utilisateur(txtAgenceNom.getText().toString(), null, txtAgencePays.getText().toString(),
                         txtAgenceEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Agence"));
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
-                //new TravelBookingRepository(RealmFactory.with(RegistrationActivity.this)).creation_compte(user);
                 service.creation_compte(user);
                     Toast.makeText(RegistrationActivity.this, "Compte cree avec succes.", Toast.LENGTH_LONG).show();
                 finish();

@@ -26,7 +26,7 @@ import java.util.Date;
 public class CreerVolActivity extends AppCompatActivity {
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
     private Vol vol;
-    private EditText txtNumVol, txtDepart, txtDestination;
+    private EditText txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
