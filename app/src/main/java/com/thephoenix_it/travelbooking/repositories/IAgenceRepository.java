@@ -20,7 +20,7 @@ public interface IAgenceRepository extends Serializable {
     Vol creer_vol(Vol vol);
     Vol update_vol(Vol vol);
     Vol findOneVolById(int id_vol);
-    Boolean delete_vol(int id_vol);
+    void delete_vol(int id_vol);
     List<Vol> listVol();
     List<Vol> listVolByIdAgence(int id_utilisateur);
     List<Vol> listVolFiltered(Map filter);

@@ -19,7 +19,7 @@ public interface IAdminRepository extends Serializable {
     Compte getCompteByIdUtilisateur(int id_utilisateur);
     TypeUtilisateur createTypeUtilisateur(TypeUtilisateur typeUtilisateur);
     TypeUtilisateur updateTypeUtilisateur(TypeUtilisateur typeUtilisateur);
-    Boolean deleteTypeUtilisateur(int id_type_utilisateur);
+    void deleteTypeUtilisateur(int id_type_utilisateur);
     List<TypeUtilisateur> findAllTypeUtilisateur();
     TypeUtilisateur findOneTypeUtilisateurByDesc(String desc_type_utilisateur);
     Utilisateur createCompteAdmin(Utilisateur utilisateur);

@@ -48,8 +48,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
-    public Boolean delete_reservation(int id_reservation) {
-        return null;
+    public void delete_reservation(int id_reservation) {
+        dao.remove_res(id_reservation);
     }
 
     @Override
@@ -84,8 +84,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
-    public Boolean delete_vol(int id_vol) {
-        return null;
+    public void delete_vol(int id_vol) {
+        dao.remove_vol(id_vol);
     }
 
     @Override
@@ -135,8 +135,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
-    public Boolean deleteTypeUtilisateur(int id_type_utilisateur) {
-        return null;
+    public void deleteTypeUtilisateur(int id_type_utilisateur) {
+
     }
 
     @Override

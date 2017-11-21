@@ -19,7 +19,7 @@ public interface IClientRepository extends Serializable {
     Reservation update_reservation(Reservation reservation);
     Reservation findOneReservationById(int id_reservation);
     EtatReservation findOneEtatReservationByDesc(String etat_reservation);
-    Boolean delete_reservation(int id_reservation);
+    void delete_reservation(int id_reservation);
     Utilisateur login(String login, String password);
     List<Reservation> findAllReservation();
     Vol findOneVolById(int id_vol);
