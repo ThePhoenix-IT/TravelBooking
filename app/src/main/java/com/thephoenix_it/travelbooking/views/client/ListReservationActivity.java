@@ -55,8 +55,10 @@ public class ListReservationActivity extends AppCompatActivity {
         final List<Reservation> reservationList;
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT"))
             reservationList = service.findAllReservationByIdClient(LoginActivity.connectedUser.getId_utilisateur());
-        else
+        else {
+            fab.setVisibility(View.INVISIBLE);
             reservationList = agenceService.findAllReservationByIdAgence(LoginActivity.connectedUser.getId_utilisateur());
+        }
         CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
