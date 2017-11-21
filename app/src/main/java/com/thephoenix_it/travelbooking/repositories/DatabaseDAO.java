@@ -195,6 +195,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 result = new Vol();
                 int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
                 int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
                 String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
                 double Duration = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
@@ -202,6 +203,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 double Price = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
                     Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                int nbrPlaces = 0;
+                if(cursor.getString(cursor.getColumnIndex("Places")) != null && !cursor.getString(cursor.getColumnIndex("Places")).isEmpty() )
+                    nbrPlaces = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Places")));
                 boolean Disponibility = false;
                 if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
                     Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
@@ -230,9 +234,11 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 agence.setPays(pays);
                 result.setId_vol(Id_vol);
                 result.setNum_vol(Num_vol);
+                result.setDepart(depart);
                 result.setDestination(Destination);
                 result.setDuree(Duration);
                 result.setPrix(Price);
+                result.setNbr_places(nbrPlaces);
                 result.setDisponible(Disponibility);
                 result.setDate_creation(Creation_date);
                 result.setAgence(agence);
@@ -752,6 +758,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 double Price = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
                     Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                int nbrPlaces = 0;
+                if(cursor.getString(cursor.getColumnIndex("Places")) != null && !cursor.getString(cursor.getColumnIndex("Places")).isEmpty() )
+                    nbrPlaces = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Places")));
                 boolean Disponibility = false;
                 if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
                     Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
@@ -780,6 +789,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
+                objectVol.setNbr_places(nbrPlaces);
                 objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
                 Utilisateur user = new Utilisateur();
@@ -832,6 +842,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 double Price = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
                     Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                int nbrPlaces = 0;
+                if(cursor.getString(cursor.getColumnIndex("Places")) != null && !cursor.getString(cursor.getColumnIndex("Places")).isEmpty() )
+                    nbrPlaces = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Places")));
                 boolean Disponibility = false;
                 if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
                     Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
@@ -860,6 +873,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
+                objectVol.setNbr_places(nbrPlaces);
                 objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
                 Utilisateur user = new Utilisateur();

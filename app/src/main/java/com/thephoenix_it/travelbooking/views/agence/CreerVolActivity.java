@@ -71,6 +71,7 @@ public class CreerVolActivity extends AppCompatActivity {
         });
         if(vol != null) {
             txtNumVol.setText("" + vol.getNum_vol());
+            txtDepart.setText(vol.getDepart());
             txtDestination.setText(vol.getDestination());
             txtDateDep.setText("" + vol.getDate_depart());
             txtDateArr.setText("" + vol.getDate_arrivee());
