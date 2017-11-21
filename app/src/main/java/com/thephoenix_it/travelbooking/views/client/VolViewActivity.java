@@ -22,7 +22,7 @@ public class VolViewActivity extends AppCompatActivity {
 
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
     private Vol vol;
-    private TextView txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces;
+    private TextView txtNomAgence, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,7 @@ public class VolViewActivity extends AppCompatActivity {
         } else {
             vol = agenceServices.findOneVolById(savedInstanceState.getInt("id_vol"));
         }
+        txtNomAgence = findViewById(R.id.nom_agence);
         txtNumVol = findViewById(R.id.num_vol);
         txtDepart = findViewById(R.id.vol_depart);
         txtDestination = findViewById(R.id.vol_destination);
@@ -45,6 +46,7 @@ public class VolViewActivity extends AppCompatActivity {
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
         if(vol != null) {
+            txtNumVol.setText("Agence: " + vol.getAgence().getNom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
