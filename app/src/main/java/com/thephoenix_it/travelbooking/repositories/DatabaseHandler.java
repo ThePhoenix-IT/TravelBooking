@@ -55,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Destination TEXT, " +
                 "Duration REAL, " +
                 "Price REAL, " +
+                "Places INTEGER, " +
                 "Disponibility INTEGER DEFAULT 0, " +
                 "Creation_date DATE, " +
                 "dateDep DATE, " +

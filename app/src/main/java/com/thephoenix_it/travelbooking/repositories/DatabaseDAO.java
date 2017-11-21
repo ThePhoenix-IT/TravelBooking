@@ -155,8 +155,11 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Destination", objectVol.getDestination());
         values.put("Duration", objectVol.getDuree());
         values.put("Price", objectVol.getPrix());
+        values.put("Places", objectVol.getNbr_places());
         values.put("Disponibility", objectVol.getDisponible());
         values.put("Creation_date", String.valueOf(objectVol.getDate_creation()));
+        values.put("dateDep", String.valueOf(objectVol.getDate_creation()));
+        values.put("dateArr", String.valueOf(objectVol.getDate_creation()));
         values.put("Id_user", objectVol.getAgence().getId_utilisateur());
         SQLiteDatabase db = this.getWritableDatabase();
         boolean createSuccessful = db.insert("Vol", null, values) > 0;
@@ -962,6 +965,89 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         return recordsList;
     }
 
+    public Reservation findOneReservationByIdVolAndIdClient(int id_vol, int id_client) {
+        Reservation result = null;
+        String sql = "SELECT * FROM Reserve r, Vol v, User u, Status s WHERE r.Id_vol = v.Id_vol AND " +
+                "r.Id_vol = " + id_vol + " AND " +
+                "r.Id_user = " + id_client + " AND " +
+                "r.Id_user = u.Id_user AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                EtatReservation er = new EtatReservation();
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
+                result = new Reservation();
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                result.setId_reservation(Id_reserve);
+                result.setVol(objectVol);
+                result.setEtatReservation(er);
+                //int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
+                //String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String prenom = cursor.getString(cursor.getColumnIndex("Prenom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Utilisateur user = new Utilisateur();
+                //TypeUtilisateur objectUserType = new TypeUtilisateur();
+                //objectUserType.setId_type_utilisateur(id_user_type);
+                //objectUserType.setDesc_type_utilisateur(desc_user_type);
+                //user.setTypeUtilisateur(objectUserType);
+                user.setId_utilisateur(id_user);
+                user.setNom_utilisateur(nom);
+                user.setPrenom_utilisateur(prenom);
+                user.setCin(cin);
+                user.setDate_naissance(date_b);
+                user.setPays(pays);
+                result.setClient(user);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
     public Reservation findOneReservationById(int id_reservation) {
         Reservation result = null;
 

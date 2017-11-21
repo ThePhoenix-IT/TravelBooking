@@ -17,6 +17,8 @@ import java.util.Map;
 public interface IClientRepository extends Serializable {
     Reservation creer_reservation(Reservation reservation);
     Reservation update_reservation(Reservation reservation);
+    Reservation findOneReservationByIdVolAndIdClient(int id_vol, int id_client);
+    List<Reservation> findAllReservationByIdVol(int id_vol);
     Reservation findOneReservationById(int id_reservation);
     EtatReservation findOneEtatReservationByDesc(String etat_reservation);
     void delete_reservation(int id_reservation);

@@ -119,13 +119,14 @@ public class MainActivity extends AppCompatActivity
             });
         }
         else {
-            List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
+            final List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
+                    mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
                     MainActivity.this.startActivity(mainIntent);
                 }
             });
@@ -171,13 +172,14 @@ public class MainActivity extends AppCompatActivity
 
             setContentView(R.layout.activity_agence_main);
             listView = (ListView) findViewById(R.id.listVolAgence);
-            List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
+            final List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent mainIntent = new Intent(MainActivity.this, CreerVolActivity.class);
+                    mainIntent.putExtra("id_vol", listVol.get(position).getId_vol());
                     MainActivity.this.startActivity(mainIntent);
                 }
             });

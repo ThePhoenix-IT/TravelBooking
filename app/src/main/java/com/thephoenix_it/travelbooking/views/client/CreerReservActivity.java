@@ -37,14 +37,14 @@ public class CreerReservActivity extends AppCompatActivity {
             if(extras == null) {
                 vol = null;
             } else {
-                reservation = clientServices.findOneReservationById(extras.getInt("id_vol"));
+                reservation = clientServices.findOneReservationByIdVolAndIdClient(extras.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
                 if(reservation != null)
                     vol = reservation.getVol();
                 else
                     vol = clientServices.findOneVolById(extras.getInt("id_vol"));
             }
         } else {
-            reservation = clientServices.findOneReservationById(savedInstanceState.getInt("id_vol"));
+            reservation = clientServices.findOneReservationByIdVolAndIdClient(savedInstanceState.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
             if(reservation != null)
                 vol = reservation.getVol();
             else

@@ -35,7 +35,7 @@
             android:label="Creation d&apos;un compte" />
         <activity
             android:name=".views.agence.CreerVolActivity"
-            android:label="@string/title_activity_creer_vol"
+            android:label="Detail Vol"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.admin.GererClientActivity"
