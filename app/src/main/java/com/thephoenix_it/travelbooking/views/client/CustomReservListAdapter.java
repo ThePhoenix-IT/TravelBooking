@@ -39,7 +39,7 @@ public class CustomReservListAdapter extends ArrayAdapter {
 
         //this code sets the values of the objects to values from the arrays
         if(reservationList.get(position) != null) {
-            nameTextField.setText(reservationList.get(position).getVol().getDestination());
+            nameTextField.setText(reservationList.get(position).getVol().getDepart() + " - " + reservationList.get(position).getVol().getDestination());
             infoTextField.setText("" + reservationList.get(position).getEtatReservation().getDesc_etat());
         }
         //imageView.setImageResource(imageIDarray[position]);
