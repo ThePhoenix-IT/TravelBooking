@@ -142,8 +142,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("date_ann", String.valueOf(objectReserv.getDate_annulation()));
         values.put("Id_vol", objectReserv.getVol().getId_vol());
         values.put("Id_user", objectReserv.getClient().getId_utilisateur());
+        values.put("Id_etat", objectReserv.getEtatReservation().getId_etat_reservation());
         SQLiteDatabase db = this.getWritableDatabase();
-        boolean createSuccessful = db.update("Reserve", values, "Id_vol = i", null) > 0;
+        boolean createSuccessful = db.update("Reserve", values, "Id_reserve = " + i, null) > 0;
         db.close();
         return createSuccessful;
     }
@@ -686,7 +687,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         List<Reservation> recordsList = new ArrayList<Reservation>();
 
         //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
-        String sql = "SELECT * FROM Reserve r, Vol v WHERE r.Id_vol = v.Id_vol ORDER BY Id_reserve DESC";
+        String sql = "SELECT * FROM Reserve r, Vol v, Status s WHERE " +
+                "r.Id_vol = v.Id_vol " +
+                "AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -696,6 +699,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
                 int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
                 int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
                 String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
                 double Duration = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
@@ -713,10 +717,13 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
                 Reservation objectReserve = new Reservation();
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
@@ -724,7 +731,139 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setDate_creation(Creation_date);
                 objectReserve.setId_reservation(Id_reserve);
                 objectReserve.setVol(objectVol);
-                objectReserve.setEtatReservation(new EtatReservation("Encours"));
+                EtatReservation er = new EtatReservation();
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
+                objectReserve.setEtatReservation(er);
+                recordsList.add(objectReserve);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordsList;
+    }
+    public List<Reservation> findAllReservationByIdAgence(int id_utilisateur) {
+
+        List<Reservation> recordsList = new ArrayList<Reservation>();
+
+        //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+        String sql = "SELECT * FROM Reserve r, Vol v, Status s WHERE " +
+                "r.Id_vol = v.Id_vol " +
+                "AND v.id_user = " + id_utilisateur +
+                " AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                Reservation objectReserve = new Reservation();
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                objectReserve.setId_reservation(Id_reserve);
+                objectReserve.setVol(objectVol);
+                EtatReservation er = new EtatReservation();
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
+                objectReserve.setEtatReservation(er);
+                recordsList.add(objectReserve);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordsList;
+    }
+
+    public List<Reservation> findAllReservationByIdClient(int id_client) {
+
+        List<Reservation> recordsList = new ArrayList<Reservation>();
+
+        //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+        String sql = "SELECT * FROM Reserve r, Vol v, Status s WHERE " +
+                "r.Id_vol = v.Id_vol " +
+                "AND r.id_user = " + id_client +
+                " AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
+                int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
+                int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
+                String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
+                double Duration = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
+                    Duration = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Duration")));
+                double Price = 0.0D;
+                if(cursor.getString(cursor.getColumnIndex("Price")) != null && !cursor.getString(cursor.getColumnIndex("Price")).isEmpty() )
+                    Price = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Price")));
+                boolean Disponibility = false;
+                if(cursor.getString(cursor.getColumnIndex("Disponibility")) != null && !cursor.getString(cursor.getColumnIndex("Disponibility")).isEmpty())
+                    Disponibility = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("Disponibility")));
+                Date Creation_date = new Date();
+                if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                Reservation objectReserve = new Reservation();
+                Vol objectVol = new Vol();
+                objectVol.setId_vol(Id_vol);
+                objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
+                objectVol.setDestination(Destination);
+                objectVol.setDuree(Duration);
+                objectVol.setPrix(Price);
+                objectVol.setDisponible(Disponibility);
+                objectVol.setDate_creation(Creation_date);
+                objectReserve.setId_reservation(Id_reserve);
+                objectReserve.setVol(objectVol);
+                EtatReservation er = new EtatReservation();
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
+                objectReserve.setEtatReservation(er);
                 recordsList.add(objectReserve);
 
             } while (cursor.moveToNext());

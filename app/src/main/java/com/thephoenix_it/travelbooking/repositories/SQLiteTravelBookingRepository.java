@@ -48,6 +48,11 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     }
 
     @Override
+    public List<Reservation> findAllReservationByIdClient(int id_client) {
+        return dao.findAllReservationByIdClient(id_client);
+    }
+
+    @Override
     public Reservation findOneReservationById(int id_reservation) {
         return dao.findOneReservationById(id_reservation);
     }
@@ -117,6 +122,11 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
     @Override
     public List<Vol> listVolFiltered(Map filter) {
         return dao.listVolFiltered(filter);
+    }
+
+    @Override
+    public List<Reservation> findAllReservationByIdAgence(int id_utilisateur) {
+        return dao.findAllReservationByIdAgence(id_utilisateur);
     }
 
     @Override

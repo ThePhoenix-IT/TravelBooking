@@ -150,7 +150,6 @@ public class CreerReservActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
-                System.err.println(reservation);
                 if(reservation == null)
                     createReservation();
                 else

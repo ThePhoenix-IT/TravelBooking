@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Vol;
+import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
@@ -24,6 +26,7 @@ import java.util.List;
 public class ListReservationActivity extends AppCompatActivity {
 
     private IClientRepository service = new SQLiteTravelBookingRepository(this);
+    private IAgenceRepository agenceService = new SQLiteTravelBookingRepository(this);
     private ListView listView;
 
     @Override
@@ -49,7 +52,11 @@ public class ListReservationActivity extends AppCompatActivity {
             }
         });
         listView = (ListView) findViewById(R.id.listReservView);
-        final List<Reservation> reservationList = service.findAllReservation();
+        final List<Reservation> reservationList;
+        if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT"))
+            reservationList = service.findAllReservationByIdClient(LoginActivity.connectedUser.getId_utilisateur());
+        else
+            reservationList = agenceService.findAllReservationByIdAgence(LoginActivity.connectedUser.getId_utilisateur());
         CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,7 +79,11 @@ public class ListReservationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final List<Reservation> reservationList = service.findAllReservation();
+        final List<Reservation> reservationList;
+        if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT"))
+            reservationList = service.findAllReservationByIdClient(LoginActivity.connectedUser.getId_utilisateur());
+        else
+            reservationList = agenceService.findAllReservationByIdAgence(LoginActivity.connectedUser.getId_utilisateur());
         CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
         listView.setAdapter(whatever);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

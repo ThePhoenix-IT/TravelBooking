@@ -24,5 +24,6 @@ public interface IAgenceRepository extends Serializable {
     List<Vol> listVol();
     List<Vol> listVolByIdAgence(int id_utilisateur);
     List<Vol> listVolFiltered(Map filter);
+    List<Reservation> findAllReservationByIdAgence(int id_utilisateur);
 
 }
