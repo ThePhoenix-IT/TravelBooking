@@ -947,9 +947,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         Reservation result = null;
 
         //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
-        String sql = "SELECT * FROM Reserve r, Vol v, User u WHERE r.Id_vol = v.Id_vol AND " +
+        String sql = "SELECT * FROM Reserve r, Vol v, User u, Status s WHERE r.Id_vol = v.Id_vol AND " +
                 "r.Id_reserve = " + id_reservation + " AND " +
-                "r.Id_user = u.Id_user ORDER BY Id_reserve DESC";
+                "r.Id_user = u.Id_user AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -976,6 +976,11 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                int Id_etat = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_etat")));
+                String desc_stat = cursor.getString(cursor.getColumnIndex("Desc_stat"));
+                EtatReservation er = new EtatReservation();
+                er.setId_etat_reservation(Id_etat);
+                er.setDesc_etat(desc_stat);
                 result = new Reservation();
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
@@ -987,7 +992,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 objectVol.setDate_creation(Creation_date);
                 result.setId_reservation(Id_reserve);
                 result.setVol(objectVol);
-                result.setEtatReservation(new EtatReservation("Encours"));
+                result.setEtatReservation(er);
                 //int id_user_type = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user_type")));
                 //String desc_user_type = cursor.getString(cursor.getColumnIndex("desc_user_type"));
                 int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));

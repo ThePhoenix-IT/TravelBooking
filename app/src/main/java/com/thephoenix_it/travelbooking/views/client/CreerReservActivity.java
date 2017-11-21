@@ -26,7 +26,7 @@ public class CreerReservActivity extends AppCompatActivity {
     private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
     private Reservation reservation;
     private Vol vol;
-    private TextView txtClient, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces;
+    private TextView txtClient, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces, txtEtatReserv;
     private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +54,12 @@ public class CreerReservActivity extends AppCompatActivity {
         txtDateArr = findViewById(R.id.date_arrivee);
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
+        txtEtatReserv = findViewById(R.id.txtEtatReserv);
         radioGroup = findViewById(R.id.etatReservRG);
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
             radioGroup.setVisibility(View.VISIBLE);
             txtClient.setVisibility(View.VISIBLE);
+            txtEtatReserv.setVisibility(View.INVISIBLE);
         }
         if(vol != null){
             txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
@@ -68,6 +70,7 @@ public class CreerReservActivity extends AppCompatActivity {
             txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());
             txtPrix.setText("Prix: " + vol.getPrix());
             txtNbrPlaces.setText("Nbr Places: " + vol.getNbr_places());
+            txtEtatReserv.setText(" " + reservation.getEtatReservation().getDesc_etat());
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
