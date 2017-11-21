@@ -1,7 +1,9 @@
 package com.thephoenix_it.travelbooking.views.client;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -104,6 +106,32 @@ public class CreerReservActivity extends AppCompatActivity {
     }
 
     private void clearAllEditText() {
+        AlertDialog deleteDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                .setIcon(R.drawable.ic_menu_close)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        deleteReservation(reservation.getId_reservation());
+                        dialog.dismiss();
+                        finish();
+
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        deleteDialogBox.show();
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -111,6 +139,10 @@ public class CreerReservActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.creer_vol_menu, menu);
+        if(reservation == null){
+            MenuItem item = menu.findItem(R.id.delete_vol);
+            item.setEnabled(false);
+        }
         return true;
     }
     @Override
@@ -125,7 +157,7 @@ public class CreerReservActivity extends AppCompatActivity {
                     updateReservation();
                 return true;
             case R.id.delete_vol:
-                deleteReservation(reservation.getId_reservation());
+                clearAllEditText();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -145,6 +177,7 @@ public class CreerReservActivity extends AppCompatActivity {
     }
 
     private void deleteReservation(int id_reservation) {
+        clientServices.delete_reservation(id_reservation);
     }
 
     private void createReservation() {
