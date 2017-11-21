@@ -2,13 +2,11 @@ package com.thephoenix_it.travelbooking.views.client;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,14 +17,14 @@ import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
-import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 
 public class CreerReservActivity extends AppCompatActivity {
 
     private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
     private Reservation reservation;
     private Vol vol;
-    private TextView txtClient, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr, txtPrix, txtNbrPlaces, txtEtatReserv;
+    private TextView txtClient, txtNumVol, txtDepart, txtDestination, txtDateDep, txtDateArr,
+            etatReserv, txtPrix, txtNbrPlaces, txtEtatReserv;
     private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +37,16 @@ public class CreerReservActivity extends AppCompatActivity {
             } else {
                 reservation = clientServices.findOneReservationById(extras.getInt("id_vol"));
                 if(reservation != null)
-                vol = reservation.getVol();
+                    vol = reservation.getVol();
+                else
+                    vol = clientServices.findOneVolById(extras.getInt("id_vol"));
             }
         } else {
             reservation = clientServices.findOneReservationById(savedInstanceState.getInt("id_vol"));
             if(reservation != null)
                 vol = reservation.getVol();
+            else
+                vol = clientServices.findOneVolById(savedInstanceState.getInt("id_vol"));
         }
         txtClient = findViewById(R.id.client);
         txtNumVol = findViewById(R.id.num_vol);
@@ -55,14 +57,25 @@ public class CreerReservActivity extends AppCompatActivity {
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
         txtEtatReserv = findViewById(R.id.txtEtatReserv);
+        etatReserv = findViewById(R.id.etatReserv);
+
         radioGroup = findViewById(R.id.etatReservRG);
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
             radioGroup.setVisibility(View.VISIBLE);
             txtClient.setVisibility(View.VISIBLE);
+            etatReserv.setVisibility(View.VISIBLE);
             txtEtatReserv.setVisibility(View.INVISIBLE);
         }
+        if(reservation != null)
+            etatReserv.setVisibility(View.VISIBLE);
+
         if(vol != null){
-            txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
+            if(reservation != null) {
+                txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
+                txtEtatReserv.setText(" " + reservation.getEtatReservation().getDesc_etat());
+            }
+            else
+                txtClient.setText("Agence: " + vol.getAgence().getNom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
@@ -70,7 +83,6 @@ public class CreerReservActivity extends AppCompatActivity {
             txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());
             txtPrix.setText("Prix: " + vol.getPrix());
             txtNbrPlaces.setText("Nbr Places: " + vol.getNbr_places());
-            txtEtatReserv.setText(" " + reservation.getEtatReservation().getDesc_etat());
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,6 +118,7 @@ public class CreerReservActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
+                System.err.println(reservation);
                 if(reservation == null)
                     createReservation();
                 else

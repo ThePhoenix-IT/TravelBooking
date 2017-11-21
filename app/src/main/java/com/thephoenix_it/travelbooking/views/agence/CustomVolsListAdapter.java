@@ -45,7 +45,7 @@ public class CustomVolsListAdapter extends ArrayAdapter {
                 agenceTextField.setText("Agence: " + volList.get(position).getAgence().getNom_utilisateur());
             else
                 agenceTextField.setText("Agence: ");
-            dureeTextField.setText("Duree: " + volList.get(position).getDuree());
+            dureeTextField.setText("Places: " + volList.get(position).getNbr_places());
             prixTextField.setText("Prix: " + volList.get(position).getPrix());
         }
         //imageView.setImageResource(imageIDarray[position]);

@@ -46,7 +46,7 @@ public class VolViewActivity extends AppCompatActivity {
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
         if(vol != null) {
-            txtNumVol.setText("Agence: " + vol.getAgence().getNom_utilisateur());
+            txtNomAgence.setText("Agence: " + vol.getAgence().getNom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());

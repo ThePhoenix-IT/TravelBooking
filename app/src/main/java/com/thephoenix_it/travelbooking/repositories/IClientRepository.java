@@ -8,6 +8,7 @@ import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by root on 17/11/04.
@@ -23,4 +24,5 @@ public interface IClientRepository extends Serializable {
     List<Reservation> findAllReservation();
     Vol findOneVolById(int id_vol);
     List<Vol> listVol();
+    List<Vol> listVolFiltered(Map filter);
 }

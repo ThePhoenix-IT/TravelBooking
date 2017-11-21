@@ -61,7 +61,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:fontFamily="sans-serif"
-                    android:text="Duree: "
+                    android:text="Places: "
                     android:textColor="@color/primary_text"
                     android:textSize="14sp" />
                 <TextView

@@ -106,9 +106,11 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/etatReserv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reservations"
+                    android:visibility="invisible"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
                 <TextView
                     android:id="@+id/txtEtatReserv"

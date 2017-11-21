@@ -183,7 +183,9 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String sql = "SELECT * FROM Vol WHERE Id_vol = " + id_vol;
+        String sql = "SELECT * FROM Vol v, User u WHERE " +
+                "v.Id_user = u.Id_user AND " +
+                "Id_vol = " + id_vol;
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -207,6 +209,22 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                int id_user = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_user")));
+                String nom = cursor.getString(cursor.getColumnIndex("Nom_user"));
+                String pays = cursor.getString(cursor.getColumnIndex("Pays"));
+                int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
+                Date date_b = new Date();
+                try {
+                    date_b = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Utilisateur agence = new Utilisateur();
+                agence.setId_utilisateur(id_user);
+                agence.setNom_utilisateur(nom);
+                agence.setCin(cin);
+                agence.setDate_naissance(date_b);
+                agence.setPays(pays);
                 result.setId_vol(Id_vol);
                 result.setNum_vol(Num_vol);
                 result.setDestination(Destination);
@@ -214,6 +232,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 result.setPrix(Price);
                 result.setDisponible(Disponibility);
                 result.setDate_creation(Creation_date);
+                result.setAgence(agence);
 
             } while (cursor.moveToNext());
         }
