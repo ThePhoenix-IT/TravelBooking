@@ -137,7 +137,7 @@ public class CreerReservActivity extends AppCompatActivity {
             reservation.setEtatReservation(radioGroup.getCheckedRadioButtonId() == R.id.encours ?
                     clientServices.findOneEtatReservationByDesc("Encours") : radioGroup.getCheckedRadioButtonId() == R.id.confirmer ?
                     clientServices.findOneEtatReservationByDesc("Confirmer") : clientServices.findOneEtatReservationByDesc("Annuler"));
-            if(clientServices.creer_reservation(reservation).getId_reservation() > 0)
+            if(clientServices.update_reservation(reservation).getId_reservation() > 0)
                 Toast.makeText(CreerReservActivity.this, "Reservation modifier avec succes.", Toast.LENGTH_LONG).show();
             else
                 Toast.makeText(CreerReservActivity.this, "Erreur modification Reservation.", Toast.LENGTH_LONG).show();

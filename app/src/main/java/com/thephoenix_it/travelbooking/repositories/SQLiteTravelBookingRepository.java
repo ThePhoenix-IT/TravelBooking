@@ -33,7 +33,8 @@ public class SQLiteTravelBookingRepository implements IAdminRepository, IAgenceR
 
     @Override
     public Reservation update_reservation(Reservation reservation) {
-        return null;
+        dao.update_res(reservation, reservation.getId_reservation());
+        return reservation;
     }
 
     @Override
