@@ -17,7 +17,7 @@ public class GererClientActivity extends AppCompatActivity {
 
     private Utilisateur utilisateur;
     private IAdminRepository adminServices = new SQLiteTravelBookingRepository(this);
-    private EditText user_name1, user_name2;
+    private EditText user_name1, user_name2, login, password, email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +34,19 @@ public class GererClientActivity extends AppCompatActivity {
         }
         user_name1 = findViewById(R.id.user_name1);
         user_name2 = findViewById(R.id.user_name2);
+        login = findViewById(R.id.user_login);
+        password = findViewById(R.id.user_pass);
+        email = findViewById(R.id.user_email);
         if(utilisateur != null){
-
+            if(utilisateur.getTypeUtilisateur().equals("AGENCE"))
+                user_name2.setVisibility(View.INVISIBLE);
             user_name1.setText(utilisateur.getNom_utilisateur());
             user_name2.setText(utilisateur.getPrenom_utilisateur());
+            if(utilisateur.getCompte() != null) {
+                login.setText(utilisateur.getCompte().getLogin());
+                password.setText(utilisateur.getCompte().getPassword());
+            }
+            email.setText(utilisateur.getEmail_utilisateur());
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
