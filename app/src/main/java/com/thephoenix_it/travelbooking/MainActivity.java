@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
 
             setContentView(R.layout.activity_admin_main);
-            TextView textView = findViewById(R.id.textView);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View header = navigationView.getHeaderView(0);
+            TextView textView = header.findViewById(R.id.adminTextView);
             textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listUtilisateurAdmin);
             utilisateurList = adminServices.listUtilisateur();
@@ -156,7 +158,9 @@ public class MainActivity extends AppCompatActivity
         else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
 
             setContentView(R.layout.activity_main);
-            TextView textView = findViewById(R.id.textView);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View header = navigationView.getHeaderView(0);
+            TextView textView = header.findViewById(R.id.clientTextView);
             textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listReservUser);
 
@@ -176,7 +180,9 @@ public class MainActivity extends AppCompatActivity
         else {
 
             setContentView(R.layout.activity_agence_main);
-            TextView textView = findViewById(R.id.textView);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View header = navigationView.getHeaderView(0);
+            TextView textView = header.findViewById(R.id.agenceTextView);
             textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listVolAgence);
             final List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
