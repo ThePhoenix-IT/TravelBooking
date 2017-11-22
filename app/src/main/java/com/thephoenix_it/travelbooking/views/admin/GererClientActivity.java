@@ -38,7 +38,7 @@ public class GererClientActivity extends AppCompatActivity {
         password = findViewById(R.id.user_pass);
         email = findViewById(R.id.user_email);
         if(utilisateur != null){
-            if(utilisateur.getTypeUtilisateur().equals("AGENCE"))
+            if(utilisateur.getTypeUtilisateur().toString().equals("AGENCE"))
                 user_name2.setVisibility(View.INVISIBLE);
             user_name1.setText(utilisateur.getNom_utilisateur());
             user_name2.setText(utilisateur.getPrenom_utilisateur());
