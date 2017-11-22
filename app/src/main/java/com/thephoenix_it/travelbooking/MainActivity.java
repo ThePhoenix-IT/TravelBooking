@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
@@ -137,6 +138,8 @@ public class MainActivity extends AppCompatActivity
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("ADMIN")) {
 
             setContentView(R.layout.activity_admin_main);
+            TextView textView = findViewById(R.id.textView);
+            textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listUtilisateurAdmin);
             utilisateurList = adminServices.listUtilisateur();
             CustomUtlisateursListAdapter whatever = new CustomUtlisateursListAdapter(this, utilisateurList);
@@ -153,6 +156,8 @@ public class MainActivity extends AppCompatActivity
         else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
 
             setContentView(R.layout.activity_main);
+            TextView textView = findViewById(R.id.textView);
+            textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listReservUser);
 
             final List<Reservation> reservationList = clientServices.findAllReservation();
@@ -171,6 +176,8 @@ public class MainActivity extends AppCompatActivity
         else {
 
             setContentView(R.layout.activity_agence_main);
+            TextView textView = findViewById(R.id.textView);
+            textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listVolAgence);
             final List<Vol> listVol = agenceServices.listVolByIdAgence(LoginActivity.connectedUser.getId_utilisateur());;
             CustomVolsListAdapter whatever = new CustomVolsListAdapter(this, listVol);
