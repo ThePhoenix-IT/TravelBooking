@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.admin.GererClientActivity"
-            android:label="@string/title_activity_gerer_client"
+            android:label="Detail Utilisateur"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.client.ListVolsActivity"

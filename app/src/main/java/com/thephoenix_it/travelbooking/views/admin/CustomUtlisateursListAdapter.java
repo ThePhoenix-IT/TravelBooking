@@ -39,8 +39,10 @@ public class CustomUtlisateursListAdapter extends ArrayAdapter {
 
         //this code sets the values of the objects to values from the arrays
         if(utilisateurList.get(position) != null) {
-
-            nameTextField.setText(utilisateurList.get(position).getNom_utilisateur() + " " + utilisateurList.get(position).getPrenom_utilisateur());
+            if(utilisateurList.get(position).getTypeUtilisateur().toString().equals("CLIENT"))
+                nameTextField.setText(utilisateurList.get(position).getNom_utilisateur() + " " + utilisateurList.get(position).getPrenom_utilisateur());
+            else
+                nameTextField.setText(utilisateurList.get(position).getNom_utilisateur());
             infoTextField.setText("Type: " + utilisateurList.get(position).getTypeUtilisateur().getDesc_type_utilisateur());
         }
         //imageView.setImageResource(imageIDarray[position]);
