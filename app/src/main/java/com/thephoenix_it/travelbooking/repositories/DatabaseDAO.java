@@ -137,6 +137,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
     public boolean update_res(Reservation objectReserv, int i) {
         ContentValues values = new ContentValues();
+        values.put("Id_reserve", i);
         values.put("Date_res", String.valueOf(objectReserv.getDate_reservation()));
         values.put("date_ann", String.valueOf(objectReserv.getDate_annulation()));
         values.put("Id_vol", objectReserv.getVol().getId_vol());

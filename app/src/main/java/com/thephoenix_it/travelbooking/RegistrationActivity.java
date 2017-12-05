@@ -95,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
         btnValider2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txtAgencePassword1.getText().toString().equals(txtAgencePassword2.getText().toString())) {
+                if (txtAgencePassword1.getText().toString().equals(txtAgencePassword2.getText().toString())&&txtAgencePassword2.length()>4) {
                 user = new Utilisateur(txtAgenceNom.getText().toString(), null, txtAgencePays.getText().toString(),
                         txtAgenceEmail.getText().toString(), 9999, new Date(), service.findOneTypeUtilisateurByDesc("Agence"));
                 user.setCompte(new Compte(txtAgenceLogin.getText().toString(), txtAgencePassword2.getText().toString(), true, user));
