@@ -55,6 +55,8 @@ public class CreerVolActivity extends AppCompatActivity {
         txtDateArr = findViewById(R.id.date_arrivee);
         txtPrix = findViewById(R.id.vol_prix);
         txtNbrPlaces = findViewById(R.id.nbr_places);
+        txtDateDep.setFocusable(false);
+        txtDateArr.setFocusable(false);
         txtDateDep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +75,10 @@ public class CreerVolActivity extends AppCompatActivity {
             txtNumVol.setText("" + vol.getNum_vol());
             txtDepart.setText(vol.getDepart());
             txtDestination.setText(vol.getDestination());
-            txtDateDep.setText("" + vol.getDate_depart());
-            txtDateArr.setText("" + vol.getDate_arrivee());
+            if(vol.getDate_depart() != null)
+                txtDateDep.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_depart()));
+            if(vol.getDate_arrivee() != null)
+                txtDateArr.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_arrivee()));
             txtPrix.setText("" + vol.getPrix());
             txtNbrPlaces.setText("" + vol.getNbr_places());
         }
@@ -157,20 +161,20 @@ public class CreerVolActivity extends AppCompatActivity {
     }
 
     private void createVol() {
-        Vol vol = new Vol();
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
         vol.setDepart(txtDepart.getText().toString());
         vol.setDestination(txtDestination.getText().toString());
         try {
-            vol.setDate_depart(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(txtDateDep.getText().toString()));
-            vol.setDate_arrivee(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(txtDateArr.getText().toString()));
-            vol.setDate_creation(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ").parse(new Date().toString()));
+            vol.setDate_depart(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(txtDateDep.getText().toString()));
+            vol.setDate_arrivee(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(txtDateArr.getText().toString()));
+            vol.setDate_creation(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(new Date().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         vol.setNbr_places(Integer.parseInt(txtNbrPlaces.getText().toString()));
         vol.setPrix(Double.valueOf(txtPrix.getText().toString()));
         vol.setAgence(LoginActivity.connectedUser);
+        System.err.println(vol);
         if(agenceServices.creer_vol(vol).getId_vol() > 0)
             Toast.makeText(CreerVolActivity.this, "Vol cree avec succes.", Toast.LENGTH_LONG).show();
         else
@@ -209,7 +213,7 @@ public class CreerVolActivity extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
-            editText.setText(editText.getText() + " " + hourOfDay + ":"	+ minute);
+            editText.setText(editText.getText() + " " + (hourOfDay > 9 ? hourOfDay : "0" + hourOfDay) + ":"	+ (minute > 9 ? minute : "0" + minute));
         }
     }
     public static class DatePickerFragment extends DialogFragment implements
@@ -233,7 +237,7 @@ public class CreerVolActivity extends AppCompatActivity {
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
-            editText.setText(day + "/" + (month + 1) + "/" + year);
+            editText.setText((day > 9 ? day : "0" + day) + "-" + ((month + 1 > 9 ? month + 1 : "0" + month + 1)) + "-" + year);
         }
     }
 

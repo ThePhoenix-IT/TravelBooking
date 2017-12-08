@@ -18,6 +18,8 @@ import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
 
+import java.text.SimpleDateFormat;
+
 public class VolViewActivity extends AppCompatActivity {
 
     private IAgenceRepository agenceServices = new SQLiteTravelBookingRepository(this);
@@ -50,8 +52,8 @@ public class VolViewActivity extends AppCompatActivity {
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
-            txtDateDep.setText("Date Depart: " + vol.getDate_depart());
-            txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());
+            txtDateDep.setText("Date Depart: " + new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_depart()));
+            txtDateArr.setText("Date Arrivee: " + new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_arrivee()));
             txtPrix.setText("Prix: " + vol.getPrix());
             txtNbrPlaces.setText("Nbr Places: " + vol.getNbr_places());
         }

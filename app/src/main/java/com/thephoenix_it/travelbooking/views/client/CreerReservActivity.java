@@ -20,6 +20,8 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 
+import java.text.SimpleDateFormat;
+
 public class CreerReservActivity extends AppCompatActivity {
 
     private IClientRepository clientServices = new SQLiteTravelBookingRepository(this);
@@ -81,8 +83,8 @@ public class CreerReservActivity extends AppCompatActivity {
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());
             txtDestination.setText("Destination: " + vol.getDestination());
-            txtDateDep.setText("Date Depart: " + vol.getDate_depart());
-            txtDateArr.setText("Date Arrivee: " + vol.getDate_arrivee());
+            txtDateDep.setText("Date Depart: " + new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_depart()));
+            txtDateArr.setText("Date Arrivee: " + new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_arrivee()));
             txtPrix.setText("Prix: " + vol.getPrix());
             txtNbrPlaces.setText("Nbr Places: " + vol.getNbr_places());
         }
@@ -164,15 +166,14 @@ public class CreerReservActivity extends AppCompatActivity {
     }
 
     private void updateReservation() {
-        if(reservation != null) {
-            reservation.setEtatReservation(radioGroup.getCheckedRadioButtonId() == R.id.encours ?
-                    clientServices.findOneEtatReservationByDesc("Encours") : radioGroup.getCheckedRadioButtonId() == R.id.confirmer ?
-                    clientServices.findOneEtatReservationByDesc("Confirmer") : clientServices.findOneEtatReservationByDesc("Annuler"));
-            if(clientServices.update_reservation(reservation).getId_reservation() > 0)
-                Toast.makeText(CreerReservActivity.this, "Reservation modifier avec succes.", Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(CreerReservActivity.this, "Erreur modification Reservation.", Toast.LENGTH_LONG).show();
-        }
+        System.err.println("=================" + reservation.getId_reservation());
+        reservation.setEtatReservation(radioGroup.getCheckedRadioButtonId() == R.id.encours ?
+                clientServices.findOneEtatReservationByDesc("Encours") : radioGroup.getCheckedRadioButtonId() == R.id.confirmer ?
+                clientServices.findOneEtatReservationByDesc("Confirmer") : clientServices.findOneEtatReservationByDesc("Annuler"));
+        if(clientServices.update_reservation(reservation).getId_reservation() > 0)
+            Toast.makeText(CreerReservActivity.this, "Reservation modifier avec succes.", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(CreerReservActivity.this, "Erreur modification Reservation.", Toast.LENGTH_LONG).show();
     }
 
     private void deleteReservation(int id_reservation) {
