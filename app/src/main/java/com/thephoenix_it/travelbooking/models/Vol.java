@@ -148,4 +148,23 @@ public class Vol extends RealmObject implements Serializable {
     public void setDate_arrivee(Date date_arrivee) {
         this.date_arrivee = date_arrivee;
     }
+
+    @Override
+    public String toString() {
+        return "Vol{" +
+                "id_vol=" + id_vol +
+                ", num_vol=" + num_vol +
+                ", nbr_places=" + nbr_places +
+                ", duree=" + duree +
+                ", depart='" + depart + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date_depart=" + date_depart +
+                ", date_arrivee=" + date_arrivee +
+                ", prix=" + prix +
+                ", date_creation=" + date_creation +
+                ", disponible=" + disponible +
+                ", agence=" + agence +
+                ", id_agence=" + id_agence +
+                '}';
+    }
 }

@@ -213,7 +213,21 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Date Creation_date = new Date();
                 if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
                     try {
-                        Creation_date = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Date date_dep = new Date();
+                if(cursor.getString(cursor.getColumnIndex("dateDep")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Date date_arr = new Date();
+                if(cursor.getString(cursor.getColumnIndex("dateArr")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -223,7 +237,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
                 Date date_b = new Date();
                 try {
-                    date_b = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -242,6 +256,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 result.setNbr_places(nbrPlaces);
                 result.setDisponible(Disponibility);
                 result.setDate_creation(Creation_date);
+                result.setDate_depart(date_dep);
+                result.setDate_arrivee(date_arr);
                 result.setAgence(agence);
 
             } while (cursor.moveToNext());
@@ -990,7 +1006,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Date Creation_date = new Date();
                 if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
                     try {
-                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                        if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null)
+                            Creation_date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -1001,7 +1018,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int cin = Integer.parseInt(cursor.getString(cursor.getColumnIndex("CIN")));
                 Date date_b = new Date();
                 try {
-                    date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
+                    if(cursor.getString(cursor.getColumnIndex("Date_b")) != null)
+                        date_b = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex("Date_b")));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -1133,6 +1151,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 int Id_reserve = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_reserve")));
                 int Id_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Id_vol")));
                 int Num_vol = Integer.parseInt(cursor.getString(cursor.getColumnIndex("Num_vol")));
+                String depart = cursor.getString(cursor.getColumnIndex("Depart"));
                 String Destination = cursor.getString(cursor.getColumnIndex("Destination"));
                 double Duration = 0.0D;
                 if(cursor.getString(cursor.getColumnIndex("Duration")) != null && !cursor.getString(cursor.getColumnIndex("Duration")).isEmpty())
@@ -1146,7 +1165,21 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Date Creation_date = new Date();
                 if(cursor.getString(cursor.getColumnIndex("Creation_date")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
                     try {
-                        Creation_date = new SimpleDateFormat("yyyy-mm-dd").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                        Creation_date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Date date_dep = new Date();
+                if(cursor.getString(cursor.getColumnIndex("dateDep")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Date date_arr = new Date();
+                if(cursor.getString(cursor.getColumnIndex("dateArr")) != null && !cursor.getString(cursor.getColumnIndex("Creation_date")).isEmpty())
+                    try {
+                        Creation_date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(cursor.getString(cursor.getColumnIndex("Creation_date")));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -1159,11 +1192,14 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
                 Vol objectVol = new Vol();
                 objectVol.setId_vol(Id_vol);
                 objectVol.setNum_vol(Num_vol);
+                objectVol.setDepart(depart);
                 objectVol.setDestination(Destination);
                 objectVol.setDuree(Duration);
                 objectVol.setPrix(Price);
                 objectVol.setDisponible(Disponibility);
                 objectVol.setDate_creation(Creation_date);
+                objectVol.setDate_depart(date_dep);
+                objectVol.setDate_arrivee(date_arr);
                 result.setId_reservation(Id_reserve);
                 result.setVol(objectVol);
                 result.setEtatReservation(er);
