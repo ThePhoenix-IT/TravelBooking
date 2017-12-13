@@ -4,7 +4,7 @@ realm {
     syncEnabled = true
 }
 android {
-    compileSdkVersion 24
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.thephoenix_it.travelbooking"
         minSdkVersion 15
@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     // RecyclerView
     implementation 'com.android.support:support-vector-drawable:26.1.0'
