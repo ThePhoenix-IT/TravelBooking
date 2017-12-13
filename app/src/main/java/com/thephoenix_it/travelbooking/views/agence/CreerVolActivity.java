@@ -161,6 +161,7 @@ public class CreerVolActivity extends AppCompatActivity {
     }
 
     private void createVol() {
+        vol = new Vol();
         vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
         vol.setDepart(txtDepart.getText().toString());
         vol.setDestination(txtDestination.getText().toString());
