@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
 
-            final List<Reservation> reservationList = clientServices.findAllReservation();
+            final List<Reservation> reservationList = clientServices.findAllReservationByIdClient(LoginActivity.connectedUser.getId_utilisateur());
             CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             textView.setText(LoginActivity.connectedUser.getNom_utilisateur());
             listView = (ListView) findViewById(R.id.listReservUser);
 
-            final List<Reservation> reservationList = clientServices.findAllReservation();
+            final List<Reservation> reservationList = clientServices.findAllReservationByIdClient(LoginActivity.connectedUser.getId_utilisateur());
             CustomReservListAdapter whatever = new CustomReservListAdapter(this, reservationList);
             listView.setAdapter(whatever);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
