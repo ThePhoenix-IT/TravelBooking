@@ -162,7 +162,8 @@ public class CreerVolActivity extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //your deleting code
-                        deleteVol(vol.getId_vol());
+                        if(vol.getId_vol() != 0)
+                            deleteVol(vol.getId_vol());
 
                         txtNumVol.getEditableText().clear();
                         txtDestination.getEditableText().clear();
@@ -185,7 +186,11 @@ public class CreerVolActivity extends AppCompatActivity {
         deleteDialogBox.show();
     }
     private void updateVol() {
-        agenceServices.update_vol(vol, vol.getId_vol());
+        if(agenceServices.update_vol(vol, vol.getId_vol()).getId_vol() > 0)
+            Toast.makeText(CreerVolActivity.this, "Vol modifier avec succes.", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(CreerVolActivity.this, "Erreur modification Vol.", Toast.LENGTH_LONG).show();
+
     }
 
     private void deleteVol(int id_vol) {

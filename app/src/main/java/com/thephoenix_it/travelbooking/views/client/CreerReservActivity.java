@@ -40,16 +40,22 @@ public class CreerReservActivity extends AppCompatActivity {
             if(extras == null) {
                 vol = null;
             } else {
-                reservation = clientServices.findOneReservationByIdVolAndIdClient(extras.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
+                if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE"))
+                    reservation = clientServices.findOneReservationById(extras.getInt("id_reservation"));
+                else
+                    reservation = clientServices.findOneReservationByIdVolAndIdClient(extras.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
                 if(reservation != null)
-                    vol = reservation.getVol();
+                    vol = clientServices.findOneVolById(reservation.getVol().getId_vol());
                 else
                     vol = clientServices.findOneVolById(extras.getInt("id_vol"));
             }
         } else {
-            reservation = clientServices.findOneReservationByIdVolAndIdClient(savedInstanceState.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
+            if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE"))
+                reservation = clientServices.findOneReservationById(savedInstanceState.getInt("id_reservation"));
+            else
+                reservation = clientServices.findOneReservationByIdVolAndIdClient(savedInstanceState.getInt("id_vol"), LoginActivity.connectedUser.getId_utilisateur());
             if(reservation != null)
-                vol = reservation.getVol();
+                vol = clientServices.findOneVolById(reservation.getVol().getId_vol());
             else
                 vol = clientServices.findOneVolById(savedInstanceState.getInt("id_vol"));
         }
@@ -69,6 +75,7 @@ public class CreerReservActivity extends AppCompatActivity {
             radioGroup.setVisibility(View.VISIBLE);
 
             if(reservation != null) {
+                txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
                 if(reservation.getEtatReservation().getDesc_etat().equals("Confirmer"))
                     ((RadioButton) radioGroup.findViewById(R.id.confirmer)).setChecked(true);
                 else if(reservation.getEtatReservation().getDesc_etat().equals("Annuler"))
@@ -79,16 +86,17 @@ public class CreerReservActivity extends AppCompatActivity {
             txtClient.setVisibility(View.VISIBLE);
             etatReserv.setVisibility(View.VISIBLE);
             txtEtatReserv.setVisibility(View.INVISIBLE);
-        }
-        if(reservation != null)
+        } else if(reservation != null) {
+            txtClient.setVisibility(View.VISIBLE);
+            txtClient.setText("Agence: " + clientServices.findOneVolById(reservation.getVol().getId_vol()).getAgence().getNom_utilisateur());
+            txtEtatReserv.setText(" " + reservation.getEtatReservation().getDesc_etat());
             etatReserv.setVisibility(View.VISIBLE);
 
+        }
+
         if(vol != null){
-            if(reservation != null) {
-                txtClient.setText("Client: " + reservation.getClient().getNom_utilisateur() + " " + reservation.getClient().getPrenom_utilisateur());
-                txtEtatReserv.setText(" " + reservation.getEtatReservation().getDesc_etat());
-            }
-            else
+            txtClient.setVisibility(View.VISIBLE);
+            if(reservation == null)
                 txtClient.setText("Agence: " + vol.getAgence().getNom_utilisateur());
             txtNumVol.setText("Num Vol: " + vol.getNum_vol());
             txtDepart.setText("Depart: " + vol.getDepart());

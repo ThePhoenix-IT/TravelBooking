@@ -125,12 +125,14 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         ContentValues values = new ContentValues();
         values.put("Num_vol", objectVol.getNum_vol());
         values.put("Destination", objectVol.getDestination());
-        values.put("Duration", objectVol.getDuree());
+        values.put("Depart", objectVol.getDepart());
         values.put("Price", objectVol.getPrix());
         values.put("Disponibility", objectVol.getDisponible());
-        values.put("Creation_date", String.valueOf(objectVol.getDate_creation()));
+        values.put("Places", objectVol.getNbr_places());
+        values.put("dateDep", String.valueOf(objectVol.getDate_creation()));
+        values.put("dateArr", String.valueOf(objectVol.getDate_creation()));
         SQLiteDatabase db = this.getWritableDatabase();
-        boolean createSuccessful = db.update("Vol", values, "Id_vol = i", null)> 0;
+        boolean createSuccessful = db.update("Vol", values, "Id_vol = " + i, null)> 0;
         db.close();
         return createSuccessful;
     }
@@ -154,7 +156,6 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         values.put("Num_vol", objectVol.getNum_vol());
         values.put("Depart", objectVol.getDepart());
         values.put("Destination", objectVol.getDestination());
-        values.put("Duration", objectVol.getDuree());
         values.put("Price", objectVol.getPrix());
         values.put("Places", objectVol.getNbr_places());
         values.put("Disponibility", objectVol.getDisponible());
@@ -767,7 +768,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
         //String sql = "SELECT * FROM Reserve r, Status s, Vol v WHERE r.Id_vol = v.Id_vol AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
         String sql = "SELECT * FROM Reserve r, Vol v, Status s WHERE " +
-                "r.Id_reserve <> NUlL AND r.Id_vol = v.Id_vol " +
+                "r.Id_vol = v.Id_vol " +
                 "AND v.id_user = " + id_utilisateur +
                 " AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
 
@@ -1204,7 +1205,8 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
         String sql = "SELECT * FROM Reserve r, Vol v, User u, Status s WHERE r.Id_vol = v.Id_vol AND " +
                 "r.Id_vol = " + id_vol + " AND " +
                 "r.Id_user = " + id_client + " AND " +
-                "r.Id_user = u.Id_user AND r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
+                "r.Id_user = u.Id_user AND " +
+                "r.Id_etat = s.Id_etat ORDER BY Id_reserve DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
