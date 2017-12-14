@@ -4,9 +4,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
@@ -80,7 +82,7 @@ public class CreerVolActivity extends AppCompatActivity {
             if(vol.getDate_arrivee() != null)
                 txtDateArr.setText(new SimpleDateFormat("yyyy-MM-dd hh:mm").format(vol.getDate_arrivee()));
             txtPrix.setText("" + vol.getPrix());
-            txtNbrPlaces.setText("" + vol.getNbr_places());
+            txtNbrPlaces.setText("" + (vol.getNbr_places() - agenceServices.findAllReservationByIdVol(vol.getId_vol()).size()));
         }
         Button btn_reserv_vol = findViewById(R.id.btn_reserv_vol);
         btn_reserv_vol.setOnClickListener(new View.OnClickListener() {
@@ -123,11 +125,6 @@ public class CreerVolActivity extends AppCompatActivity {
     private void volReservation() {
     }
 
-    private void clearAllEditText() {
-        txtNumVol.getEditableText().clear();
-        txtDestination.getEditableText().clear();
-    }
-
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,17 +144,52 @@ public class CreerVolActivity extends AppCompatActivity {
                     updateVol();
                 return true;
             case R.id.delete_vol:
-                deleteVol(vol.getId_vol());
+                clearAllEditText();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void clearAllEditText() {
+        AlertDialog deleteDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                .setIcon(R.drawable.ic_menu_close)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        deleteVol(vol.getId_vol());
+
+                        txtNumVol.getEditableText().clear();
+                        txtDestination.getEditableText().clear();
+                        txtDepart.getEditableText().clear();
+                        txtDateDep.getEditableText().clear();
+                        txtDateArr.getEditableText().clear();
+                        txtNbrPlaces.getEditableText().clear();
+                        txtPrix.getEditableText().clear();
+                        dialog.dismiss();
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        deleteDialogBox.show();
+    }
     private void updateVol() {
+        agenceServices.update_vol(vol, vol.getId_vol());
     }
 
     private void deleteVol(int id_vol) {
+        agenceServices.delete_vol(id_vol);
     }
 
     private void createVol() {

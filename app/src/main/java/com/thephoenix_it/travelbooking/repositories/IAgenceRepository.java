@@ -18,12 +18,13 @@ public interface IAgenceRepository extends Serializable {
     Utilisateur creation_compte(Utilisateur utilisateur);
     Utilisateur login(String login, String password);
     Vol creer_vol(Vol vol);
-    Vol update_vol(Vol vol);
+    Vol update_vol(Vol vol, int id_vol);
     Vol findOneVolById(int id_vol);
     void delete_vol(int id_vol);
     List<Vol> listVol();
     List<Vol> listVolByIdAgence(int id_utilisateur);
     List<Vol> listVolFiltered(Map filter);
     List<Reservation> findAllReservationByIdAgence(int id_utilisateur);
+    List<Reservation> findAllReservationByIdVol(int id_vol);
 
 }

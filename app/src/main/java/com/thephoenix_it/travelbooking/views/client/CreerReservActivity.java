@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,15 @@ public class CreerReservActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.etatReservRG);
         if(LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("AGENCE")) {
             radioGroup.setVisibility(View.VISIBLE);
+
+            if(reservation != null) {
+                if(reservation.getEtatReservation().getDesc_etat().equals("Confirmer"))
+                    ((RadioButton) radioGroup.findViewById(R.id.confirmer)).setChecked(true);
+                else if(reservation.getEtatReservation().getDesc_etat().equals("Annuler"))
+                    ((RadioButton) radioGroup.findViewById(R.id.annuler)).setChecked(true);
+                else
+                    ((RadioButton) radioGroup.findViewById(R.id.encours)).setChecked(true);
+            }
             txtClient.setVisibility(View.VISIBLE);
             etatReserv.setVisibility(View.VISIBLE);
             txtEtatReserv.setVisibility(View.INVISIBLE);
@@ -121,15 +131,12 @@ public class CreerReservActivity extends AppCompatActivity {
                         deleteReservation(reservation.getId_reservation());
                         dialog.dismiss();
                         finish();
-
                     }
 
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         dialog.dismiss();
-
                     }
                 })
                 .create();
@@ -152,8 +159,24 @@ public class CreerReservActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.save_vol:
-                if(reservation == null)
-                    createReservation();
+                if(reservation == null) {
+                    if(vol.getNbr_places() - clientServices.findAllReservationByIdVol(vol.getId_vol()).size() > 0)
+                        createReservation();
+                    else {
+                        AlertDialog alertDialogBox =new AlertDialog.Builder(this)
+                                //set message, title, and icon
+                                .setTitle("Alert")
+                                .setMessage("Il n'ya pas des places vide.")
+                                .setIcon(R.drawable.ic_menu_close)
+                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .create();
+                        alertDialogBox.show();
+                    }
+                }
                 else
                     updateReservation();
                 return true;
