@@ -123,6 +123,7 @@ public class DatabaseDAO extends DatabaseHandler implements Serializable {
 
     public boolean update_vol(Vol objectVol, int i) {
         ContentValues values = new ContentValues();
+        values.put("Id_vol", i);
         values.put("Num_vol", objectVol.getNum_vol());
         values.put("Destination", objectVol.getDestination());
         values.put("Depart", objectVol.getDepart());

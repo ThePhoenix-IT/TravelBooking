@@ -186,6 +186,19 @@ public class CreerVolActivity extends AppCompatActivity {
         deleteDialogBox.show();
     }
     private void updateVol() {
+        vol.setNum_vol(Integer.parseInt(txtNumVol.getText().toString()));
+        vol.setDepart(txtDepart.getText().toString());
+        vol.setDestination(txtDestination.getText().toString());
+        try {
+            vol.setDate_depart(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(txtDateDep.getText().toString()));
+            vol.setDate_arrivee(new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(txtDateArr.getText().toString()));
+            vol.setDate_creation(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(new Date().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        vol.setNbr_places(Integer.parseInt(txtNbrPlaces.getText().toString()));
+        vol.setPrix(Double.valueOf(txtPrix.getText().toString()));
+        vol.setAgence(LoginActivity.connectedUser);
         if(agenceServices.update_vol(vol, vol.getId_vol()).getId_vol() > 0)
             Toast.makeText(CreerVolActivity.this, "Vol modifier avec succes.", Toast.LENGTH_LONG).show();
         else
