@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Reservation;
 import com.thephoenix_it.travelbooking.models.Vol;
@@ -46,19 +47,20 @@ public class CustomReservListAdapter extends ArrayAdapter {
         if(reservationList.get(position) != null) {
             nameTextField.setText(reservationList.get(position).getVol().getDepart() + " - " + reservationList.get(position).getVol().getDestination());
             infoTextField.setText("" + reservationList.get(position).getEtatReservation().getDesc_etat());
-            if (position == reservationList.size() - 1 ) {
+            if (position == reservationList.size() - 1 && LoginActivity.connectedUser != null && LoginActivity.connectedUser.getTypeUtilisateur().toString().equals("CLIENT")) {
                 if(reservationList.get(position).getEtatReservation().getDesc_etat().equals("Confirmer")) {
                     final Intent emptyIntent = new Intent();
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(context)
+                                    .setSmallIcon(R.drawable.icon)
                                     .setContentTitle("Confirmation")
                                     .setContentText("Votre reservation pour le vol n° " + reservationList.get(position).getVol().getNum_vol() + " a ete confirmer!")
                                     .setContentIntent(pendingIntent);
                     mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(0, mBuilder.build());
+                    notificationManager.notify(1, mBuilder.build());
                 }
             }
         }
