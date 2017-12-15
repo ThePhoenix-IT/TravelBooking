@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Reservation;
-import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.util.List;
 

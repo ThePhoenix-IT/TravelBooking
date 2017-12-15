@@ -13,13 +13,9 @@ import android.widget.ListView;
 import com.thephoenix_it.travelbooking.LoginActivity;
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Reservation;
-import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IAgenceRepository;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
-import com.thephoenix_it.travelbooking.views.agence.CreerVolActivity;
-import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
-import com.thephoenix_it.travelbooking.views.agence.ListVolActivity;
 
 import java.util.List;
 

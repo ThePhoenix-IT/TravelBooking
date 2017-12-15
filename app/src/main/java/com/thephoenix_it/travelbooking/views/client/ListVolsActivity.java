@@ -19,7 +19,6 @@ import com.thephoenix_it.travelbooking.models.Vol;
 import com.thephoenix_it.travelbooking.repositories.IClientRepository;
 import com.thephoenix_it.travelbooking.repositories.SQLiteTravelBookingRepository;
 import com.thephoenix_it.travelbooking.views.agence.CustomVolsListAdapter;
-import com.thephoenix_it.travelbooking.views.agence.ListVolActivity;
 
 import java.util.HashMap;
 import java.util.List;

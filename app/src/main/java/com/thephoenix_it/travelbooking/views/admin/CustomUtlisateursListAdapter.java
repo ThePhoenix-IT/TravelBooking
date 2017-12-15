@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.thephoenix_it.travelbooking.R;
 import com.thephoenix_it.travelbooking.models.Utilisateur;
-import com.thephoenix_it.travelbooking.models.Vol;
 
 import java.util.List;
 

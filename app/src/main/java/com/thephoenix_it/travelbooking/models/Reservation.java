@@ -3,15 +3,11 @@ package com.thephoenix_it.travelbooking.models;
 import java.io.Serializable;
 import java.util.Date;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by root on 17/11/05.
  */
 
-public class Reservation extends RealmObject implements Serializable {
-    @PrimaryKey
+public class Reservation implements Serializable {
     private int id_reservation;
     private EtatReservation etatReservation;
     private int id_etat_reservation;
